@@ -1,0 +1,163 @@
+# Processing High Volumes {.unnumbered}
+
+In the course we are always working with small size files, easy to manage for learning purposes. In reality, big amounts of data are processes and some knowledge on how to manage these big files is important. 
+
+Our computers have some limitations that may interfere with our processes. 
+
+## Processing High Volumes of Data
+
+We have work with files of **less than 1 GB of RAM** use with the tidyverse in class.
+
+In reality you will work with  **hundreds of GB or TB**. Here we have two issues:
+
+  * **Memory limit**: The data size is higher than the RAM capacity of your computer.
+  
+  * **Read or Processing limitations**: Maybe the file can be stored and processed, but due to capacity limitations all processing is time consuming.
+
+
+## Understand data volumes
+
+
+Here you can find a summary of sizes in computer storage...
+
+| Unit | Name | Value               | 
+|------|------|---------------------|
+|  K   | Kilo | 1024 B (bytes)      |
+|  M   | Mega | 1024 KB (kilobytes) |
+|  G   | Giga | 1024 MB (megabytes) |
+|  T   | Tera | 1024 GB (gigabytes) |
+|  P   | Peta | 1024 TB (terabytes) |
+
+
+
+## Issue: data size is bigger than memory capacity
+
+| Resource | Normal Capacity | Estimated Speed (Read/Write) |
+|---------|------------------|----------------------|
+| **RAM** | 8–64 GB | 10–100 GB/s |
+| **SSD** | 0.5–4 TB | 0.5–3 GB/s |
+| **HDD** | 4–20 TB | 100–250 MB/s |
+
+
+Accessing to a memory disk can be slow, very frequent with HDD disks. Efficient operations should minize read and write operations to the disk. 
+
+
+## Block processing (chunking)
+
+The main strategy when managing big files is processing them in different pieces (blocks or chunks of information).
+
+![](pictures/chunking_diagram.png)
+
+## Block processing (chunking)
+
+
+General rule (Ex: compute the average of a big list of numbers):
+
+1. **Initialize**: Create accumulators in RAM (sum = 0, n = 0).
+
+2. **Iterate (loop)**:
+
+  * Read a chunk of data from the disk..
+  * Process that chunk in RAM (compute sum_chunk, n_chunk).
+  * Update (sum += sum_chunk, n += n_chunk).
+  
+3. **Finalize**: When the whole file has been processed, compute the desired metric (average = sum / n).
+
+**This principle applies to both a single computer and a distributed environment (multiple computers)**
+
+
+## Three Options
+
+| **Option** | **Computation** | **Source** | **Speed**  |
+|-------|---------|-------------|-----------  |
+| **Local Partition** | 1 computer | **Local Disk** | Medium |
+| **Hadoop + MapReduce** | Multiple computers | **Distributed Disk** | Low (depending on disk)  |
+| **Spark** | Multiple computers | **Distributed RAM** (disk if is not enough) | High (interactive)  |
+
+
+
+## Option 1: Local Sequential Processing
+
+
+* A single execution thread will read sequentially all file blocks from the main disk and process them.
+
+* Limitation: The performance is limited by the I/E speed from disk and CPU capacity. 
+
+```r
+con <- file("numbers.csv")
+chunk <- 1e6
+sum <- 0; n <- 0
+repeat {
+  x <- scan(con, n = chunk, quiet = TRUE)   # read from main disk
+  if (length(x) == 0) break
+  sum <- sum + sum(x)
+  n    <- n + length(x)
+}
+close(con)
+average <- sum / n
+```
+
+**Limitations**: sequential; any issue will need a reboot of the process; no computer paralelism. 
+
+
+
+## Option 2: Hadoop + MapReduce
+
+- **HDFS**: split the file in blocks and keep them in **different computers** with **copies**.
+
+- **MapReduce**: **paralel** processing and **combination** of results.
+
+**Global Average (flow):**
+
+```
+Nodo A → (sumA, nA)
+Nodo B → (sumB, nB)
+...
+Combine → average = (Σ sum_i) / (Σ n_i)
+```
+
+- Computation done in the **RAM** of each node (computer).
+
+- **Intermediate** results are red/written on the **HDFS (disk)**.
+
+- **Solid**, designed for **lot processing** (not interactive).
+
+
+## Option 3: Apache Spark
+
+- Splits the information in nodes too, but it maintains **data and intermediaten results in RAM** when possible.
+
+- Tries to not access the disk between steps.
+
+- Useful for **interactive analysis** and **repetitive algorithms**.
+
+**Spark using R (minimum):**
+
+```r
+library(sparklyr); library(dplyr)
+sc <- spark_connect(master = "local")       # or cluster
+copy_to(sc, mtcars, overwrite = TRUE) %>%
+  summarise(media_hp = mean(hp)) %>% collect()
+```
+
+## When using each one?
+
+**Local Partition**
+
+- File **less than RAM** capacity or you only have **one computer**.
+- Simple operations (sums, counting, average).
+
+**Hadoop + MapReduce**
+
+- **Very big** file (multi‑TB or more) and **no** need of quick interaction.
+- **Scheduled** proceses (daily/weekly), high **realiability**.
+
+**Spark**
+
+- **Big** files (10 GB – tens of TB) with need of **quick response**.
+
+- **Interactive analysis**, repetitive tests.
+
+- Reuse **R/dplyr** (`sparklyr`) with the same code style.
+
+

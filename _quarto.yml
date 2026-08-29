@@ -55,6 +55,13 @@ book:
         - 06_02_covariance.qmd
     
     - part: 07_reading.qmd
+      chapters:
+        - 07_01_basic_concepts.qmd
+        - 07_02_reading_data.qmd
+        - 07_03_parsing.qmd
+        - 07_04_writing_data.qmd
+        - 07_05_others.qmd
+        - 07_06_bigdata.qmd
     
     - part: 08_arrange.qmd
     

@@ -1,0 +1,379 @@
+---
+title: "Exploratory Data Analysis"
+author: "Data Analysis & Information Extraction"
+latex-tinytex: false
+pdf-engine: lualatex
+format: 
+  pdf:
+      toc: true
+      toc-depth: 2
+      fontfamily: libertinus
+      include-in-header: 
+         text: |
+          \usepackage{titling}
+          \usepackage{fancyhdr}
+          \pagestyle{fancyplain} % use fancy for all pages except chapter start
+          \rhead{\includegraphics[height=1cm]{../pictures/cunef_logo.png}} % right logo
+          \pretitle{\begin{flushleft}\huge\bfseries}
+          \posttitle{\end{flushleft}}
+          \renewcommand\maketitlehookc{\vspace{-5em}}
+          \preauthor{\begin{flushleft}\Large}
+          \postauthor{\end{flushleft}}
+---
+
+\pagebreak
+
+We will learn how to explore the data in a systematic way using the tools we have learn for visualizing and transformation.
+
+The Exploratory Data Analysis is a cycle that consists in...
+
+- Generate questions about the data.
+- Answer them visualizing, transforming and modelling.
+- Use what we learn of the preceding steps to re-think the questions and find new ones we can answer.
+
+As a creative process, there is no rules for limiting which questions are more useful.
+
+But we will always find interesting two kind of questions...
+
+- *Which kind of variation is present in the variables?*
+- *Which kind of co-variation exists between the variables?*
+
+## First concepts
+
+- **Variable**: is a quantity, quality, or property that you can measure.
+
+- **Value**: is the state of a variable when you measure it. It may change for measurement to measurement.
+
+- **Observation**: is a set of measurements made under similar conditions. Each observation can contain different values, each value related with their corresponding variable.
+
+- **Tabular data**: a set of values organized in different variables for each observation.
+
+![](../pictures/tabular_data.png){fig-align="center"}
+
+\pagebreak
+
+# Analyzing Data Variation {.unnumbered}
+
+> *Variation is the tendency of the values of a variable to change between each measurement*
+
+This variation can happen due to different reasons:
+  
+  * **Error** when measuring a constant quantity (ligth speed).
+  * Measuring the same variable in **different subjects**.
+  * Measuring the same variable for the same subject but **different moment**.
+  * ...
+
+We can see patterns of the variation, this information can be useful. We can understand these patterns visualizing the **distribution of the different values taken by the variable**. 
+
+
+## Variation in categorical variables
+
+Remember that we can visualize the distribution of a categorical variable as follows...
+
+
+```{r, echo=TRUE, message=FALSE}
+library(ggplot2)
+
+# Number of gears for mtcars data set
+ggplot(mtcars, aes(x=gear)) +
+  geom_bar() +
+  labs(x = "Number of gear")
+```
+
+Each bar of the last plot shows us the number of observations we can found for every value of the variable. We can obtain the number of observations with this simple code...
+
+```{r, echo=TRUE, message=FALSE}
+library(tidyverse)
+
+mtcars %>% 
+  group_by(gear) %>% 
+  summarise(observations = n())
+```
+
+
+## Variation in continuous variables
+
+For visualizing the distribution of continuous variables we can use the histogram...
+
+```{r, echo=TRUE}
+ggplot(data = iris, aes(x = Petal.Length)) +
+  geom_histogram(bins = 20) +
+  labs(x = "Petal Length (cm)")
+```
+
+## Analyzing Variation
+
+When analyzing the plots that shows the data variation we need to focus in two things...
+
+* Normal values
+* Anomalies (outliers)
+
+Questions like...
+
+* Most common values?
+* Lest common values?
+* Strange patterns in the data?
+
+We can see it with an example: *Petal Length Analysis*
+
+```{r, echo=TRUE}
+ggplot(data = iris, aes(x = Petal.Length)) +
+  geom_histogram(bins = 20) +
+  labs(x = "Petal Length (cm)")
+```
+
+The *clusters* of similar values makes us think there are subgroups in the data. For understanding it, we can ask...
+
+* What have the observations of each group in common?
+* What differences are between the observations of each group?
+* How can we explain each subgroup?
+* There are two groups... one with shorter petal length (<2cm) and other large (>2cm)
+* Species variable can explain this separation?
+
+
+We can analyze multiple histograms in the same plot, using colors for example.
+
+```{r, echo=TRUE}
+ggplot(data = iris, 
+       aes(x = Petal.Length, fill = Species)) +
+  geom_histogram(bins = 20) +
+  labs(x = "Petal Length (cm)")
+```
+
+Other option, we can use ggplot geometric: `geom_freqpoly()` that works similar to the histogram but showing them with lines.
+
+```{r, echo=TRUE}
+ggplot(data = iris, 
+       aes(x = Petal.Length, color = Species)) +
+  geom_freqpoly() +
+  labs(x = "Petal Length (cm)")
+```
+
+
+## Variation: Outliers
+
+Find and analyze **outliers** have the same importance as analyze the normal values we can found. 
+
+Why we can have outliers...
+
+  * Sometimes... measuring error 
+  * Others, further analyze is needed. 
+  
+We can see it with an example: *Diamonds Width Analysis*
+
+We are going to analyze the distribution of the width of the diamonds in the data set **diamonds** inside R. Apparently all looks good right? (*Hint: Look at x axis?*)
+
+```{r, echo=TRUE}
+ggplot(diamonds, aes(x = y)) + 
+  geom_histogram(binwidth = 0.5)
+```
+
+Looks that there is more space than the one we need to visualizing the data, or probably there is some data we are not able to see, a bit of *zoom* may help...
+
+```{r, echo=TRUE}
+ggplot(diamonds, aes(x=y)) +
+  geom_histogram(binwidth = 0.5) +
+  coord_cartesian( ylim = c(0,50) )
+```
+
+Looks there are some outliers near 0, 30 and 60. We can now go directly to the data and **filter** to extract them..
+
+```{r, echo=TRUE}
+diamonds %>% 
+  filter( y < 3 | y > 20)
+```
+
+**Conclusions found after analysis**
+
+* Looks there are diamonds with width 0, maybe incorrect data...
+
+* We have detected diamonds with a very big size, but not too expensive...
+
+## Actions with outliers
+
+* Try to do the analysis with and without outlers, this will help us identify the impact they have. 
+
+Depending on the impact effect...
+
+  * Minimum effect and we don't know the origin... replace them as `NA` values. 
+  
+  * Otherwise... eliminate them **justifying** the reason and document / inform their elimination from the analysis. 
+  
+
+### Droping outliers
+
+When we need to drop some outliers from the data, we have two options...
+
+* Eliminate the whole row (big loss of information)
+
+```r
+diamonds2 <- diamonds %>%
+  filter(y>=3 & y<=20)
+```
+
+* Replace them by `NA` (missing value)
+
+```{r, echo=TRUE}
+diamonds2 <- diamonds %>%
+  mutate(y = if_else(y<3 | y>20, NA, y))
+```
+
+::: callout-tip
+
+# if_else
+
+Conditional function to use inside mutate, first argument the condition, then if TRUE otherwise FALSE in the last argument. 
+
+:::
+
+
+## Missing Values
+
+When missing values are present in the data we will see a warning in the plot...
+
+```{r, echo=TRUE, warning=TRUE}
+ggplot(data=diamonds2, 
+       mapping = aes(x=x, y=y)) + 
+  geom_point()
+```
+
+We can quickly eliminate them from the visualization using `na.rm = T` argument...
+
+```{r, echo=TRUE}
+ggplot(data=diamonds2, 
+       mapping = aes(x=x, y=y)) + 
+  geom_point(na.rm = T)
+```
+
+
+\pagebreak
+
+# Analyzing Covariance {.unnumbered}
+
+```{r, echo=F,message=F}
+library(tidyverse)
+```
+
+
+> *Covariance is the tendency between two or more values to change simultaneously.*
+
+As we have seen, for analyzing covariance we will need to understand the type of variables...
+
+* Categorical - Continuous
+* Categorical - Categorical
+* Continuous - Continuous
+
+## Covariance: Categorical - Continuous
+
+We can use the `geom_freqpoly` geometry to see how the continuous variable relates with the each category. 
+
+```{r, echo=TRUE, message=FALSE}
+ggplot(data = diamonds, aes(x = price, color = cut)) +
+  geom_freqpoly()
+```
+
+Other option with density plots. `..density..` will paint the density in the y axis, that is the normalized count to make the area of each polygon 1.
+
+```{r, echo=TRUE, message=FALSE}
+ggplot(data = diamonds, 
+       aes(x = price, y = ..density.., color = cut)) +
+  geom_freqpoly()
+```
+
+Using boxplots to analyze too...
+
+```{r, echo=TRUE}
+ggplot(data = mpg, aes(x = class, y = hwy)) +
+  geom_boxplot()
+```
+
+Reorder it os is more clean...
+
+```{r, echo=TRUE}
+#| code-line-numbers: "2,3" 
+ggplot(data = mpg, 
+       aes(x = reorder(class, hwy, FUN = median),
+           y = hwy)) +
+  geom_boxplot()
+```
+
+
+## Covariance: Categorical - Categorical
+We have seen bar plots, but more ways are possible...
+
+```{r, echo=TRUE}
+ggplot(diamonds, aes(x=cut, y=color)) +
+  geom_count()
+```
+
+
+Let's do it with code using **dplyr** (two ways)
+
+```{r, echo=TRUE}
+diamonds %>% 
+  group_by(color, cut) %>% 
+  summarise(n = n())
+```
+
+More visual approach, using color mapping...
+
+```{r, echo=TRUE}
+diamonds %>% 
+  count(color, cut) %>% 
+  ggplot(aes(x = color, y = cut, fill = n)) +
+  geom_tile()
+```
+
+## Covariance: Continuous - Continuous
+
+Normally we will use an scatter plot with `geom_point()`, but we can find some problems when there are too many data points in big datasets, they will overalp each other. 
+
+In these cases we will need to use `alpha` aesthetic:
+
+```{r, echo=TRUE}
+ggplot(diamonds, aes(x = carat, y = price)) + 
+  geom_point(alpha = 0.01)
+```
+
+Another approach...
+
+```{r, echo=TRUE}
+ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_bin2d()
+```
+
+Another approach... but better 
+
+```{r, echo=TRUE}
+# install.packages("hexbin")
+ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_hex()
+```
+
+Box plots work here too:
+
+```{r, echo=TRUE, message=FALSE}
+ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_boxplot(aes(group = cut_width(carat, 0.1)))
+```
+
+Same number of point for each bin:
+
+
+```{r, echo=TRUE, message=FALSE}
+ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_boxplot(aes(group = cut_number(carat, 20)))
+```
+
+
+## Patterns and models
+
+**Patterns** reveal hints regarding relations between variables. When we see one we must analyze...
+
+* Can be random?
+* How we can describe the relation that shows?
+* Is relevant?
+* Are there any other variables affected by this relation?
+* This relation changes if we analyze subgroups of data?
+
+**Models** can be used for extract patterns of the data, like eliminating the effect of a variable and study the remaining effect. 

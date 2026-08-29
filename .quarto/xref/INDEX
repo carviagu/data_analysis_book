@@ -118,5 +118,23 @@
   },
   "06_02_covariance.qmd": {
     "06_02_covariance.html": "26753420"
+  },
+  "07_01_basic_concepts.qmd": {
+    "07_01_basic_concepts.html": "d5b207ec"
+  },
+  "07_02_reading_data.qmd": {
+    "07_02_reading_data.html": "4102057b"
+  },
+  "07_03_parsing.qmd": {
+    "07_03_parsing.html": "838f6ec3"
+  },
+  "07_04_writing_data.qmd": {
+    "07_04_writing_data.html": "2725caf7"
+  },
+  "07_05_others.qmd": {
+    "07_05_others.html": "31330ed5"
+  },
+  "07_06_bigdata.qmd": {
+    "07_06_bigdata.html": "9b91a260"
   }
 }

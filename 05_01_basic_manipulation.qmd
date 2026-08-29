@@ -32,7 +32,7 @@ gapminder %>%
 ```
 
 
-::: callout-info
+::: callout-note
 
 # More about the pipe `%>%`
 

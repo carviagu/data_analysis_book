@@ -40,8 +40,6 @@ At this part of the course we will focus on create and study visual representati
 
 The visualization package of *tidyverse*. **G**rammar of **G**raphics comes from the work by Leland Wilkinson. It will help us describe the different components of the plot in a sequential way, with defining the different layers of the final visualization.
 
-![](../pictures/grammar-of-graphics.png){fig-align="center" style="aling:center;" width="228"}
-
 For using **ggplot2** we need to load the library first, as it is part of tidyverse we will load the full package
 
 ```{r, echo=TRUE, message=FALSE}
@@ -83,6 +81,9 @@ Let's prepare the data first filtering the information we want to visualize:
 #| code-line-numbers: false
 gapminder67 <- gapminder[gapminder$year == 1967, ]
 ```
+
+\pagebreak
+
 
 ## The Canvas
 

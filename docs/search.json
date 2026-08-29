@@ -234,7 +234,7 @@
     "href": "02_01_first_concepts.html#introduction-to-functions",
     "title": "First Concepts of R",
     "section": "Introduction to Functions",
-    "text": "Introduction to Functions\nFunctions are already created code programs we can use. They are pre-built and available on R and we can call them to perform quick operations, instead of creating the whole code. We have seen some examples in the variables section.\nThe have a defined name and normally are followed by parenthesis (), inside the parenthesis we can include additional arguments to the function (inputs) that are needed to perform the operation we want to do (not all functions have arguments). The function will return the result.\n&lt;function_name&gt;(&lt;arguments_1&gt;, &lt;arguments_2&gt;, ..., &lt;arguments_n&gt;)\nR has different pre-defined functions we can use…\n\n# compute the mean from number 1 to 10\nmean(1:10)\n\n[1] 5.5\n\n# we can combine functions\nround(mean(1:10))\n\n[1] 6\n\n\nIn the examples we have seen we have computed the mean of ten numbers, so the function mean() has one arguments we need to enter that is the numbers to use in the computation (we have provide with a range 1:10). In the second case we have use the output to round it removing decimal numbers with round() function whose input arguments is the value to round.\nAs we have seen functions can have multiple arguments, with a name each one. When providing arguments we can enter them by name or we can provide them without naming the arguments, in the second case we need to enter them on the same order they are expected to be included. We can check the order and the arguments in the function documentation.\n\n# sample a number between 1 to 10\nsample(x = 1:10, size = 1)\n\n[1] 9\n\n# we don't need to use the name if we follow the same order\nsample(1:10, 1)\n\n[1] 2\n\n\nYou can see the arguments of a function using args() function.\n\nargs(sample)\n\nfunction (x, size, replace = FALSE, prob = NULL) \nNULL\n\n\nSome arguments have a default value, so you don’t need to provide one always. See round() function for example.\n\nargs(round)\n\nfunction (x, digits = 0, ...) \nNULL\n\n\nIn the function digits have default value as 0, so if we do not provide a value for that argument the function will use the value 0.\nIf you have doubts of about any function, its arguments or how it works you can use ? command to see the official documentation.\n? round\nThis will show the documentation of the function in the Help tab of RStudio.\n\nHere you have a summary of frequently used functions in R:\n\n\n\nFunction\nUse\n\n\n\n\nlog()\ncomputes the logarithm\n\n\nexp()\ncomputes the exponential\n\n\nmin()\ncomputes the min number\n\n\nmax()\ncomputes the max number\n\n\nsum()\ncomputes the sum\n\n\nmean()\ncomputes the average\n\n\nmedian()\ncomputes the median\n\n\nvar()\ncomputes the variance\n\n\nsd()\ncomputes the standard deviation\n\n\nquantile()\ncomputes quantiles 0, 25, 50, 75, 100\n\n\ncor()\ncomputes de correlation",
+    "text": "Introduction to Functions\nFunctions are already created code programs we can use. They are pre-built and available on R and we can call them to perform quick operations, instead of creating the whole code. We have seen some examples in the variables section.\nThe have a defined name and normally are followed by parenthesis (), inside the parenthesis we can include additional arguments to the function (inputs) that are needed to perform the operation we want to do (not all functions have arguments). The function will return the result.\n&lt;function_name&gt;(&lt;arguments_1&gt;, &lt;arguments_2&gt;, ..., &lt;arguments_n&gt;)\nR has different pre-defined functions we can use…\n\n# compute the mean from number 1 to 10\nmean(1:10)\n\n[1] 5.5\n\n# we can combine functions\nround(mean(1:10))\n\n[1] 6\n\n\nIn the examples we have seen we have computed the mean of ten numbers, so the function mean() has one arguments we need to enter that is the numbers to use in the computation (we have provide with a range 1:10). In the second case we have use the output to round it removing decimal numbers with round() function whose input arguments is the value to round.\nAs we have seen functions can have multiple arguments, with a name each one. When providing arguments we can enter them by name or we can provide them without naming the arguments, in the second case we need to enter them on the same order they are expected to be included. We can check the order and the arguments in the function documentation.\n\n# sample a number between 1 to 10\nsample(x = 1:10, size = 1)\n\n[1] 4\n\n# we don't need to use the name if we follow the same order\nsample(1:10, 1)\n\n[1] 2\n\n\nYou can see the arguments of a function using args() function.\n\nargs(sample)\n\nfunction (x, size, replace = FALSE, prob = NULL) \nNULL\n\n\nSome arguments have a default value, so you don’t need to provide one always. See round() function for example.\n\nargs(round)\n\nfunction (x, digits = 0, ...) \nNULL\n\n\nIn the function digits have default value as 0, so if we do not provide a value for that argument the function will use the value 0.\nIf you have doubts of about any function, its arguments or how it works you can use ? command to see the official documentation.\n? round\nThis will show the documentation of the function in the Help tab of RStudio.\n\nHere you have a summary of frequently used functions in R:\n\n\n\nFunction\nUse\n\n\n\n\nlog()\ncomputes the logarithm\n\n\nexp()\ncomputes the exponential\n\n\nmin()\ncomputes the min number\n\n\nmax()\ncomputes the max number\n\n\nsum()\ncomputes the sum\n\n\nmean()\ncomputes the average\n\n\nmedian()\ncomputes the median\n\n\nvar()\ncomputes the variance\n\n\nsd()\ncomputes the standard deviation\n\n\nquantile()\ncomputes quantiles 0, 25, 50, 75, 100\n\n\ncor()\ncomputes de correlation",
     "crumbs": [
       "Programming with R",
       "First Concepts of R"
@@ -278,7 +278,7 @@
     "href": "02_02_objects.html#lists",
     "title": "Objects",
     "section": "Lists",
-    "text": "Lists\nAs we have seen vectors can only contain elements of the same data type, if we need to create a collection of elements of different types we should work with lists.\n\nmylist &lt;- list(c(\"A\", \"B\"), 1:10, Sys.time())\nmylist\n\n[[1]]\n[1] \"A\" \"B\"\n\n[[2]]\n [1]  1  2  3  4  5  6  7  8  9 10\n\n[[3]]\n[1] \"2026-08-29 20:17:49 CEST\"\n\n\nIn contrast with vectors, lists are considered a data type (object):\n\nclass(mylist)\n\n[1] \"list\"\n\n\n\nSelection of elements\nFor acceding the elements of a list we need to consider that each position of the list stores objects inside. So we have two ways of acceding the elements:\n\nAcceding the position (similar to vectors)\nAcceding the element inside that position\n\n\n# acceding at the second position of the list\nmylist[2]\n\n[[1]]\n [1]  1  2  3  4  5  6  7  8  9 10\n\n# acceding at the second element of the list\nmylist[[2]]\n\n [1]  1  2  3  4  5  6  7  8  9 10\n\n\nTo understand the difference look what happens when we ask for the types…\n\nclass(mylist[2])\n\n[1] \"list\"\n\nclass(mylist[[2]])\n\n[1] \"integer\"\n\n\nIn the first case we are obtaining a new list with the element selected. While on the second case we exactly obtaining the element, in this case a vector of characters.\nOne insteresting fact of lists, is that you can assign names to the each elements…\n\n# Now each element of mylist2 has an assigned name\nmylist2 &lt;- list(letters = c(\"A\", \"B\"), numbers = 1:10, time = Sys.time())\n\nmylist2\n\n$letters\n[1] \"A\" \"B\"\n\n$numbers\n [1]  1  2  3  4  5  6  7  8  9 10\n\n$time\n[1] \"2026-08-29 20:17:49 CEST\"\n\n\nThese names can be used for accessing each element too:\n\n# acceding at the first position by name\nmylist2[\"letters\"]\n\n$letters\n[1] \"A\" \"B\"\n\n# acceding at the first element by name\nmylist2[[\"letters\"]]\n\n[1] \"A\" \"B\"\n\n# Other option using $ syntax if the names have no spaces\nmylist2$letters\n\n[1] \"A\" \"B\"\n\n\nIf you are not sure if the list you are working with has names in their elements you can use the attributes function.\n\nattributes(mylist2)\n\n$names\n[1] \"letters\" \"numbers\" \"time\"   \n\n\nYou can see that this list contains some names defined. You can also use names function to see it.\n\nnames(mylist2)\n\n[1] \"letters\" \"numbers\" \"time\"",
+    "text": "Lists\nAs we have seen vectors can only contain elements of the same data type, if we need to create a collection of elements of different types we should work with lists.\n\nmylist &lt;- list(c(\"A\", \"B\"), 1:10, Sys.time())\nmylist\n\n[[1]]\n[1] \"A\" \"B\"\n\n[[2]]\n [1]  1  2  3  4  5  6  7  8  9 10\n\n[[3]]\n[1] \"2026-08-29 22:35:15 CEST\"\n\n\nIn contrast with vectors, lists are considered a data type (object):\n\nclass(mylist)\n\n[1] \"list\"\n\n\n\nSelection of elements\nFor acceding the elements of a list we need to consider that each position of the list stores objects inside. So we have two ways of acceding the elements:\n\nAcceding the position (similar to vectors)\nAcceding the element inside that position\n\n\n# acceding at the second position of the list\nmylist[2]\n\n[[1]]\n [1]  1  2  3  4  5  6  7  8  9 10\n\n# acceding at the second element of the list\nmylist[[2]]\n\n [1]  1  2  3  4  5  6  7  8  9 10\n\n\nTo understand the difference look what happens when we ask for the types…\n\nclass(mylist[2])\n\n[1] \"list\"\n\nclass(mylist[[2]])\n\n[1] \"integer\"\n\n\nIn the first case we are obtaining a new list with the element selected. While on the second case we exactly obtaining the element, in this case a vector of characters.\nOne insteresting fact of lists, is that you can assign names to the each elements…\n\n# Now each element of mylist2 has an assigned name\nmylist2 &lt;- list(letters = c(\"A\", \"B\"), numbers = 1:10, time = Sys.time())\n\nmylist2\n\n$letters\n[1] \"A\" \"B\"\n\n$numbers\n [1]  1  2  3  4  5  6  7  8  9 10\n\n$time\n[1] \"2026-08-29 22:35:15 CEST\"\n\n\nThese names can be used for accessing each element too:\n\n# acceding at the first position by name\nmylist2[\"letters\"]\n\n$letters\n[1] \"A\" \"B\"\n\n# acceding at the first element by name\nmylist2[[\"letters\"]]\n\n[1] \"A\" \"B\"\n\n# Other option using $ syntax if the names have no spaces\nmylist2$letters\n\n[1] \"A\" \"B\"\n\n\nIf you are not sure if the list you are working with has names in their elements you can use the attributes function.\n\nattributes(mylist2)\n\n$names\n[1] \"letters\" \"numbers\" \"time\"   \n\n\nYou can see that this list contains some names defined. You can also use names function to see it.\n\nnames(mylist2)\n\n[1] \"letters\" \"numbers\" \"time\"",
     "crumbs": [
       "Programming with R",
       "Objects"
@@ -311,7 +311,7 @@
     "href": "02_02_objects.html#datetime",
     "title": "Objects",
     "section": "Datetime",
-    "text": "Datetime\nWe can manage dates and time inside R…\n\nhour &lt;- Sys.time()\nhour\n\n[1] \"2026-08-29 20:17:49 CEST\"\n\ntypeof(hour)\n\n[1] \"double\"\n\nclass(hour)\n\n[1] \"POSIXct\" \"POSIXt\"",
+    "text": "Datetime\nWe can manage dates and time inside R…\n\nhour &lt;- Sys.time()\nhour\n\n[1] \"2026-08-29 22:35:15 CEST\"\n\ntypeof(hour)\n\n[1] \"double\"\n\nclass(hour)\n\n[1] \"POSIXct\" \"POSIXt\"",
     "crumbs": [
       "Programming with R",
       "Objects"
@@ -773,7 +773,18 @@
     "href": "05_01_basic_manipulation.html",
     "title": "Basic Manipulation",
     "section": "",
-    "text": "Selecting columns: select\nWe can use select verb to choose which columns we want to work with.\ngapminder %&gt;% \n  select(country, year, gdpPercap)\n\n# A tibble: 1,704 × 3\n   country      year gdpPercap\n   &lt;fct&gt;       &lt;int&gt;     &lt;dbl&gt;\n 1 Afghanistan  1952      779.\n 2 Afghanistan  1957      821.\n 3 Afghanistan  1962      853.\n 4 Afghanistan  1967      836.\n 5 Afghanistan  1972      740.\n 6 Afghanistan  1977      786.\n 7 Afghanistan  1982      978.\n 8 Afghanistan  1987      852.\n 9 Afghanistan  1992      649.\n10 Afghanistan  1997      635.\n# ℹ 1,694 more rows\nLook that we have use the pipe operator included into de tidyverse package. This allow us to concatenate operations simplifying manipulation. Pipes pass the output of last operation as input for the first argument of next operation.\n# Without pipe\nselect(gapminder, country, year, gdpPercap)\n\n# A tibble: 1,704 × 3\n   country      year gdpPercap\n   &lt;fct&gt;       &lt;int&gt;     &lt;dbl&gt;\n 1 Afghanistan  1952      779.\n 2 Afghanistan  1957      821.\n 3 Afghanistan  1962      853.\n 4 Afghanistan  1967      836.\n 5 Afghanistan  1972      740.\n 6 Afghanistan  1977      786.\n 7 Afghanistan  1982      978.\n 8 Afghanistan  1987      852.\n 9 Afghanistan  1992      649.\n10 Afghanistan  1997      635.\n# ℹ 1,694 more rows\n\n# With pipe\ngapminder %&gt;% \n  select(country, year, gdpPercap)\n\n# A tibble: 1,704 × 3\n   country      year gdpPercap\n   &lt;fct&gt;       &lt;int&gt;     &lt;dbl&gt;\n 1 Afghanistan  1952      779.\n 2 Afghanistan  1957      821.\n 3 Afghanistan  1962      853.\n 4 Afghanistan  1967      836.\n 5 Afghanistan  1972      740.\n 6 Afghanistan  1977      786.\n 7 Afghanistan  1982      978.\n 8 Afghanistan  1987      852.\n 9 Afghanistan  1992      649.\n10 Afghanistan  1997      635.\n# ℹ 1,694 more rows",
+    "text": "Selecting columns: select\nWe can use select verb to choose which columns we want to work with.\ngapminder %&gt;% \n  select(country, year, gdpPercap)\n\n# A tibble: 1,704 × 3\n   country      year gdpPercap\n   &lt;fct&gt;       &lt;int&gt;     &lt;dbl&gt;\n 1 Afghanistan  1952      779.\n 2 Afghanistan  1957      821.\n 3 Afghanistan  1962      853.\n 4 Afghanistan  1967      836.\n 5 Afghanistan  1972      740.\n 6 Afghanistan  1977      786.\n 7 Afghanistan  1982      978.\n 8 Afghanistan  1987      852.\n 9 Afghanistan  1992      649.\n10 Afghanistan  1997      635.\n# ℹ 1,694 more rows\nLook that we have use the pipe operator included into de tidyverse package. This allow us to concatenate operations simplifying manipulation. Pipes pass the output of last operation as input for the first argument of next operation.\n# Without pipe\nselect(gapminder, country, year, gdpPercap)\n\n# A tibble: 1,704 × 3\n   country      year gdpPercap\n   &lt;fct&gt;       &lt;int&gt;     &lt;dbl&gt;\n 1 Afghanistan  1952      779.\n 2 Afghanistan  1957      821.\n 3 Afghanistan  1962      853.\n 4 Afghanistan  1967      836.\n 5 Afghanistan  1972      740.\n 6 Afghanistan  1977      786.\n 7 Afghanistan  1982      978.\n 8 Afghanistan  1987      852.\n 9 Afghanistan  1992      649.\n10 Afghanistan  1997      635.\n# ℹ 1,694 more rows\n\n# With pipe\ngapminder %&gt;% \n  select(country, year, gdpPercap)\n\n# A tibble: 1,704 × 3\n   country      year gdpPercap\n   &lt;fct&gt;       &lt;int&gt;     &lt;dbl&gt;\n 1 Afghanistan  1952      779.\n 2 Afghanistan  1957      821.\n 3 Afghanistan  1962      853.\n 4 Afghanistan  1967      836.\n 5 Afghanistan  1972      740.\n 6 Afghanistan  1977      786.\n 7 Afghanistan  1982      978.\n 8 Afghanistan  1987      852.\n 9 Afghanistan  1992      649.\n10 Afghanistan  1997      635.\n# ℹ 1,694 more rows\nBe aware that any operation applied needs to be saved, into a new variable if we want to keep it.\ngapminder_new &lt;- gapminder %&gt;% \n  select(country, year, gdpPercap)",
+    "crumbs": [
+      "Transformation",
+      "Basic Manipulation"
+    ]
+  },
+  {
+    "objectID": "05_01_basic_manipulation.html#selecting-columns-select",
+    "href": "05_01_basic_manipulation.html#selecting-columns-select",
+    "title": "Basic Manipulation",
+    "section": "",
+    "text": "More about the pipe %&gt;%\n\n\n\nPipe is a technique designed to pass data from a process to another.\nThe structure has been implemented in the magrittr package (that is included inside tidyverse)\n\ngapminder %&gt;% \n  select(country, year, lifeExp)\n\n\nLine 1: We initially start with the whole data set\nLine 2: Then we use select to have a subset of three columns (country, year, lifeExp)\n\nCombined with ggplot we can pass the resulted processing with dplyr to the plot we want to create\n\ngapminder %&gt;%\n  filter(year == 2007) %&gt;%\n  ggplot(., aes(x = lifeExp, fill = continent)) +\n  geom_histogram(bins = 100)\n\nPipe operations are very useful and R base has incorporated this kind of operations too. In 2021 with the release of R 4.1.0 an R base pipe operator (|&gt;) was introduced making pipe operations always available.\nBoth pipes work similarly in simple case but have some differences. We are going to work with the tidyverse one but take this into account when reading books, code examples that can use the other pipe.\n\n\n\n\n\nSelection options\nYou can select a range of columns, for example all columns from country to lifeExp:\n\ngapminder %&gt;% \n  select(country:lifeExp)\n\n# A tibble: 1,704 × 4\n   country     continent  year lifeExp\n   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;\n 1 Afghanistan Asia       1952    28.8\n 2 Afghanistan Asia       1957    30.3\n 3 Afghanistan Asia       1962    32.0\n 4 Afghanistan Asia       1967    34.0\n 5 Afghanistan Asia       1972    36.1\n 6 Afghanistan Asia       1977    38.4\n 7 Afghanistan Asia       1982    39.9\n 8 Afghanistan Asia       1987    40.8\n 9 Afghanistan Asia       1992    41.7\n10 Afghanistan Asia       1997    41.8\n# ℹ 1,694 more rows\n\n\nYou can select all columns excep some of them using - syntax:\n\ngapminder %&gt;% \n  select(-continent,-pop,-gdpPercap)\n\n# A tibble: 1,704 × 3\n   country      year lifeExp\n   &lt;fct&gt;       &lt;int&gt;   &lt;dbl&gt;\n 1 Afghanistan  1952    28.8\n 2 Afghanistan  1957    30.3\n 3 Afghanistan  1962    32.0\n 4 Afghanistan  1967    34.0\n 5 Afghanistan  1972    36.1\n 6 Afghanistan  1977    38.4\n 7 Afghanistan  1982    39.9\n 8 Afghanistan  1987    40.8\n 9 Afghanistan  1992    41.7\n10 Afghanistan  1997    41.8\n# ℹ 1,694 more rows\n\n\nYou can combine the last two options to exclude a range of columns:\n\ngapminder %&gt;% \n  select(-(lifeExp:country))\n\n# A tibble: 1,704 × 2\n        pop gdpPercap\n      &lt;int&gt;     &lt;dbl&gt;\n 1  8425333      779.\n 2  9240934      821.\n 3 10267083      853.\n 4 11537966      836.\n 5 13079460      740.\n 6 14880372      786.\n 7 12881816      978.\n 8 13867957      852.\n 9 16317921      649.\n10 22227415      635.\n# ℹ 1,694 more rows\n\n\nYou can use advanced select using tidy select functions:\n\ngapminder %&gt;% \n  select(starts_with(\"co\"))\n\n# A tibble: 1,704 × 2\n   country     continent\n   &lt;fct&gt;       &lt;fct&gt;    \n 1 Afghanistan Asia     \n 2 Afghanistan Asia     \n 3 Afghanistan Asia     \n 4 Afghanistan Asia     \n 5 Afghanistan Asia     \n 6 Afghanistan Asia     \n 7 Afghanistan Asia     \n 8 Afghanistan Asia     \n 9 Afghanistan Asia     \n10 Afghanistan Asia     \n# ℹ 1,694 more rows\n\n\nThere are different functions you can use for advanced selection:\n\nstarts_with(\"abc\") will select all columns that start with abc\nends_with(\"abc\") will select all columns that end with abc\ncontains(\"abc\") column that contains abc\nmatches(\"(.)//1\") use regular expression to select the column\nnum_range(\"x\",1:3) will select x1, x2 and x3\n\nFinally, there is an option were you can select everything. Useful to put some columns first and then the rest…\n\ngapminder %&gt;% \n  select(year, everything())\n\n# A tibble: 1,704 × 6\n    year country     continent lifeExp      pop gdpPercap\n   &lt;int&gt; &lt;fct&gt;       &lt;fct&gt;       &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;\n 1  1952 Afghanistan Asia         28.8  8425333      779.\n 2  1957 Afghanistan Asia         30.3  9240934      821.\n 3  1962 Afghanistan Asia         32.0 10267083      853.\n 4  1967 Afghanistan Asia         34.0 11537966      836.\n 5  1972 Afghanistan Asia         36.1 13079460      740.\n 6  1977 Afghanistan Asia         38.4 14880372      786.\n 7  1982 Afghanistan Asia         39.9 12881816      978.\n 8  1987 Afghanistan Asia         40.8 13867957      852.\n 9  1992 Afghanistan Asia         41.7 16317921      649.\n10  1997 Afghanistan Asia         41.8 22227415      635.\n# ℹ 1,694 more rows\n\n\nOne useful function with select is that you can change the name of the columns on selection. Look at the example…\n\ngapminder %&gt;% \n  select( state = country )\n\n# A tibble: 1,704 × 1\n   state      \n   &lt;fct&gt;      \n 1 Afghanistan\n 2 Afghanistan\n 3 Afghanistan\n 4 Afghanistan\n 5 Afghanistan\n 6 Afghanistan\n 7 Afghanistan\n 8 Afghanistan\n 9 Afghanistan\n10 Afghanistan\n# ℹ 1,694 more rows\n\n\n\n\n\n\n\n\nSum up: select\n\n\n\n\nselect() chooses columns on the data frame and returns a new data frame with the selection.\nThere are several ways to select columns adding names directly, range or with advance selection functions. You can select all and remove columns too.\nYou can change the order writing the first the columns you want at the begining.\nYou can use it to change the name of the column on selection using newname = column syntax.",
     "crumbs": [
       "Transformation",
       "Basic Manipulation"
@@ -964,6 +975,127 @@
     "crumbs": [
       "Exploratory Data Analysis",
       "Analyzing Covariance"
+    ]
+  },
+  {
+    "objectID": "07_06_bigdata.html",
+    "href": "07_06_bigdata.html",
+    "title": "Processing High Volumes",
+    "section": "",
+    "text": "Processing High Volumes of Data\nWe have work with files of less than 1 GB of RAM use with the tidyverse in class.\nIn reality you will work with hundreds of GB or TB. Here we have two issues:",
+    "crumbs": [
+      "Reading",
+      "Processing High Volumes"
+    ]
+  },
+  {
+    "objectID": "07_06_bigdata.html#processing-high-volumes-of-data",
+    "href": "07_06_bigdata.html#processing-high-volumes-of-data",
+    "title": "Processing High Volumes",
+    "section": "",
+    "text": "Memory limit: The data size is higher than the RAM capacity of your computer.\nRead or Processing limitations: Maybe the file can be stored and processed, but due to capacity limitations all processing is time consuming.",
+    "crumbs": [
+      "Reading",
+      "Processing High Volumes"
+    ]
+  },
+  {
+    "objectID": "07_06_bigdata.html#understand-data-volumes",
+    "href": "07_06_bigdata.html#understand-data-volumes",
+    "title": "Processing High Volumes",
+    "section": "Understand data volumes",
+    "text": "Understand data volumes\nHere you can find a summary of sizes in computer storage…\n\n\n\nUnit\nName\nValue\n\n\n\n\nK\nKilo\n1024 B (bytes)\n\n\nM\nMega\n1024 KB (kilobytes)\n\n\nG\nGiga\n1024 MB (megabytes)\n\n\nT\nTera\n1024 GB (gigabytes)\n\n\nP\nPeta\n1024 TB (terabytes)",
+    "crumbs": [
+      "Reading",
+      "Processing High Volumes"
+    ]
+  },
+  {
+    "objectID": "07_06_bigdata.html#issue-data-size-is-bigger-than-memory-capacity",
+    "href": "07_06_bigdata.html#issue-data-size-is-bigger-than-memory-capacity",
+    "title": "Processing High Volumes",
+    "section": "Issue: data size is bigger than memory capacity",
+    "text": "Issue: data size is bigger than memory capacity\n\n\n\nResource\nNormal Capacity\nEstimated Speed (Read/Write)\n\n\n\n\nRAM\n8–64 GB\n10–100 GB/s\n\n\nSSD\n0.5–4 TB\n0.5–3 GB/s\n\n\nHDD\n4–20 TB\n100–250 MB/s\n\n\n\nAccessing to a memory disk can be slow, very frequent with HDD disks. Efficient operations should minize read and write operations to the disk.",
+    "crumbs": [
+      "Reading",
+      "Processing High Volumes"
+    ]
+  },
+  {
+    "objectID": "07_06_bigdata.html#block-processing-chunking",
+    "href": "07_06_bigdata.html#block-processing-chunking",
+    "title": "Processing High Volumes",
+    "section": "Block processing (chunking)",
+    "text": "Block processing (chunking)\nThe main strategy when managing big files is processing them in different pieces (blocks or chunks of information).",
+    "crumbs": [
+      "Reading",
+      "Processing High Volumes"
+    ]
+  },
+  {
+    "objectID": "07_06_bigdata.html#block-processing-chunking-1",
+    "href": "07_06_bigdata.html#block-processing-chunking-1",
+    "title": "Processing High Volumes",
+    "section": "Block processing (chunking)",
+    "text": "Block processing (chunking)\nGeneral rule (Ex: compute the average of a big list of numbers):\n\nInitialize: Create accumulators in RAM (sum = 0, n = 0).\nIterate (loop):\n\n\nRead a chunk of data from the disk..\nProcess that chunk in RAM (compute sum_chunk, n_chunk).\nUpdate (sum += sum_chunk, n += n_chunk).\n\n\nFinalize: When the whole file has been processed, compute the desired metric (average = sum / n).\n\nThis principle applies to both a single computer and a distributed environment (multiple computers)",
+    "crumbs": [
+      "Reading",
+      "Processing High Volumes"
+    ]
+  },
+  {
+    "objectID": "07_06_bigdata.html#three-options",
+    "href": "07_06_bigdata.html#three-options",
+    "title": "Processing High Volumes",
+    "section": "Three Options",
+    "text": "Three Options\n\n\n\n\n\n\n\n\n\nOption\nComputation\nSource\nSpeed\n\n\n\n\nLocal Partition\n1 computer\nLocal Disk\nMedium\n\n\nHadoop + MapReduce\nMultiple computers\nDistributed Disk\nLow (depending on disk)\n\n\nSpark\nMultiple computers\nDistributed RAM (disk if is not enough)\nHigh (interactive)",
+    "crumbs": [
+      "Reading",
+      "Processing High Volumes"
+    ]
+  },
+  {
+    "objectID": "07_06_bigdata.html#option-1-local-sequential-processing",
+    "href": "07_06_bigdata.html#option-1-local-sequential-processing",
+    "title": "Processing High Volumes",
+    "section": "Option 1: Local Sequential Processing",
+    "text": "Option 1: Local Sequential Processing\n\nA single execution thread will read sequentially all file blocks from the main disk and process them.\nLimitation: The performance is limited by the I/E speed from disk and CPU capacity.\n\ncon &lt;- file(\"numbers.csv\")\nchunk &lt;- 1e6\nsum &lt;- 0; n &lt;- 0\nrepeat {\n  x &lt;- scan(con, n = chunk, quiet = TRUE)   # read from main disk\n  if (length(x) == 0) break\n  sum &lt;- sum + sum(x)\n  n    &lt;- n + length(x)\n}\nclose(con)\naverage &lt;- sum / n\nLimitations: sequential; any issue will need a reboot of the process; no computer paralelism.",
+    "crumbs": [
+      "Reading",
+      "Processing High Volumes"
+    ]
+  },
+  {
+    "objectID": "07_06_bigdata.html#option-2-hadoop-mapreduce",
+    "href": "07_06_bigdata.html#option-2-hadoop-mapreduce",
+    "title": "Processing High Volumes",
+    "section": "Option 2: Hadoop + MapReduce",
+    "text": "Option 2: Hadoop + MapReduce\n\nHDFS: split the file in blocks and keep them in different computers with copies.\nMapReduce: paralel processing and combination of results.\n\nGlobal Average (flow):\nNodo A → (sumA, nA)\nNodo B → (sumB, nB)\n...\nCombine → average = (Σ sum_i) / (Σ n_i)\n\nComputation done in the RAM of each node (computer).\nIntermediate results are red/written on the HDFS (disk).\nSolid, designed for lot processing (not interactive).",
+    "crumbs": [
+      "Reading",
+      "Processing High Volumes"
+    ]
+  },
+  {
+    "objectID": "07_06_bigdata.html#option-3-apache-spark",
+    "href": "07_06_bigdata.html#option-3-apache-spark",
+    "title": "Processing High Volumes",
+    "section": "Option 3: Apache Spark",
+    "text": "Option 3: Apache Spark\n\nSplits the information in nodes too, but it maintains data and intermediaten results in RAM when possible.\nTries to not access the disk between steps.\nUseful for interactive analysis and repetitive algorithms.\n\nSpark using R (minimum):\nlibrary(sparklyr); library(dplyr)\nsc &lt;- spark_connect(master = \"local\")       # or cluster\ncopy_to(sc, mtcars, overwrite = TRUE) %&gt;%\n  summarise(media_hp = mean(hp)) %&gt;% collect()",
+    "crumbs": [
+      "Reading",
+      "Processing High Volumes"
+    ]
+  },
+  {
+    "objectID": "07_06_bigdata.html#when-using-each-one",
+    "href": "07_06_bigdata.html#when-using-each-one",
+    "title": "Processing High Volumes",
+    "section": "When using each one?",
+    "text": "When using each one?\nLocal Partition\n\nFile less than RAM capacity or you only have one computer.\nSimple operations (sums, counting, average).\n\nHadoop + MapReduce\n\nVery big file (multi‑TB or more) and no need of quick interaction.\nScheduled proceses (daily/weekly), high realiability.\n\nSpark\n\nBig files (10 GB – tens of TB) with need of quick response.\nInteractive analysis, repetitive tests.\nReuse R/dplyr (sparklyr) with the same code style.",
+    "crumbs": [
+      "Reading",
+      "Processing High Volumes"
     ]
   },
   {
@@ -1325,6 +1457,46 @@
     "text": "Visualization: ggplot2\nThe visualization package of tidyverse. Grammar of Graphics comes from the work by Leland Wilkinson. It will help us describe the different components of the plot in a sequential way, with defining the different layers of the final visualization.\n\nFor using ggplot2 we need to load the library first, as it is part of tidyverse we will load the full package\n\nlibrary(tidyverse) # Do library(ggplot2) for the package only",
     "crumbs": [
       "Visualization"
+    ]
+  },
+  {
+    "objectID": "07_reading.html",
+    "href": "07_reading.html",
+    "title": "Reading",
+    "section": "",
+    "text": "Data Wrangling\nObjective: Make data ready for their future exploration and modelling\nWe need to convert raw data into processed data",
+    "crumbs": [
+      "Reading"
+    ]
+  },
+  {
+    "objectID": "07_reading.html#data-wrangling",
+    "href": "07_reading.html#data-wrangling",
+    "title": "Reading",
+    "section": "",
+    "text": "Raw Data\n\nData as it appears on the source origin.\nAny manipulation has been done to them.\n\n\n\nProcessed Data\n\nEach variable in a column.\nEach observation in a raw.\nEach observational unit is a cell.\nMore complex data, interconnected tables.",
+    "crumbs": [
+      "Reading"
+    ]
+  },
+  {
+    "objectID": "07_reading.html#data-wrangling-1",
+    "href": "07_reading.html#data-wrangling-1",
+    "title": "Reading",
+    "section": "Data Wrangling",
+    "text": "Data Wrangling\n\nImporting the data\nOrganizing the data\nTransforming the data",
+    "crumbs": [
+      "Reading"
+    ]
+  },
+  {
+    "objectID": "07_reading.html#importing-data",
+    "href": "07_reading.html#importing-data",
+    "title": "Reading",
+    "section": "Importing data",
+    "text": "Importing data\nWe will learn how to import, download and read data in R. Mainly focused on tabular data.\nAs we have seen we will continue using the tidyverse ecosystem, focused on the main packages available for importing data into our environments.\n\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.2.1     ✔ readr     2.2.0\n✔ forcats   1.0.1     ✔ stringr   1.6.0\n✔ ggplot2   4.0.3     ✔ tibble    3.3.1\n✔ lubridate 1.9.5     ✔ tidyr     1.3.2\n✔ purrr     1.2.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\nWe will follow this schema…\n\nDownload data\nRead and Write data with tidyverse packages",
+    "crumbs": [
+      "Reading"
     ]
   },
   {

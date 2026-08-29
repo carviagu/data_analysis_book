@@ -1,0 +1,610 @@
+---
+title: "Transformation"
+author: "Data Analysis & Information Extraction"
+latex-tinytex: false
+pdf-engine: lualatex
+format: 
+  pdf:
+      toc: true
+      toc-depth: 2
+      fontfamily: libertinus
+      include-in-header: 
+         text: |
+          \usepackage{titling}
+          \usepackage{fancyhdr}
+          \pagestyle{fancyplain} % use fancy for all pages except chapter start
+          \rhead{\includegraphics[height=1cm]{../pictures/cunef_logo.png}} % right logo
+          \pretitle{\begin{flushleft}\huge\bfseries}
+          \posttitle{\end{flushleft}}
+          \renewcommand\maketitlehookc{\vspace{-5em}}
+          \preauthor{\begin{flushleft}\Large}
+          \postauthor{\end{flushleft}}
+---
+
+\pagebreak
+
+Transformation is one of the key tasks for the correct use of the data, but is very rare to find the data fully ready for an analysis, so we probabluy need to do some tasks to adapt it for the analysis we want to do.
+
+![](../pictures/data-science-explore.png){fig-align="center" width="402"}
+
+Generally we will need...
+
+- Create new variables
+
+- Sum up some of them.
+
+- Rename variables
+
+- Reorder
+
+- Grouping
+
+... among other things.
+
+## Transformation: **dplyr**
+
+We will use an special package designed inside the *tidyverse* universe for this purpose... **dplyr**
+
+This package has his own language (verbs) for doing the different tasks of the transformation process...
+
+- Working with rows...
+  - **arrange** to order rows
+  - **slice** to subset rows
+  - **filter** to select rows according to a certain condition
+- Working with columns...
+  - **select** to choose columns
+  - **rename** to rename columns
+  - **mutate** to create new columns
+- And other much more...
+
+## Basic *dplyr* rules
+
+All verbs work similar:
+
+- first argument is the data frame
+- second and subsequent arguments are used to specify what to do with the data frame
+- each verb will return a new data frame modified
+
+All verbs can be **concatenated** using the pipe `%>%`
+
+For starting working with **dplyr** we will need to load it...
+
+```{r}
+#| eval: false
+#| code-line-numbers: false
+library(tidyverse)  # Do library(dplyr) for the package only
+```
+
+\pagebreak
+
+# Basic Manipulation {.unnumbered}
+
+We are going to use the `dplyr` library that is contained inside `tidyverse`. This library provide us advance functions to manipulate the data substituting the majority of functionalities we have in R base.
+
+```{r}
+#| code-line-numbers: false
+#| message: false
+library(tidyverse)
+library(gapminder)
+```
+
+If you are working with an older version of R maybe you need to load the library directly using `library(dplyr)`.
+
+## Selecting columns: `select`
+
+We can use `select` verb to choose which columns we want to work with.
+
+```{r}
+gapminder %>% 
+  select(country, year, gdpPercap)
+```
+
+Look that we have use the **pipe** operator included into de tidyverse package. This allow us to concatenate operations simplifying manipulation. Pipes pass the output of last operation as input for the first argument of next operation.
+
+```{r}
+# Without pipe
+select(gapminder, country, year, gdpPercap)
+
+# With pipe
+gapminder %>% 
+  select(country, year, gdpPercap)
+```
+
+\pagebreak
+
+::: callout-note
+# More about the pipe `%>%`
+
+Pipe is a technique designed to pass data from a process to another.
+
+The structure has been implemented in the **magrittr** package (that is included inside **tidyverse**)
+
+```{r, echo=TRUE, eval=FALSE}
+gapminder %>% 
+  select(country, year, lifeExp)
+```
+
+1.  Line 1: We initially start with the whole data set
+2.  Line 2: Then we use select to have a subset of three columns (country, year, lifeExp)
+
+Combined with **ggplot** we can pass the resulted processing with dplyr to the plot we want to create
+
+```{r, echo=TRUE, eval=FALSE}
+gapminder %>%
+  filter(year == 2007) %>%
+  ggplot(., aes(x = lifeExp, fill = continent)) +
+  geom_histogram(bins = 100)
+```
+
+Pipe operations are very useful and R base has incorporated this kind of operations too. In 2021 with the release of R 4.1.0 an R base pipe operator (`|>`) was introduced making pipe operations always available.
+
+Both pipes work similarly in simple case but have some differences. We are going to work with the *tidyverse* one but take this into account when reading books, code examples that can use the other pipe.
+:::
+
+Be aware that any operation applied needs to be saved, into a new variable if we want to keep it.
+
+```{r}
+gapminder_new <- gapminder %>% 
+  select(country, year, gdpPercap)
+```
+
+#### Selection options
+
+You can select a **range of columns**, for example all columns from `country` to `lifeExp`:
+
+```{r}
+gapminder %>% 
+  select(country:lifeExp)
+```
+
+You can select all columns excep some of them using `-` syntax:
+
+```{r}
+gapminder %>% 
+  select(-continent,-pop,-gdpPercap)
+```
+
+You can combine the last two options to exclude a range of columns:
+
+```{r, echo=TRUE}
+gapminder %>% 
+  select(-(lifeExp:country))
+```
+
+You can use advanced select using **tidy select** functions:
+
+```{r}
+gapminder %>% 
+  select(starts_with("co"))
+```
+
+There are different functions you can use for advanced selection:
+
+- `starts_with("abc")` will select all columns that start with `abc`
+- `ends_with("abc")` will select all columns that end with `abc`
+- `contains("abc")` column that contains `abc`
+- `matches("(.)//1")` use regular expression to select the column
+- `num_range("x",1:3)` will select x1, x2 and x3
+
+Finally, there is an option were you can select `everything`. Useful to put some columns first and then the rest...
+
+```{r, echo=TRUE}
+gapminder %>% 
+  select(year, everything())
+```
+
+One useful function with `select` is that you can change the name of the columns on selection. Look at the example...
+
+```{r, echo=TRUE}
+gapminder %>% 
+  select( state = country )
+```
+
+::: callout-tip
+# Sum up: `select`
+
+- `select()` chooses columns on the data frame and returns a new data frame with the selection.
+- There are several ways to select columns adding names directly, range or with advance selection functions. You can select all and remove columns too.
+- You can change the order writing the first the columns you want at the begining.
+- You can use it to change the name of the column on selection using `newname = column` syntax.
+:::
+
+## Sorting rows: `arrange`
+
+You can sort the rows of the data frame using `arrange` verb.
+
+We want to have the data per country and year sorted from lower to high life expectancy:
+
+```{r}
+gapminder %>% 
+  select(country, year, lifeExp) %>% 
+  arrange(lifeExp)
+```
+
+As you can see the data is now sorted from lower to high `lifeExp`, we can do the opposite, sorting from high to low. Just adding `desc()`
+
+```{r}
+gapminder %>% 
+  select(country, year, lifeExp) %>% 
+  arrange(desc(lifeExp))
+```
+
+You can sort the data using multiple columns. In these cases the data will be sorted first using first column, then second in case of draw between rows. Look at the following code how the data has been sorted?
+
+```{r}
+gapminder %>% 
+  select(country, year, lifeExp) %>% 
+  arrange(year,desc(lifeExp))
+```
+
+In case of having `NA` values this are always sorted at the end of the data frame\*\*
+
+::: callout-caution
+# Exercise
+
+Sort the `gapminder` data per country, what has happen how it is sorted?
+
+*Hint*: The characters in computing are numbers internally, and they have a ordinal configuration se we can sort them properly.
+:::
+
+::: callout-tip
+# Sum up: `arrange`
+
+- `arrange()` orders in ascending order by default (numbers)
+- In the case of strings, `arrange()` will order using the alphabetical order.
+- We can use `desc()` function to change the order.
+- If more than one variable is provided, the first will be used for doing the order, in case of draws the next variables will be used for deciding the order.
+- Missing values will be order at the end.
+:::
+
+## Creating columns: `mutate`
+
+You can create new columns using `mutate` verb to add more information in your data frame.
+
+For example, we want to add a new column called `gdp` that will be the result of multiplying the population (`pop`) by `gpdPercap`.
+
+```{r}
+gapminder %>% 
+  mutate(
+    gdp = pop * gdpPercap
+  ) %>% 
+  select(pop, gdpPercap, gdp)
+```
+
+Some important note to consider with `mutate`:
+
+- You can create more than one variable in a single call to the function. Each variable will be in a different argument.
+- You can re-use a variable (it will be overwritten).
+
+For creating columns we have some useful functions we can use:
+
+- Arithmetic operators (+, -, \*, /)
+- Modular arithmetic operators: integer division `%/%` and module `%%`
+- Logarithm
+- Cumulative aggregations: `cumsum()`, `cumprod()`, `cummin()` and `cummax()`
+- Logical comparisons
+- Rankings: `min_rank()`
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+
+x = c(1,3,2,7,6)
+# Ranking
+min_rank(x)
+
+# Module
+33 %% 10
+
+# Cumulative sum
+cumsum(x)
+```
+
+\pagebreak
+
+::: callout-caution
+# Exercise
+
+In `gapminder` data frame that we provide you in the code below create the perform the following operations, all operations must be done in the same structure and verb using pipes.
+
+1.  Create a new column `total_pop` that will be the `sum` of all `pop`. This is the total population.
+2.  Create a new column `pop_rate` that will be the division of `pop` per `total_pop`. Population % among total population.
+3.  Sort the data frame per `pop_rate` from higher to lower population rate.
+4.  The final output should be a data frame with the columns `country`, `pop`, `pop_rate`.
+:::
+
+::: callout-tip
+# Sum up: `mutate`
+
+- `mutate()` creates new columns or modify existing columns.
+- You can create more than one column in the same call and reuse a newly created column to create another one.
+- There are different functions and operators we can use to compute complex logics and create new columns.
+:::
+
+## Other manipulations
+
+### Selecting rows: `slice`
+
+You can select certain rows based on the index:
+
+```{r}
+gapminder %>% 
+  select(country, year, lifeExp) %>% 
+  slice(1:3)
+```
+
+We have selected the first three rows of the data frame.
+
+::: callout-caution
+# Exercise
+
+Add a new operation to the output so the sorted by `pop_rate` returns only the top 5 countries per highest rate of population.
+:::
+
+### Selecting rows: `head`
+
+Works similar to `slice`, but it always start from the top. So we only need to provide the number of rows we want to have from the top of the data frame.
+
+```{r}
+gapminder %>% 
+  select(country, year, lifeExp) %>% 
+  head(3)
+```
+
+### Unique rows or values: `distinct`
+
+Sometimes we will need to know how many different categories or values we have, similarly to `unique` we have `distinct`.
+
+```{r}
+gapminder %>% 
+  distinct(continent)
+```
+
+The relevant feature with `distinct` is that we can use it for the two or more columns so we can know combinations of values.
+
+```{r}
+gapminder %>% 
+  distinct(continent, year)
+```
+
+\pagebreak
+
+# Filtering {.unnumbered}
+
+```{r, message=F, warning=F}
+#| code-line-numbers: false
+library(tidyverse)
+library(gapminder)
+```
+
+In R base we have learnt how to filter our data frames to have only the rows that match certain criteria. With `dplyr` we can filter too our data frames.
+
+We want only the rows whose `lifeExp` is higher than 80 years.
+
+```{r}
+gapminder %>% 
+  filter(lifeExp > 80)
+```
+
+Remember that the filter we have applied doesn't modify the data frame, we will need to store the result in a new one if we want to use the result in the future.
+
+```{r}
+gapminder_h80 <- gapminder %>%
+  filter(lifeExp > 80)
+```
+
+\pagebreak
+
+We can build much more complex conditions depending on our needs, remember all filtering possibilities:
+
+| operator | definition         | ... | operator | definition              |
+|----------|--------------------|-----|----------|-------------------------|
+| \<       | Less than          |     | x & y    | x AND y                 |
+| \<=      | Less than or equal |     | x \| y   | x OR y                  |
+| \>       | More               |     | is.na(x) | is x a NA value         |
+| \>=      | More than or equal |     | x %in% y | x in vector y           |
+| ==       | Equal              |     | !x       | opposite of condition x |
+| !=       | Distinct           |     |          |                         |
+
+For example we want to filter the rows whose `lifeExp` is higher than 80 years and for "Spain"
+
+```{r}
+gapminder %>% 
+  filter(lifeExp > 80, country == "Spain")
+```
+
+In the example above, we have used `,` as in filter verb is similar to use operator `&`. For example the following filter is equivalent to this one.
+
+```{r}
+gapminder %>% 
+  filter(lifeExp > 80 & country == "Spain")
+```
+
+\pagebreak
+
+::: callout-caution
+# Exercise
+
+Now try the following filtering options, one by one to the same `gapminder` data frame.
+
+1.  All rows which life expectancy is between 40 and 60 (both included).
+2.  All rows which life expectancy is between 40 and 60 (both excluded), and for the continent "Asia".
+3.  All rows which GPD per capita is higher than 100000 or with a lifeExp lower than 40, for countries located in "Europe" and "America".
+4.  Which are the top 5 distinct countries with the highest pop with a life expectancy higher than 90. Hint: You may need to use basic manipulation as seen in last lesson.
+:::
+
+## Missing Values on Filters
+
+Missing values (`NA`) are something inevitable and highly frequently in the data.
+
+All operations done with missing values will return another missing value...
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+NA == 2
+
+NA + 3
+
+NA == NA
+```
+
+When filtering the resulted data frame will only contain data that makes **TRUE** the condition. Data making **FALSE** the condition and missing values will be excluded.
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+df <- tibble(x = c(1, NA, 3))
+filter(df, x > 1)
+
+filter(df, is.na(x) | x > 1)
+```
+
+\pagebreak
+
+# Aggregations {.unnumbered}
+
+```{r, message=F, warning=F, echo=F}
+library(tidyverse)
+library(gapminder)
+```
+
+In some case we will need to retrieve summary information of the data frame needing to aggregate the data into several KPIs.
+
+# Transforming with `summarise`
+
+For example, we need to retrieve some basic statistics of the whole data frame, this way we can understand the main data frame insights.
+
+For doing that we can use `summarise` verb, with this function we can compute aggregated results for the data frame. We need to provide the column name where the result will be stored and the operation to perform
+
+```{r}
+gapminder %>% 
+  summarise(
+    min_lifeExp = min(lifeExp),
+    max_lifeExp = max(lifeExp),
+    avg_lifeExp = mean(lifeExp)
+  )
+```
+
+Remember to be careful with NAs, if there are NA values present on the observations of the data frame the aggregation operations won't succeed.
+
+```{r}
+library(fivethirtyeight)
+
+biopics %>% 
+  summarise(
+    total_box_office = sum(box_office),
+    avg_box_office = mean(box_office)
+  )
+```
+
+If that is the case remember to include `na.rn = TRUE` so NA values are not considered in the aggregations...
+
+```{r}
+biopics %>% 
+  summarise(
+    total_box_office = sum(box_office, na.rm =T),
+    avg_box_office = mean(box_office, na.rm = T)
+  )
+```
+
+## `summarise` vs `mutate`
+
+Some cases we have confusion on when to use `summarise` and when to use `mutate` as both verbs create columns but they work differently.
+
+- `mutate` creates new columns, but preserves the original structure of the data frame. It is used for adding new information to the data frame in a new variable.
+- `summarise` creates new columns that are the aggregations of the whole or groups of data in the data frame. The final output of the `summarise` changes the structure of the data frame completely providing a summarization of the data based on the requested operations.
+
+You can use aggregation functions with `mutate` but they will work differently as the returned value will be replicated in all observations...
+
+For example, we want to compare the gdpPercap of each country with the world average, assuming that the average of the data frame is the world average how we can due that?
+
+```{r}
+gapminder_67 <- gapminder %>% filter(year == 1967)
+
+gapminder_67 %>% 
+  mutate(
+    world_avg_gdp = mean(gdpPercap), # will compute the mean of the whole data for all registers
+    gpd_vs_world = gdpPercap - world_avg_gdp
+  ) %>% 
+  select(country, gdpPercap, world_avg_gdp, gpd_vs_world)
+```
+
+Using aggregation functions with mutate is helpful for making this kind of analysis and understand relevant deviations in the observations.
+
+# Grouping rows with `group_by`
+
+In certain occasions we would like to perform grouping in our data, grouping is useful for several reasons:
+
+- Computing aggregations by groups i.e totals per year
+- Creating some columns and apply some *logics* per groups of observations only affecting rows of each group.
+
+For generating groups on the data we should use `group_by` function...
+
+Example: We want to have the same stats but per year in gapminder...
+
+```{r}
+gapminder %>% 
+  group_by(year) %>% 
+  summarise(
+    min_lifeExp = min(lifeExp),
+    max_lifeExp = max(lifeExp),
+    avg_lifeExp = mean(lifeExp)
+  )
+```
+
+With the groups now the results are generated for each group created using group by.
+
+You can create groups with two or more variables...
+
+```{r}
+gapminder %>% 
+  group_by(year, continent) %>% 
+  summarise(
+    min_lifeExp = min(lifeExp),
+    max_lifeExp = max(lifeExp),
+    avg_lifeExp = mean(lifeExp)
+  )
+```
+
+Look that when using more than one variable, the groups don't disapear, as R will maintain groups for *variables-1*. In this case we have grouped per year and continent, so when the aggregation finishes R will mantain groups for year but ungroup continent.
+
+If we want to remove groups we can do it with `ungroup` verb.
+
+```{r}
+gapminder %>% 
+  group_by(year, continent) %>% 
+  summarise(
+    min_lifeExp = min(lifeExp),
+    max_lifeExp = max(lifeExp),
+    avg_lifeExp = mean(lifeExp)
+  ) %>% 
+  ungroup(year)
+```
+
+Look that we only applied `ungroup` to year variable, as continent groups are removed by default when applying `summarise` function. Summarise will remove the first level of the grouped variables always.
+
+## Using basic verbs with groups
+
+Grouping is not only used for aggregations you can create groups and perform the same basic manipulation instructions but this time them will be applied considering the existing groups.
+
+For example, we want to have the data frame ordered so for each year we have the countries ordered from lower to higher `gdpPercap`
+
+```{r}
+gapminder_sorted <- gapminder %>% 
+  group_by(year) %>% # now all observations are grouped for their year
+  arrange(gdpPercap) # data frame will be sorted by lower to higher gdp but for each year
+
+gapminder_sorted %>% 
+  filter(year == 1977) %>% 
+  select(year, country, gdpPercap) %>% 
+  slice(1:10)
+```
+
+# Build it functions... `count`
+
+Dplyr contains build in functions that perform quick operations, making simple performing some tasks and not needing to grouping or aggregating.
+
+For example we want to now how many observations we have for each continent...
+
+```{r}
+gapminder %>% 
+  count(continent)
+```
