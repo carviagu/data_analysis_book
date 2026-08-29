@@ -1,3 +1,0 @@
-"0","ggplot(gapminder67, aes(x = gdpPercap, y = lifeExp) ) +"
-"0","  geom_point() +"
-"0","  scale_x_log10()"

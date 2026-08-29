@@ -112,5 +112,11 @@
   },
   "05_transformation.qmd": {
     "05_transformation.html": "6a69c211"
+  },
+  "06_01_variation.qmd": {
+    "06_01_variation.html": "2acfcecd"
+  },
+  "06_02_covariance.qmd": {
+    "06_02_covariance.html": "26753420"
   }
 }

@@ -1,5 +1,0 @@
-"0","mod_reg <- lm(base ~ years + degree, data = teacher_sample)"
-"0",""
-"0","tidy(mod_reg)"
-"2","Error in tidy(mod_reg) : could not find function ""tidy""
-"

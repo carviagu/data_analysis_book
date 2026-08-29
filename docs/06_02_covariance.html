@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Exploratory Data Analysis – Data Analysis &amp; Information Extraction</title>
+<title>Analyzing Covariance – Data Analysis &amp; Information Extraction</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./06_01_variation.html" rel="next">
-<link href="./05_03_aggregations.html" rel="prev">
+<link href="./07_reading.html" rel="next">
+<link href="./06_01_variation.html" rel="prev">
 <link href="./cunef_logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -82,7 +116,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06_eda.html">Exploratory Data Analysis</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06_eda.html">Exploratory Data Analysis</a></li><li class="breadcrumb-item"><a href="./06_02_covariance.html">Analyzing Covariance</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -285,7 +319,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./06_eda.html" class="sidebar-item-text sidebar-link active">
+            <a href="./06_eda.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Exploratory Data Analysis</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -295,7 +329,13 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./06_01_variation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Analyzing Data Variation</span></span></a>
+ <span class="menu-text">Analyzing Data Variation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_02_covariance.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Analyzing Covariance</span></a>
   </div>
 </li>
       </ul>
@@ -351,16 +391,19 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#first-concepts" id="toc-first-concepts" class="nav-link active" data-scroll-target="#first-concepts">First concepts</a></li>
+  <li><a href="#covariance-categorical---continuous" id="toc-covariance-categorical---continuous" class="nav-link active" data-scroll-target="#covariance-categorical---continuous">Covariance: Categorical - Continuous</a></li>
+  <li><a href="#covariance-categorical---categorical" id="toc-covariance-categorical---categorical" class="nav-link" data-scroll-target="#covariance-categorical---categorical">Covariance: Categorical - Categorical</a></li>
+  <li><a href="#covariance-continuous---continuous" id="toc-covariance-continuous---continuous" class="nav-link" data-scroll-target="#covariance-continuous---continuous">Covariance: Continuous - Continuous</a></li>
+  <li><a href="#patterns-and-models" id="toc-patterns-and-models" class="nav-link" data-scroll-target="#patterns-and-models">Patterns and models</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06_eda.html">Exploratory Data Analysis</a></li><li class="breadcrumb-item"><a href="./06_02_covariance.html">Analyzing Covariance</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Exploratory Data Analysis</h1>
+<h1 class="title">Analyzing Covariance</h1>
 </div>
 
 
@@ -377,32 +420,226 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>We will learn how to explore the data in a systematic way using the tools we have learn for visualizing and transformation.</p>
-<p>The Exploratory Data Analysis is a cycle that consists in…</p>
+<blockquote class="blockquote">
+<p><em>Covariance is the tendency between two or more values to change simultaneously.</em></p>
+</blockquote>
+<p>As we have seen, for analyzing covariance we will need to understand the type of variables…</p>
 <ul>
-<li>Generate questions about the data.</li>
-<li>Answer them visualizing, transforming and modelling.</li>
-<li>Use what we learn of the preceding steps to re-think the questions and find new ones we can answer.</li>
+<li>Categorical - Continuous</li>
+<li>Categorical - Categorical</li>
+<li>Continuous - Continuous</li>
 </ul>
-<p>As a creative process, there is no rules for limiting which questions are more useful.</p>
-<p>But we will always find interesting two kind of questions…</p>
-<ul>
-<li><em>Which kind of variation is present in the variables?</em></li>
-<li><em>Which kind of co-variation exists between the variables?</em></li>
-</ul>
-<section id="first-concepts" class="level2">
-<h2 class="anchored" data-anchor-id="first-concepts">First concepts</h2>
-<ul>
-<li><p><strong>Variable</strong>: is a quantity, quality, or property that you can measure.</p></li>
-<li><p><strong>Value</strong>: is the state of a variable when you measure it. It may change for measurement to measurement.</p></li>
-<li><p><strong>Observation</strong>: is a set of measurements made under similar conditions. Each observation can contain different values, each value related with their corresponding variable.</p></li>
-<li><p><strong>Tabular data</strong>: a set of values organized in different variables for each observation.</p></li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
+<section id="covariance-categorical---continuous" class="level2">
+<h2 class="anchored" data-anchor-id="covariance-categorical---continuous">Covariance: Categorical - Continuous</h2>
+<p>We can use the <code>geom_freqpoly</code> geometry to see how the continuous variable relates with the each category.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds, <span class="fu">aes</span>(<span class="at">x =</span> price, <span class="at">color =</span> cut)) <span class="sc">+</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>  <span class="fu">geom_freqpoly</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
 <figure class="figure">
-<p><img src="pictures/tabular_data.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="06_02_covariance_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
+</div>
+</div>
+<p>Other option with density plots. <code>..density..</code> will paint the density in the y axis, that is the normalized count to make the area of each polygon 1.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds, </span>
+<span id="cb3-2"><a href="#cb3-2"></a>       <span class="fu">aes</span>(<span class="at">x =</span> price, <span class="at">y =</span> ..density.., <span class="at">color =</span> cut)) <span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">geom_freqpoly</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: The dot-dot notation (`..density..`) was deprecated in ggplot2 3.4.0.
+ℹ Please use `after_stat(density)` instead.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_02_covariance_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Using boxplots to analyze too…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg, <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_02_covariance_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Reorder it os is more clean…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg, </span>
+<span id="cb7-2"><a href="#cb7-2"></a>       <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(class, hwy, <span class="at">FUN =</span> median),</span>
+<span id="cb7-3"><a href="#cb7-3"></a>           <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_02_covariance_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="covariance-categorical---categorical" class="level2">
+<h2 class="anchored" data-anchor-id="covariance-categorical---categorical">Covariance: Categorical - Categorical</h2>
+<p>We have seen bar plots, but more ways are possible…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x=</span>cut, <span class="at">y=</span>color)) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">geom_count</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_02_covariance_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Let’s do it with code using <strong>dplyr</strong> (two ways)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>diamonds <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">group_by</span>(color, cut) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has regrouped the output.
+ℹ Summaries were computed grouped by color and cut.
+ℹ Output is grouped by color.
+ℹ Use `summarise(.groups = "drop_last")` to silence this message.
+ℹ Use `summarise(.by = c(color, cut))` for per-operation grouping
+  (`?dplyr::dplyr_by`) instead.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 35 × 3
+# Groups:   color [7]
+   color cut           n
+   &lt;ord&gt; &lt;ord&gt;     &lt;int&gt;
+ 1 D     Fair        163
+ 2 D     Good        662
+ 3 D     Very Good  1513
+ 4 D     Premium    1603
+ 5 D     Ideal      2834
+ 6 E     Fair        224
+ 7 E     Good        933
+ 8 E     Very Good  2400
+ 9 E     Premium    2337
+10 E     Ideal      3903
+# ℹ 25 more rows</code></pre>
+</div>
+</div>
+<p>More visual approach, using color mapping…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>diamonds <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">count</span>(color, cut) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> color, <span class="at">y =</span> cut, <span class="at">fill =</span> n)) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a>  <span class="fu">geom_tile</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_02_covariance_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="covariance-continuous---continuous" class="level2">
+<h2 class="anchored" data-anchor-id="covariance-continuous---continuous">Covariance: Continuous - Continuous</h2>
+<p>Normally we will use an scatter plot with <code>geom_point()</code>, but we can find some problems when there are too many data points in big datasets, they will overalp each other.</p>
+<p>In these cases we will need to use <code>alpha</code> aesthetic:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span> </span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.01</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_02_covariance_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Another approach…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>  <span class="fu">geom_bin2d</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin2d()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_02_covariance_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Another approach… but better</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># install.packages("hexbin")</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">geom_hex</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_02_covariance_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Box plots work here too:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="fu">cut_width</span>(carat, <span class="fl">0.1</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Orientation is not uniquely specified when both the x and y aesthetics are
+continuous. Picking default orientation 'x'.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_02_covariance_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Same number of point for each bin:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="fu">cut_number</span>(carat, <span class="dv">20</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Orientation is not uniquely specified when both the x and y aesthetics are
+continuous. Picking default orientation 'x'.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_02_covariance_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="patterns-and-models" class="level2">
+<h2 class="anchored" data-anchor-id="patterns-and-models">Patterns and models</h2>
+<p><strong>Patterns</strong> reveal hints regarding relations between variables. When we see one we must analyze…</p>
+<ul>
+<li>Can be random?</li>
+<li>How we can describe the relation that shows?</li>
+<li>Is relevant?</li>
+<li>Are there any other variables affected by this relation?</li>
+<li>This relation changes if we analyze subgroups of data?</li>
+</ul>
+<p><strong>Models</strong> can be used for extract patterns of the data, like eliminating the effect of a variable and study the remaining effect.</p>
 
 
 </section>
@@ -830,13 +1067,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./05_03_aggregations.html" class="pagination-link" aria-label="Aggregations">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Aggregations</span>
+      <a href="./06_01_variation.html" class="pagination-link" aria-label="Analyzing Data Variation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Analyzing Data Variation</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./06_01_variation.html" class="pagination-link" aria-label="Analyzing Data Variation">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Analyzing Data Variation</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./07_reading.html" class="pagination-link" aria-label="Reading">
+        <span class="nav-page-text">Reading</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

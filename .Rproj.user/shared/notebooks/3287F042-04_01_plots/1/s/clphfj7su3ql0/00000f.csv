@@ -1,1 +1,0 @@
-"0","gapminder67 <- gapminder[gapminder$year == 1967, ]"

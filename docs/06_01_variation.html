@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Exploratory Data Analysis – Data Analysis &amp; Information Extraction</title>
+<title>Analyzing Data Variation – Data Analysis &amp; Information Extraction</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./06_01_variation.html" rel="next">
-<link href="./05_03_aggregations.html" rel="prev">
+<link href="./06_02_covariance.html" rel="next">
+<link href="./06_eda.html" rel="prev">
 <link href="./cunef_logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -82,7 +116,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06_eda.html">Exploratory Data Analysis</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06_eda.html">Exploratory Data Analysis</a></li><li class="breadcrumb-item"><a href="./06_01_variation.html">Analyzing Data Variation</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -285,7 +319,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./06_eda.html" class="sidebar-item-text sidebar-link active">
+            <a href="./06_eda.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Exploratory Data Analysis</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -294,8 +328,14 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06_01_variation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Analyzing Data Variation</span></span></a>
+  <a href="./06_01_variation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Analyzing Data Variation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_02_covariance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analyzing Covariance</span></a>
   </div>
 </li>
       </ul>
@@ -351,16 +391,24 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#first-concepts" id="toc-first-concepts" class="nav-link active" data-scroll-target="#first-concepts">First concepts</a></li>
+  <li><a href="#variation-in-categorical-variables" id="toc-variation-in-categorical-variables" class="nav-link active" data-scroll-target="#variation-in-categorical-variables">Variation in categorical variables</a></li>
+  <li><a href="#variation-in-continuous-variables" id="toc-variation-in-continuous-variables" class="nav-link" data-scroll-target="#variation-in-continuous-variables">Variation in continuous variables</a></li>
+  <li><a href="#analyzing-variation" id="toc-analyzing-variation" class="nav-link" data-scroll-target="#analyzing-variation">Analyzing Variation</a></li>
+  <li><a href="#variation-outliers" id="toc-variation-outliers" class="nav-link" data-scroll-target="#variation-outliers">Variation: Outliers</a></li>
+  <li><a href="#actions-with-outliers" id="toc-actions-with-outliers" class="nav-link" data-scroll-target="#actions-with-outliers">Actions with outliers</a>
+  <ul class="collapse">
+  <li><a href="#droping-outliers" id="toc-droping-outliers" class="nav-link" data-scroll-target="#droping-outliers">Droping outliers</a></li>
+  </ul></li>
+  <li><a href="#missing-values" id="toc-missing-values" class="nav-link" data-scroll-target="#missing-values">Missing Values</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06_eda.html">Exploratory Data Analysis</a></li><li class="breadcrumb-item"><a href="./06_01_variation.html">Analyzing Data Variation</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Exploratory Data Analysis</h1>
+<h1 class="title">Analyzing Data Variation</h1>
 </div>
 
 
@@ -377,31 +425,264 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>We will learn how to explore the data in a systematic way using the tools we have learn for visualizing and transformation.</p>
-<p>The Exploratory Data Analysis is a cycle that consists in…</p>
+<blockquote class="blockquote">
+<p><em>Variation is the tendency of the values of a variable to change between each measurement</em></p>
+</blockquote>
+<p>This variation can happen due to different reasons:</p>
 <ul>
-<li>Generate questions about the data.</li>
-<li>Answer them visualizing, transforming and modelling.</li>
-<li>Use what we learn of the preceding steps to re-think the questions and find new ones we can answer.</li>
+<li><strong>Error</strong> when measuring a constant quantity (ligth speed).</li>
+<li>Measuring the same variable in <strong>different subjects</strong>.</li>
+<li>Measuring the same variable for the same subject but <strong>different moment</strong>.</li>
+<li>…</li>
 </ul>
-<p>As a creative process, there is no rules for limiting which questions are more useful.</p>
-<p>But we will always find interesting two kind of questions…</p>
-<ul>
-<li><em>Which kind of variation is present in the variables?</em></li>
-<li><em>Which kind of co-variation exists between the variables?</em></li>
-</ul>
-<section id="first-concepts" class="level2">
-<h2 class="anchored" data-anchor-id="first-concepts">First concepts</h2>
-<ul>
-<li><p><strong>Variable</strong>: is a quantity, quality, or property that you can measure.</p></li>
-<li><p><strong>Value</strong>: is the state of a variable when you measure it. It may change for measurement to measurement.</p></li>
-<li><p><strong>Observation</strong>: is a set of measurements made under similar conditions. Each observation can contain different values, each value related with their corresponding variable.</p></li>
-<li><p><strong>Tabular data</strong>: a set of values organized in different variables for each observation.</p></li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
+<p>We can see patterns of the variation, this information can be useful. We can understand these patterns visualizing the <strong>distribution of the different values taken by the variable</strong>.</p>
+<section id="variation-in-categorical-variables" class="level2">
+<h2 class="anchored" data-anchor-id="variation-in-categorical-variables">Variation in categorical variables</h2>
+<p>Remember that we can visualize the distribution of a categorical variable as follows…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># Number of gears for mtcars data set</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x=</span>gear)) <span class="sc">+</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Number of gear"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
 <figure class="figure">
-<p><img src="pictures/tabular_data.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="06_01_variation_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
+</div>
+</div>
+</div>
+<p>Each bar of the last plot shows us the number of observations we can found for every value of the variable. We can obtain the number of observations with this simple code…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a>mtcars <span class="sc">%&gt;%</span> </span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="fu">group_by</span>(gear) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="fu">summarise</span>(<span class="at">observations =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+   gear observations
+  &lt;dbl&gt;        &lt;int&gt;
+1     3           15
+2     4           12
+3     5            5</code></pre>
+</div>
+</div>
+</section>
+<section id="variation-in-continuous-variables" class="level2">
+<h2 class="anchored" data-anchor-id="variation-in-continuous-variables">Variation in continuous variables</h2>
+<p>For visualizing the distribution of continuous variables we can use the histogram…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris, <span class="fu">aes</span>(<span class="at">x =</span> Petal.Length)) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Petal Length (cm)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_01_variation_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="analyzing-variation" class="level2">
+<h2 class="anchored" data-anchor-id="analyzing-variation">Analyzing Variation</h2>
+<p>When analyzing the plots that shows the data variation we need to focus in two things…</p>
+<ul>
+<li>Normal values</li>
+<li>Anomalies (outliers)</li>
+</ul>
+<p>Questions like…</p>
+<ul>
+<li>Most common values?</li>
+<li>Lest common values?</li>
+<li>Strange patterns in the data?</li>
+</ul>
+<p>We can see it with an example: <em>Petal Length Analysis</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris, <span class="fu">aes</span>(<span class="at">x =</span> Petal.Length)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Petal Length (cm)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_01_variation_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The <em>clusters</em> of similar values makes us think there are subgroups in the data. For understanding it, we can ask…</p>
+<ul>
+<li>What have the observations of each group in common?</li>
+<li>What differences are between the observations of each group?</li>
+<li>How can we explain each subgroup?</li>
+<li>There are two groups… one with shorter petal length (&lt;2cm) and other large (&gt;2cm)</li>
+<li>Species variable can explain this separation?</li>
+</ul>
+<p>We can analyze multiple histograms in the same plot, using colors for example.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris, </span>
+<span id="cb6-2"><a href="#cb6-2"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Petal.Length, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Petal Length (cm)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_01_variation_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Other option, we can use ggplot geometric: <code>geom_freqpoly()</code> that works similar to the histogram but showing them with lines.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris, </span>
+<span id="cb7-2"><a href="#cb7-2"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Petal.Length, <span class="at">color =</span> Species)) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">geom_freqpoly</span>() <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Petal Length (cm)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_01_variation_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="variation-outliers" class="level2">
+<h2 class="anchored" data-anchor-id="variation-outliers">Variation: Outliers</h2>
+<p>Find and analyze <strong>outliers</strong> have the same importance as analyze the normal values we can found.</p>
+<p>Why we can have outliers…</p>
+<ul>
+<li>Sometimes… measuring error</li>
+<li>Others, further analyze is needed.</li>
+</ul>
+<p>We can see it with an example: <em>Diamonds Width Analysis</em></p>
+<p>We are going to analyze the distribution of the width of the diamonds in the data set <strong>diamonds</strong> inside R. Apparently all looks good right? (<em>Hint: Look at x axis?</em>)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> y)) <span class="sc">+</span> </span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_01_variation_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Looks that there is more space than the one we need to visualizing the data, or probably there is some data we are not able to see, a bit of <em>zoom</em> may help…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x=</span>y)) <span class="sc">+</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">coord_cartesian</span>( <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">50</span>) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_01_variation_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Looks there are some outliers near 0, 30 and 60. We can now go directly to the data and <strong>filter</strong> to extract them..</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>diamonds <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">filter</span>( y <span class="sc">&lt;</span> <span class="dv">3</span> <span class="sc">|</span> y <span class="sc">&gt;</span> <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 10
+  carat cut       color clarity depth table price     x     y     z
+  &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1  1    Very Good H     VS2      63.3    53  5139  0      0    0   
+2  1.14 Fair      G     VS1      57.5    67  6381  0      0    0   
+3  2    Premium   H     SI2      58.9    57 12210  8.09  58.9  8.06
+4  1.56 Ideal     G     VS2      62.2    54 12800  0      0    0   
+5  1.2  Premium   D     VVS1     62.1    59 15686  0      0    0   
+6  2.25 Premium   H     SI2      62.8    59 18034  0      0    0   
+7  0.51 Ideal     E     VS1      61.8    55  2075  5.15  31.8  5.12
+8  0.71 Good      F     SI2      64.1    60  2130  0      0    0   
+9  0.71 Good      F     SI2      64.1    60  2130  0      0    0   </code></pre>
+</div>
+</div>
+<p><strong>Conclusions found after analysis</strong></p>
+<ul>
+<li><p>Looks there are diamonds with width 0, maybe incorrect data…</p></li>
+<li><p>We have detected diamonds with a very big size, but not too expensive…</p></li>
+</ul>
+</section>
+<section id="actions-with-outliers" class="level2">
+<h2 class="anchored" data-anchor-id="actions-with-outliers">Actions with outliers</h2>
+<ul>
+<li>Try to do the analysis with and without outlers, this will help us identify the impact they have.</li>
+</ul>
+<p>Depending on the impact effect…</p>
+<ul>
+<li><p>Minimum effect and we don’t know the origin… replace them as <code>NA</code> values.</p></li>
+<li><p>Otherwise… eliminate them <strong>justifying</strong> the reason and document / inform their elimination from the analysis.</p></li>
+</ul>
+<section id="droping-outliers" class="level3">
+<h3 class="anchored" data-anchor-id="droping-outliers">Droping outliers</h3>
+<p>When we need to drop some outliers from the data, we have two options…</p>
+<ul>
+<li>Eliminate the whole row (big loss of information)</li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>diamonds2 <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">filter</span>(y<span class="sc">&gt;=</span><span class="dv">3</span> <span class="sc">&amp;</span> y<span class="sc">&lt;=</span><span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Replace them by <code>NA</code> (missing value)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>diamonds2 <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">if_else</span>(y<span class="sc">&lt;</span><span class="dv">3</span> <span class="sc">|</span> y<span class="sc">&gt;</span><span class="dv">20</span>, <span class="cn">NA</span>, y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+if_else
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Conditional function to use inside mutate, first argument the condition, then if TRUE otherwise FALSE in the last argument.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="missing-values" class="level2">
+<h2 class="anchored" data-anchor-id="missing-values">Missing Values</h2>
+<p>When missing values are present in the data we will see a warning in the plot…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>diamonds2, </span>
+<span id="cb15-2"><a href="#cb15-2"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y)) <span class="sc">+</span> </span>
+<span id="cb15-3"><a href="#cb15-3"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 9 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_01_variation_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can quickly eliminate them from the visualization using <code>na.rm = T</code> argument…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>diamonds2, </span>
+<span id="cb17-2"><a href="#cb17-2"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y)) <span class="sc">+</span> </span>
+<span id="cb17-3"><a href="#cb17-3"></a>  <span class="fu">geom_point</span>(<span class="at">na.rm =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_01_variation_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
 </div>
 
 
@@ -830,13 +1111,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./05_03_aggregations.html" class="pagination-link" aria-label="Aggregations">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Aggregations</span>
+      <a href="./06_eda.html" class="pagination-link" aria-label="Exploratory Data Analysis">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Exploratory Data Analysis</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./06_01_variation.html" class="pagination-link" aria-label="Analyzing Data Variation">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Analyzing Data Variation</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./06_02_covariance.html" class="pagination-link" aria-label="Analyzing Covariance">
+        <span class="nav-page-text">Analyzing Covariance</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

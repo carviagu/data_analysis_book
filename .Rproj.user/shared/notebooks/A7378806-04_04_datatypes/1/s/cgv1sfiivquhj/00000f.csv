@@ -1,2 +1,0 @@
-"0","ggplot(gapminder67, mapping = aes(x = continent, y = gdpPercap)) +"
-"0","  geom_boxplot()"

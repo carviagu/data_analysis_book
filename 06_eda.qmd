@@ -1,1 +1,28 @@
 # Exploratory Data Analysis {.unnumbered}
+
+We will learn how to explore the data in a systematic way using the tools we have learn for visualizing and transformation.
+
+The Exploratory Data Analysis is a cycle that consists in...
+
+- Generate questions about the data.
+- Answer them visualizing, transforming and modelling.
+- Use what we learn of the preceding steps to re-think the questions and find new ones we can answer.
+
+As a creative process, there is no rules for limiting which questions are more useful.
+
+But we will always find interesting two kind of questions...
+
+- *Which kind of variation is present in the variables?*
+- *Which kind of co-variation exists between the variables?*
+
+## First concepts
+
+- **Variable**: is a quantity, quality, or property that you can measure.
+
+- **Value**: is the state of a variable when you measure it. It may change for measurement to measurement.
+
+- **Observation**: is a set of measurements made under similar conditions. Each observation can contain different values, each value related with their corresponding variable.
+
+- **Tabular data**: a set of values organized in different variables for each observation.
+
+![](pictures/tabular_data.png){fig-align="center"}

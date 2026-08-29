@@ -1,3 +1,0 @@
-"0","ggplot(gapminder67, mapping = aes(x = gdpPercap)) + "
-"0","     geom_density(color = ""blue"") + # density plot"
-"0","     theme_bw()"

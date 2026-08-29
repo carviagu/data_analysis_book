@@ -1,4 +1,0 @@
-"0","gapminder67 <- gapminder[gapminder$year == 1967, ]"
-"0",""
-"0","ggplot(gapminder67, mapping = aes(x = gdpPercap)) + "
-"0","     geom_histogram(binwidth = 1000)"

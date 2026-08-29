@@ -1,3 +1,0 @@
-"0","gapminder %>% "
-"0","  select(country, year, lifeExp) %>% "
-"0","  head(3)"

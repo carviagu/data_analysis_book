@@ -1,6 +1,0 @@
-"0","# Check if a value is of certain type"
-"0","is.numeric(1L)"
-"1","[1]"
-"1"," TRUE"
-"1","
-"

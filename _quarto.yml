@@ -50,6 +50,9 @@ book:
         - 05_03_aggregations.qmd
         
     - part: 06_eda.qmd
+      chapters: 
+        - 06_01_variation.qmd
+        - 06_02_covariance.qmd
     
     - part: 07_reading.qmd
     

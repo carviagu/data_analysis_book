@@ -1,5 +1,0 @@
-"0","gapminder67 %>% "
-"0","  group_by(continent) %>% "
-"0","  summarise(count = n()) %>% "
-"0","ggplot(gapminder67, mapping = aes(x = continent, y = count)) + "
-"0","  geom_col()"

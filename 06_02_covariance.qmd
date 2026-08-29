@@ -1,0 +1,129 @@
+# Analyzing Covariance {.unnumbered}
+
+```{r, echo=F,message=F}
+library(tidyverse)
+```
+
+
+> *Covariance is the tendency between two or more values to change simultaneously.*
+
+As we have seen, for analyzing covariance we will need to understand the type of variables...
+
+* Categorical - Continuous
+* Categorical - Categorical
+* Continuous - Continuous
+
+## Covariance: Categorical - Continuous
+
+We can use the `geom_freqpoly` geometry to see how the continuous variable relates with the each category. 
+
+```{r, echo=TRUE}
+ggplot(data = diamonds, aes(x = price, color = cut)) +
+  geom_freqpoly()
+```
+
+Other option with density plots. `..density..` will paint the density in the y axis, that is the normalized count to make the area of each polygon 1.
+
+```{r, echo=TRUE}
+ggplot(data = diamonds, 
+       aes(x = price, y = ..density.., color = cut)) +
+  geom_freqpoly()
+```
+
+Using boxplots to analyze too...
+
+```{r, echo=TRUE}
+ggplot(data = mpg, aes(x = class, y = hwy)) +
+  geom_boxplot()
+```
+
+Reorder it os is more clean...
+
+```{r, echo=TRUE}
+#| code-line-numbers: "2,3" 
+ggplot(data = mpg, 
+       aes(x = reorder(class, hwy, FUN = median),
+           y = hwy)) +
+  geom_boxplot()
+```
+
+
+## Covariance: Categorical - Categorical
+We have seen bar plots, but more ways are possible...
+
+```{r, echo=TRUE}
+ggplot(diamonds, aes(x=cut, y=color)) +
+  geom_count()
+```
+
+
+Let's do it with code using **dplyr** (two ways)
+
+```{r, echo=TRUE}
+diamonds %>% 
+  group_by(color, cut) %>% 
+  summarise(n = n())
+```
+
+More visual approach, using color mapping...
+
+```{r, echo=TRUE}
+diamonds %>% 
+  count(color, cut) %>% 
+  ggplot(aes(x = color, y = cut, fill = n)) +
+  geom_tile()
+```
+
+## Covariance: Continuous - Continuous
+
+Normally we will use an scatter plot with `geom_point()`, but we can find some problems when there are too many data points in big datasets, they will overalp each other. 
+
+In these cases we will need to use `alpha` aesthetic:
+
+```{r, echo=TRUE}
+ggplot(diamonds, aes(x = carat, y = price)) + 
+  geom_point(alpha = 0.01)
+```
+
+Another approach...
+
+```{r, echo=TRUE}
+ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_bin2d()
+```
+
+Another approach... but better 
+
+```{r, echo=TRUE}
+# install.packages("hexbin")
+ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_hex()
+```
+
+Box plots work here too:
+
+```{r, echo=TRUE}
+ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_boxplot(aes(group = cut_width(carat, 0.1)))
+```
+
+Same number of point for each bin:
+
+
+```{r, echo=TRUE}
+ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_boxplot(aes(group = cut_number(carat, 20)))
+```
+
+
+## Patterns and models
+
+**Patterns** reveal hints regarding relations between variables. When we see one we must analyze...
+
+* Can be random?
+* How we can describe the relation that shows?
+* Is relevant?
+* Are there any other variables affected by this relation?
+* This relation changes if we analyze subgroups of data?
+
+**Models** can be used for extract patterns of the data, like eliminating the effect of a variable and study the remaining effect. 
