@@ -1,0 +1,1237 @@
+---
+title: "Exploratory Data Analysis: Visualization"
+subtitle: "Data Analysis & Information Extraction"
+author: "Carlos Viñals Viñals"
+format: 
+  revealjs:
+    logo: "img/logo2.png"
+    footer: "EDA - Visualization"
+    highlight-style: github
+---
+
+## Unit overview
+
+::: {style="font-size: 30px;"}
+**Content**
+:::
+
+::: {style="font-size: 30px;"}
+
+* Tibbles
+* Visualization: First Steps
+* Visualization: Aesthetics
+* Visualization: Faceting
+* Visualization of Data Types
+* Position 
+
+:::
+
+::: {style="font-size: 30px;"}
+<br>
+
+**References**
+
+This unit is mostly based on *[Hands-On Programming with R](https://rstudio-education.github.io/hopr/), Grolemund (2014)*
+:::
+
+## Exploratory Data Analysis (EDA)
+
+Observe the data and analyze it to generate hypothesis and test them. 
+
+**Objective**: Generate questions to analyze them more deeply. 
+
+![](img/data-science-explore.png)
+
+## Requisites: *tidyverse*
+We want to analyze data in a **reproducible** way...
+
+![](img/tidyverse.PNG)
+
+::: {style="font-size: 30px;"}
+Through the course we will use this set of packages that contains a full set of tools used for doing data science with R. Know more about [tidyverse packages](https://www.tidyverse.org/)
+:::
+
+##
+
+::: {style="margin-top: 10px;"}
+Requisites: *tidyverse*
+:::
+
+### The *tidyverse* ecosystem for data analysis
+
+![](img/tidyverse_ecosystem.png){style="margin-left: 50px;"}
+
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 200px; font-size: 3em;"}
+Tibbles
+:::
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 10px;"}
+Tibbles
+:::
+
+::: footer
+EDA - Visualization: Tibbles
+:::
+
+### What is a tibble?
+All *tidyverse* packages use an special type of data structure called **tibble**. 
+
+**Tibbles** are similar to data frames but they have special features that make them more interesting for data analysis. 
+
+First all we need to load *tidyverse* package (take into account that this package will load all tidyverse packages including tibble one).
+
+```{r, echo=TRUE}
+library(tidyverse)
+```
+
+##
+
+::: {style="margin-top: 10px;"}
+Tibbles
+:::
+
+::: footer
+EDA - Visualization: Tibbles
+:::
+
+### From data frame to tibble
+```{r, echo=TRUE}
+tb <- as_tibble(iris)
+tb
+```
+
+##
+::: {style="margin-top: 10px;"}
+Tibbles
+:::
+
+::: footer
+EDA - Visualization: Tibbles
+:::
+
+### Creating a tibble
+```{r, echo=T}
+dt <- tibble(
+  p  = c("A", "B", "C", "D", "E"),
+  x = 1:5,
+  y = 2,
+  `sum of values` = x + y
+)
+dt
+```
+
+## Tibble vs Data Frame: Printing
+::: footer
+EDA - Visualization: Tibbles
+:::
+
+Tibbles have a more simplified and clean print that only show the first 10 rows by default
+
+
+```{r, echo=TRUE}
+iris
+```
+
+## Tibble vs Data Frame: Printing
+::: footer
+EDA - Visualization: Tibbles
+:::
+
+Tibbles have a more simplified and clean print that only show the first 10 rows by default
+
+```{r, echo=TRUE}
+df_t <- as_tibble(iris)
+df_t
+```
+
+## Tibble vs Data Frame: Printing
+::: footer
+EDA - Visualization: Tibbles
+:::
+
+But you can print more than 10 if you want
+
+```{r, echo=TRUE}
+# We use pipes here %>% 
+df_t %>% print(n = 11, width = Inf)
+```
+
+## Tibble vs Data Frame: Subsetting
+
+::: footer
+EDA - Visualization: Tibbles
+:::
+
+::: {style="font-size: 30px;"}
+For selecting a single variable we can use **$** (by name) or **[[** (by name or position)
+:::
+
+```{r, echo=TRUE}
+# by name
+df_t$Species[1:10]
+
+
+
+
+# by position
+df_t[[5]][1:10]
+
+```
+
+## Tibble vs Data Frame: Subsetting
+
+::: footer
+EDA - Visualization: Tibbles
+:::
+
+```{r, echo=TRUE}
+# by pipe
+df_t %>% .$Species
+```
+
+
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 200px; font-size: 3em;"}
+Visualization
+:::
+
+
+## Visualization
+
+
+At this part of the course we will focus on create and study visual representations with the data. Using **ggplot2** a package inside the *tidyverse* ecosystem to create visualizations. 
+
+Remember EDAs include visualization and data manipulation. This process, combined with the curiosity and skepticism, try to find interesting questions and answers about the data.
+
+## Visualization: *ggplot2*
+
+The visualization package of *tivyderse*. **G**rammar of **G**raphics comes from the work by Leland Wilkinson. It will help us describe the different components of the plot in a sequential way, with defining the different layers of the final visualization. 
+
+![](img/grammar-of-graphics.png){style="width:500px; aling:center;"}
+
+
+## 
+
+::: {style="margin-top: 10px;"}
+Visualization: Loading resources first
+:::
+
+::: {style="font-size: 30px;"}
+We need to load the library first, as it is part of tidyverse we will load the full package
+```{r, echo=TRUE}
+library(tidyverse) # Do library(ggplot2) for the package only
+```
+
+And we are going to use an specific data set we can load too...
+
+```{r, echo=TRUE}
+library(gapminder)
+```
+
+Make a first analysis on the data...
+
+```{r, echo=TRUE}
+glimpse(gapminder)
+```
+:::
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 200px; font-size: 3em;"}
+First visualization
+:::
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 10px;"}
+First visualization
+:::
+
+#### Relation between GDP per Capita & Life Expectancy
+```{r, echo=TRUE}
+gapminder67 <- gapminder %>% filter(year == "1967")
+ggplot(gapminder67, 
+     aes(gdpPercap, lifeExp, size = pop, color = continent)) + 
+     geom_point() +
+     scale_x_log10() # convert to log scale
+```
+
+##
+
+::: {style="margin-top: 10px;"}
+First visualization
+:::
+
+#### Relation between GDP per Capita & Life Expectancy
+```{r, echo=TRUE}
+#| code-line-numbers: "1"
+
+gapminder67 <- gapminder %>% filter(year == "1967") # filtering
+ggplot(gapminder67, 
+     aes(gdpPercap, lifeExp, size = pop, color = continent)) + 
+     geom_point() +
+     scale_x_log10()
+```
+
+
+##
+
+::: {style="margin-top: 10px;"}
+First visualization
+:::
+
+#### Relation between GDP per Capita & Life Expectancy
+```{r, echo=TRUE}
+#| code-line-numbers: "4"
+
+gapminder67 <- gapminder %>% filter(year == "1967")
+ggplot(gapminder67, 
+     aes(gdpPercap, lifeExp, size = pop, color = continent)) + 
+     geom_point() + # geometry of a scatter plot
+     scale_x_log10()
+```
+
+
+##
+
+::: {style="margin-top: 10px;"}
+First visualization
+:::
+
+#### Relation between GDP per Capita & Life Expectancy
+```{r, echo=TRUE}
+#| code-line-numbers: "2,3"
+
+gapminder67 <- gapminder %>% filter(year == "1967")
+ggplot(gapminder67, 
+     aes(gdpPercap, lifeExp, size = pop, color = continent)) + 
+     geom_point() +
+     scale_x_log10()
+```
+
+## How **ggplot2** works?
+
+* The **ggplot2** structures works as follows...
+
+```r
+ggplot(data = <DATA>, 
+       mapping = aes(x = <x-VARIABLE>, y = <y-VARIABLE>)) +
+   <GEOM_FUNCTION>() +
+   <OTHER_FUNCTIONS>()
+```
+
+Alternative structure...
+
+```r
+ggplot(data = <DATA>) +
+   <GEOM_FUNCTION>( mapping = aes(x = <x-VARIABLE>, y = <y-VARIABLE>)) +
+   <OTHER_FUNCTIONS>()
+```
+
+* **mapping** defines how the variables should be mapped on the different parts of the plot. 
+
+::: {style="font-size: 30px;"}
+Learn more here [ggplot2.tidyverse.org](https://ggplot2.tidyverse.org/)
+:::
+
+
+## Step by step
+First view of the data...
+```{r, echo=TRUE}
+glimpse(gapminder)
+```
+
+## Step by step
+We are going to filter a bit to concrete the analysis in one year...
+```{r, echo=TRUE}
+gapminder67 <- gapminder %>% filter(year == "1967") 
+gapminder67
+```
+
+## Step by step
+First visualization, can you describe the relation between both variables?
+```{r, echo=TRUE}
+ggplot(gapminder67, aes(x = gdpPercap, y = lifeExp) ) +  
+     geom_point()
+```
+
+## Step by step
+Improved visualization, can you describe better now the relation between both variables? 
+```{r, echo=TRUE}
+ggplot(gapminder67, aes(x = gdpPercap, y = lifeExp) ) +  
+     geom_point() +
+     scale_x_log10() # normalize values for better display
+```
+
+## Additional variables
+We can use more functionalities to represent more information and variables in the plot using mapping parameters:
+
+* **aesthetics**
+  * shape
+  * color
+  * size
+  * alpha (transparency)
+
+* **faceting**: more plots inside the full graphic
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 200px; font-size: 3em;"}
+Aesthetics mappings
+:::
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 30px;"}
+**Aesthetics mappings**
+:::
+
+::: footer
+EDA - Visualization: Aesthetics
+:::
+
+Aesthetics will help us incorporate more information to our plot, helping introducing more variables with different options. 
+
+Here are some of the ones we can use...
+
+* shape
+* color / fill (first one borders, second full figure)
+* size
+* alpha (transparency)
+
+
+##
+
+::: {style="margin-top: 10px;"}
+**Aesthetics mappings**
+:::
+
+::: footer
+EDA - Visualization: Aesthetics
+:::
+
+### Representing the continent I
+
+```{r, echo=T}
+ggplot(gapminder67, mapping = aes(x = gdpPercap, y = lifeExp, 
+                                  color = continent) ) +
+     geom_point() +
+     scale_x_log10()
+```
+
+
+##
+
+::: {style="margin-top: 10px;"}
+**Aesthetics mappings**
+:::
+
+::: footer
+EDA - Visualization: Aesthetics
+:::
+
+### Representing the continent II
+
+```{r, echo=T}
+ggplot(gapminder67, mapping = aes(x = gdpPercap, y = lifeExp, 
+                                  color = continent,
+                                  shape = continent) ) +
+     geom_point() +
+     scale_x_log10()
+```
+
+##
+
+::: {style="margin-top: 10px;"}
+**Aesthetics mappings**
+:::
+
+::: footer
+EDA - Visualization: Aesthetics
+:::
+
+### Representing the continent & population I
+
+```{r, echo=T}
+ggplot(gapminder67, mapping = aes(x = gdpPercap, y = lifeExp, 
+                                  color = continent,
+                                  shape = continent,
+                                  size = pop) ) +
+     geom_point() +
+     scale_x_log10()
+```
+
+##
+
+::: {style="margin-top: 10px;"}
+**Aesthetics mappings**
+:::
+
+::: footer
+EDA - Visualization: Aesthetics
+:::
+
+### Representing the continent & population II
+
+```{r, echo=T}
+ggplot(gapminder67, mapping = aes(x = gdpPercap, y = lifeExp, 
+                                  color = continent,
+                                  shape = continent,
+                                  size = pop)) +
+     geom_point(size = 3) +
+     scale_x_log10()
+```
+
+##
+
+::: {style="margin-top: 10px;"}
+**Aesthetics mappings**
+:::
+
+::: footer
+EDA - Visualization: Aesthetics
+:::
+
+### To Sum Up
+
+::: {style="font-size: 30px;"}
+We can represent both continuous and discrete variables
+
+| aesthetic | discrete | continuous |
+|-----------|----------|------------|
+| color / fill    | different colors | gradient coloring |
+| shape     | different shapes | doesn't work with |
+| size      | discrete steps   | linear mapping    |
+
+:::
+
+::: {.callout-note appearance="simple"}
+## Inside or outsider *aes()* function
+Use the aesthetic inside ```aes()``` function when referring to a data variable, otherwise use outside the function to establish a global configuration for the geometric being used. 
+:::
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 200px; font-size: 3em;"}
+Facets
+:::
+
+
+## {auto-animate="true"}
+
+::: {style="margin-top: 10px;"}
+**Facets**
+:::
+
+::: footer
+EDA - Visualization: Facets
+:::
+
+::: {style="font-size: 30px;"}
+Faceting has been designed to create multiple plots in one single plot by different variables. **Single Variable**
+:::
+
+```{r, echo=T}
+ggplot(data = gapminder67, aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point() +
+  labs(title = "GDP per Capita vs Life Expectancy",
+       subtitle = "By continent",
+       x = "GDP per Capita ($)", y =  "Life Expectancy (years)") +
+  facet_grid(. ~ continent)
+
+```
+
+
+##
+
+::: {style="margin-top: 10px;"}
+**Facets**
+:::
+
+::: footer
+EDA - Visualization: Facets
+:::
+
+::: {style="font-size: 30px;"}
+Faceting has been designed to create multiple plots in one single plot by different variables: **Single Variable** 
+:::
+```{r, echo=T}
+#| code-line-numbers: "6"
+#| 
+ggplot(data = gapminder67, aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point() +
+  labs(title = "GDP per Capita vs Life Expectancy",
+       subtitle = "By continent",
+       x = "GDP per Capita ($)", y =  "Life Expectancy (years)") +
+  facet_grid(. ~ continent)
+
+```
+
+##
+
+::: {style="margin-top: 10px;"}
+**Facets**
+:::
+
+::: footer
+EDA - Visualization: Facets
+:::
+
+::: {style="font-size: 30px;"}
+Faceting has been designed to create multiple plots in one single plot by different variables: **Single Variable** 
+:::
+```{r, echo=T}
+#| code-line-numbers: "6"
+#| 
+ggplot(data = gapminder67, aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point() +
+  labs(title = "GDP per Capita vs Life Expectancy",
+       subtitle = "By continent",
+       x = "GDP per Capita ($)", y =  "Life Expectancy (years)") +
+  facet_grid(continent ~ .)
+
+```
+
+##
+::: {style="margin-top: 10px;"}
+**Facets**
+:::
+
+::: footer
+EDA - Visualization: Facets
+:::
+
+::: {style="font-size: 30px;"}
+Faceting has been designed to create multiple plots in one single plot by different variables: **Single Variable** 
+:::
+```{r, echo=T}
+#| code-line-numbers: "6"
+#| 
+ggplot(data = gapminder67, aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point() +
+  labs(title = "GDP per Capita vs Life Expectancy",
+       subtitle = "By continent",
+       x = "GDP per Capita ($)", y =  "Life Expectancy (years)") +
+  facet_wrap(continent ~ .)
+
+```
+
+
+
+##
+
+::: {style="margin-top: 10px;"}
+**Facets**
+:::
+
+::: footer
+EDA - Visualization: Facets
+:::
+
+::: {style="font-size: 30px;"}
+Faceting has been designed to create multiple plots in one single plot by different variables: **Single Variable** 
+:::
+```{r, echo=T}
+#| code-line-numbers: "6"
+#| 
+ggplot(data = gapminder67, aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point() +
+  labs(title = "GDP per Capita vs Life Expectancy",
+       subtitle = "By continent",
+       x = "GDP per Capita ($)", y =  "Life Expectancy (years)") +
+  facet_wrap(continent ~ ., scales = "free_x")
+
+```
+
+##
+
+::: {style="margin-top: 10px;"}
+**Facets**
+:::
+
+::: footer
+EDA - Visualization: Facets
+:::
+
+### To Sum Up
+
+* **facet_grid()**
+  * 2 dimensions: **rows ~ columns**
+  * use **.** to avoid using one of them 
+
+* **facet_wrap()**
+  * 1 dimension
+  * use **scales = ("free_x", "free_y", "free")** to fix the scales of the different subplots
+
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 200px; font-size: 2em;"}
+Visualizing Different Data Types
+:::
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 30px;"}
+Visualizing Different Data Types
+:::
+
+::: footer
+EDA - Visualization: Data Types
+:::
+
+### Analysis depending on number of variables
+
+* **Uni-variate Data Analysis**: Single variable distribution. 
+
+* **Bi-variate Data Analysis**: Relation between two variables. 
+
+* **Multi-variate Data Analysis**: Relation between different variables, normally focusing between two of them but conditioned by the rest. 
+
+
+##
+
+::: {style="margin-top: 30px;"}
+Visualizing Different Data Types
+:::
+
+::: footer
+EDA - Visualization: Data Types
+:::
+
+
+### Types of variables
+::: {style="font-size: 30px;"}
+* **Numeric**: Data expressed on a numeric scale
+  * *Continuous*: Can take any value in an interval (float, numeric)
+  * *Discrete*: Can take only integer values, such counts. 
+
+* **Categorical**: Data expressed with an specific set of values or categories. 
+  * *Binary*: Special case when only two values are possible e.g. 1/0, true/false, yes/no, etc. 
+  * *Ordinal*: Categorical data that follows an explicit order
+  * *Non-Ordinal*: Rest of categorical representations not covered in last groups. 
+
+:::
+
+##
+
+::: {style="margin-top: 30px;"}
+Visualizing Different Data Types
+:::
+
+::: footer
+EDA - Visualization: Data Types
+:::
+
+
+### Types of variables
+Some examples...
+
+* the height of a person is?
+* the number of votes for each party is?
+* the years of a person is?
+* the color of the eyes is?
+* the size of a shirt is?
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 200px; font-size: 2em;"}
+Visualizing Uni-Variate Numeric Values
+:::
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 30px;"}
+Visualizing Uni-Variate Numeric Values
+:::
+
+::: footer
+EDA - Visualization: Uni-Variate Numeric
+:::
+
+### What we should analyze in this case?
+::: {style="font-size: 30px;"}
+* **Shape**: how the data is represented...
+  * asymmetry: symmetric, asymmetric to the right, asymmetric to the left
+  * mode: single mode, more than one mode, uniform. 
+
+* **Location or Centrality**: mean, median, mode
+
+* **Variability or Dispersion**: rank, standard deviation, interquartile range
+
+* **Outliers**: anomalies on the data 
+:::
+
+## Analyzing Anscombe Quartet
+::: footer
+EDA - Visualization: Uni-Variate Numeric
+:::
+
+```{r, echo=TRUE}
+library(Tmisc) # loading Tmisc
+
+quartet %>%
+  group_by(set) %>% # grouping the data by set
+  summarise( 
+    mean_x = mean(x), mean_y = mean(y),
+    sd_x = sd(x), sd_y = sd(y),
+    r = cor(x, y)
+  ) # summarizing main stats
+```
+
+
+## Visualizing Anscombe Quartet
+::: footer
+EDA - Visualization: Uni-Variate Numeric
+:::
+
+```{r, echo=T}
+ggplot(quartet, aes(x = x, y = y)) +
+  geom_point() +
+  facet_wrap(~ set, ncol = 4)
+```
+
+## 
+
+### Uni-Variate Numeric Values
+::: footer
+EDA - Visualization: Uni-Variate Numeric
+:::
+
+Using histograms...
+
+```{r, echo=TRUE}
+ggplot(gapminder67, mapping = aes(x = gdpPercap)) + 
+     geom_histogram(binwidth = 1000)
+```
+
+## 
+
+### Uni-Variate Numeric Values
+::: footer
+EDA - Visualization: Uni-Variate Numeric
+:::
+
+Using histograms...
+
+```{r, echo=TRUE}
+ggplot(gapminder67, mapping = aes(x = gdpPercap)) + 
+     geom_histogram(bins = 100)
+```
+
+## 
+
+### Uni-Variate Numeric Values
+::: footer
+EDA - Visualization: Uni-Variate Numeric
+:::
+
+More simple approach... density plot
+
+```{r, echo=TRUE}
+ggplot(gapminder67, mapping = aes(x = gdpPercap)) + 
+     geom_density(color = "blue") + # density plot
+     theme_bw()
+```
+
+## 
+
+### Uni-Variate Numeric Values
+::: footer
+EDA - Visualization: Uni-Variate Numeric
+:::
+
+All together...
+
+```{r, echo=TRUE}
+ggplot(gapminder67, mapping = aes(x = gdpPercap, y =..density..)) + 
+     geom_histogram(bins = 100, fill="grey") + 
+     geom_density(color = "blue") + # density plot
+     theme_bw()
+```
+
+##
+
+::: {style="margin-top: 200px; font-size: 2em;"}
+Visualizing Uni-Variate Categorical Values
+:::
+
+## Uni-Variate Categorical Values
+
+::: footer
+EDA - Visualization: Uni-Variate Categorical
+:::
+
+Bar plot... (uses stats by default to count observations)
+
+```{r, echo=TRUE}
+ggplot(gapminder67, mapping = aes(x = continent)) + 
+  geom_bar()
+```
+
+
+## Uni-Variate Categorical Values
+
+::: footer
+EDA - Visualization: Uni-Variate Categorical
+:::
+
+Column plot... (need more data treatment for doing the same)
+
+```{r, echo=TRUE}
+gapminder67 %>% 
+  group_by(continent) %>% 
+  summarise(count = n()) %>% 
+ggplot(gapminder67, mapping = aes(x = continent, y = count)) + 
+  geom_col()
+```
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 200px; font-size: 2em;"}
+Visualizing Bi-Variate Data
+:::
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 30px;"}
+Visualizing Bi-Variate Data
+:::
+
+::: footer
+EDA - Visualization: Bi-Variate
+::: 
+
+### Continous - Categorical
+
+```{r, echo=T}
+ggplot(gapminder67, mapping = aes(x = continent, y = gdpPercap)) +
+  geom_boxplot()
+```
+
+
+##
+
+::: {style="margin-top: 30px;"}
+Visualizing Bi-Variate Data
+:::
+
+::: footer
+EDA - Visualization: Bi-Variate
+::: 
+
+### Boxplots Review
+
+![](img/data-science-explore.jpeg)
+
+##
+
+::: {style="margin-top: 30px;"}
+Visualizing Bi-Variate Data
+:::
+
+::: footer
+EDA - Visualization: Bi-Variate
+::: 
+
+### Continous - Continous
+
+See patterns and tendency in the data...
+```{r, echo=TRUE}
+ggplot(gapminder67, aes(x = gdpPercap, y = lifeExp) ) +
+  geom_point() +
+  scale_x_log10() +
+  geom_smooth()
+```
+
+
+
+##
+
+::: {style="margin-top: 30px;"}
+Visualizing Bi-Variate Data
+:::
+
+::: footer
+EDA - Visualization: Bi-Variate
+::: 
+
+### Categorical - Categorical (I)
+
+```{r, echo=TRUE}
+ggplot(data = diamonds, mapping = aes(x = clarity, fill = cut)) +
+  geom_bar()
+```
+
+
+##
+
+::: {style="margin-top: 30px;"}
+Visualizing Bi-Variate Data
+:::
+
+::: footer
+EDA - Visualization: Bi-Variate
+::: 
+
+### Categorical - Categorical (II)
+
+```{r, echo=TRUE}
+ggplot(data = diamonds, mapping = aes(x = clarity, fill = cut)) +
+  geom_bar(position = "fill") +
+  labs(y = "proportion")
+```
+
+
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 200px; font-size: 2em;"}
+Visualizing Statistical Transformations
+:::
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 30px;"}
+Visualizing Statistical Transformations
+:::
+
+::: footer
+EDA - Visualization: Stats
+::: 
+
+### Stats
+
+::: {style="font-size: 30px;"}
+Plots like histograms, box plots or bar plots make transformations of the data prior to their representation:
+
+* Bar plots and Histograms: cluster the data and represent a number for each cluster.
+
+* Smoothers: adjust the model and represent predictions generate by the same model.
+
+* Box plots: calculate a summary of the distribution and show it in a determine format. 
+
+The argument we use for telling the geometric which method to use is **stat** you can see it using ```? geom_bar``` documentation. 
+:::
+
+## Statistical Transformations
+
+::: footer
+EDA - Visualization: Stats
+::: 
+
+```{r, echo=TRUE}
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut))
+```
+
+
+## Statistical Transformations
+
+::: footer
+EDA - Visualization: Stats
+::: 
+
+You can create your own stats...
+
+```{r, echo=TRUE}
+ggplot(data = diamonds) +
+  stat_summary(
+    mapping = aes(x = cut, y = depth),
+    fun.min = min,
+    fun.max = max,
+    fun = median
+    )
+```
+
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 200px; font-size: 2em;"}
+Position Adjustment 
+:::
+
+##  Position Adjustment
+We can handle the position of our bar plots using **position** argument:
+
+```r
+ggplot(data = diamonds) +
+geom_bar(mapping = aes(x = cut, fill = clarity), position="identity")
+```
+<br>
+
+Argument options:
+
+::: {layout-ncol=3}
+
+![identity](img/identity.png){style="width:300px"}
+
+![fill](img/fill.png){style="width:300px;"}
+
+![dodge](img/dodge.png){style="width:300px;"}
+
+:::
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 200px; font-size: 3em;"}
+Coordinates
+:::
+
+##  Position Adjustment
+
+::::: {style="font-size:30px;"}
+
+By default ggplot uses Cartesian coordinates (x,y), but you can modify them easily using ```coord_XXXX()``` functions. 
+
+:::: {.columns}
+
+::: column
+```{r, echo=T}
+ggplot(data = mpg, 
+       mapping = aes(x =class, y=hwy)) +
+  geom_boxplot()
+```
+:::
+
+::: column
+```{r, echo=T}
+#| code-line-numbers: "4"
+ggplot(data = mpg, 
+       mapping = aes(x =class, y=hwy)) +
+  geom_boxplot() +
+  coord_flip()
+```
+:::
+
+::::
+
+:::::
+
+##  Position Adjustment: Maps
+
+::::: {style="font-size:30px;"}
+
+You can use maps for your plots, and with `coord_quickmap()` it will compute the accurate ratio for the maps.
+
+
+:::: {.columns}
+
+::: column
+```{r, echo=T}
+library(maps)
+nz <- map_data("nz")
+
+ggplot(nz, aes(long, lat, group = group)) +
+  geom_polygon(fill = "white", 
+               colour = "black")
+```
+
+:::
+
+::: column
+
+```{r, echo=T}
+#| code-line-numbers: "4"
+ggplot(nz, aes(long, lat, group = group)) +
+  geom_polygon(fill = "white", 
+               colour = "black") +
+  coord_quickmap()
+```
+
+:::
+
+::::
+
+:::::
+##  Position Adjustment
+
+:::: {style="font-size:30px;"}
+
+**coord_polar()** 
+
+:::: {.columns}
+
+::: column
+```{r, echo=T}
+ggplot(diamonds) +
+  geom_bar(
+    aes(x = cut, fill=cut),
+    show.legend = F,
+    width = 1
+  ) +
+  theme(aspect.ratio = 1) +
+  labs(x=NULL, y=NULL) +
+  coord_flip()
+```
+
+:::
+
+::: column
+```{r, echo=T}
+#| code-line-numbers: "9"
+ggplot(diamonds) +
+  geom_bar(
+    aes(x = cut, fill=cut),
+    show.legend = F,
+    width = 1
+  ) +
+  theme(aspect.ratio = 1) +
+  labs(x=NULL, y=NULL) +
+  coord_polar()
+```
+
+:::
+
+::::
+
+:::::
+
+## To Sum Up *ggplot*
+
+```r
+ggplot(data = <DATA>) +
+  <GEOM_FUNCTION_1>(
+    mapping = aes(<MAPPINGS>),
+    stat = <STAT>,
+    position = <POSITION>
+    ) +
+    ... +
+  <GEOM_FUNCTION_N> +
+  <COORDINATE_FUNCTION> +
+  <FACET_FUNCTION> +
+  <THEME_FUNCTION> +
+  <LABELS>
+```
+
+::: {style="font-size:30px;"}
+Remember...
+
+* you can define multiple geometric inside the same plot, they will overlap each other. 
+* if you define mapping on the ggplot initial function they will be global for all geometric.
+
+::: 
+
+## Last tips: Communication 
+::: {style="font-size:30px;"}
+Try to adapt your plots to the message you want to share and to the final customer, after all if they don't understand quickly what you are showing they will loose interest. 
+
+Be practical and simple, depending on the context: 
+
+* technical or scientific (probably you can be more complex), 
+
+* executive review (be simple and make the visualization that shows the message you want to tell)
+
+Recommended further reading... [StorytellingWithData](https://www.storytellingwithdata.com/), to create simple and powerful plots to your executive presentations. 
+
+:::
+
+## 
+![](img/final.gif){width=1000}

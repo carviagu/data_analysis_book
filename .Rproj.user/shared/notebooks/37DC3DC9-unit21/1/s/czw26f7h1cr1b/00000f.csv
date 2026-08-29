@@ -1,0 +1,2 @@
+"0","ggplot(gapminder67, mapping = aes(x = gdpPercap)) + "
+"0","     geom_histogram(bins = 100)"

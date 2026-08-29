@@ -1,0 +1,15 @@
+{
+  "hash": "4365b6b4f1216672721d70f7a3bd2f13",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# Packages & Libraries {.unnumbered}\n\nAs we have seen, R base has a lot of pre-defined functions and tools you can use when programming. But sometimes (very often) we will need more tools don't available by default... we can build a function to do that... but probably we can use already created **packages** by other users that have a lot of functions that do what we need.\n\nA **package** is an extension for R that includes functions and data sets we can use and load in our projects. The possibility of using and creating code packages makes powerful R helping doing different tasks.\n\nYou can learn more about packages [here](http://www.sthda.com/english/wiki/installing-and-using-r-packages).\n\nFor installing a package we just need to type the following command in our R console...\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code  code-line-numbers=\"false\"}\ninstall.packages(\"tidyverse\")\n```\n:::\n\n\n\n\nWhen installing packages with this command, **never** type it on the script to avoid issues and possible problems if you already have the library installed.\n\nOnce installed we need to load it to use it, we can do that writing in our scripts the following command at the beginning of the code...\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code  code-line-numbers=\"false\"}\nlibrary(\"tidyverse\")\n```\n:::\n\n\n\n\nIt is recommended to write this commands at the beginning of the script so the programmer can see all libraries needed.",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

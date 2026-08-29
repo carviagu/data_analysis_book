@@ -1,0 +1,8 @@
+"0",""
+"0","# Selection with column names"
+"0","df[c(1,3), ""consolidate""]"
+"1","[1]"
+"1"," ""YES"""
+"1"," ""NO"" "
+"1","
+"

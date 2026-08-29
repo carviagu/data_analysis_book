@@ -1,0 +1,138 @@
+# Facets {.unnumbered}
+
+
+In some cases we will want to develop different sub-plots into the same plot or show the information separated for better visualization.
+
+Imagine that we are working with the same plot as the last topics covered:
+
+```{r, echo=T, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(gapminder)
+
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, color = continent)) + 
+  geom_point( alpha=0.5) +
+  labs(title = "GDP per Capita vs Life Expectancy",
+       subtitle = "By continent",
+       x = "GDP per Capita ($)", y =  "Life Expectancy (years)")
+
+```
+
+But for improving our visualization we want to see it separated for each continent instead of all the information on the same plot.
+
+```{r, echo=T}
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point(alpha=0.5) +
+  labs(title = "GDP per Capita vs Life Expectancy",
+       subtitle = "By continent",
+       x = "GDP per Capita ($)", y =  "Life Expectancy (years)") +
+  facet_wrap(vars(continent))
+```
+
+Using this configuration we can created different plots for each category, continent in this case, and analyze the information much better.
+
+Depending on the type of facet we want to generate we can play with `facet_grid` or `facet_wrap`.
+
+## Faceting using Grids: `facet_grid`
+
+Facet Grid works dividing the ggplot canvas in different areas creating a grid of rows and columns. For using it we need to use the function `facet_grid()` and provide to the grid the `facets`, the variables to use for generating the subplot.
+
+For defining the facets we need to follow this format `rows ~ columns`, where rows will be the variable we want to use for generating subplots in each row, columns the same but per column. We can define only one of them or both.
+
+For example we want to see the information per continent showing all continents in columns...
+
+```{r, echo=T}
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point(alpha=0.5) +
+  labs(title = "GDP per Capita vs Life Expectancy",
+       subtitle = "By continent",
+       x = "GDP per Capita ($)", y =  "Life Expectancy (years)") +
+  scale_x_log10()+
+  facet_grid(.~continent)
+```
+
+The other way, we want to see the information per continent showing all continents in rows...
+
+```{r, echo=T}
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point(alpha=0.5) +
+  labs(title = "GDP per Capita vs Life Expectancy",
+       subtitle = "By continent",
+       x = "GDP per Capita ($)", y =  "Life Expectancy (years)") +
+  scale_x_log10()+
+  facet_grid(continent~.)
+```
+
+As you can see, when we do not use any of the dimensions we type `.` so R understands that we do not use that dimension.
+
+::: callout-caution
+
+# Exercise
+
+Try now to generate the same plot but using two dimensions, so you see all continents in columns and the year as rows. This way we will have one plot for each year for each continent. Use the new `gapminder_90` data frame generated on the code below.
+
+:::
+
+## Faceting using Wraps: `facet_wrap`
+
+Facet Wrap works generating plots randomly and not following any defined structure like the Grid system. With wrap you can create different subplots and they will be generated one by one.
+
+In this case we do not follow the rows and columns system, instead we use `vars()` function to provide the variable we want to use.
+
+Same plot using continent in columns section.
+
+```{r, echo=T}
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point(alpha=0.5) +
+  labs(title = "GDP per Capita vs Life Expectancy",
+       subtitle = "By continent",
+       x = "GDP per Capita ($)", y =  "Life Expectancy (years)") +
+  scale_x_log10()+
+  facet_wrap(vars(continent))
+```
+
+Consider that you can use the same rows and columns syntax, but the output won't change as facet_wrap doesn't considers any structure.
+
+::: callout-caution
+
+# Exercise
+
+Try now to generate the same plot but using two dimensions as the last exercise. This way we will have one plot for each year for each continent. Use the same gapminder_90 dataframe of the last exercise.
+:::
+
+
+## Freeing the scales
+
+By default when the plots are being generated you will see that all plots have fixed axis, and share the same scales. This is perfect for improving comparability and read the data into the same scaling.
+
+In some cases we will want that each plot has different scales and is adjusted to the data being displayed. This is only fully possible using `facet_wrap`. As it doesn't follow any grid structure and makes possible separating the axis, in `facet_grid` we can only do it on the not shared axis.
+
+For doing that there is an argument called `scales` inside the facet function. This can be:
+
+-   "fixed" by default to fix all scales and share them.
+-   "free" to free both x and y so they are indepent for each plot.
+-   "free_x" or "free_y" to free only x or y, and share the other axis.
+
+So imagine we want to free all axis of the plot, it will look like this:
+
+```{r, echo=T}
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point(alpha=0.5) +
+  labs(title = "GDP per Capita vs Life Expectancy",
+       subtitle = "By continent",
+       x = "GDP per Capita ($)", y =  "Life Expectancy (years)") +
+  scale_x_log10()+
+  facet_wrap(vars(continent), scales = "free")
+```
+
+::: callout-caution
+
+# Exercise
+
+Repeat the last plot but now: 
+
+1. Use facet_wrap and free y. 
+2. Use facet_wrap and free x. 
+3. Use facet_grid showing continent on columns and free x. 
+4. Use facet_grid showing continent on columns and free y, it is really free?
+
+:::

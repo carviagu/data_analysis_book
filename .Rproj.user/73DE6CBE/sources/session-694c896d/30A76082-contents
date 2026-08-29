@@ -1,0 +1,210 @@
+---
+title: "Communication"
+subtitle: "Data Analysis & Information Extraction"
+author: "Carlos Viñals Guitart"
+format: 
+  revealjs:
+    logo: "img/logo2.png"
+    footer: "Communication"
+    highlight-style: github
+---
+
+
+## Unit overview
+
+
+```{r}
+library(tidyverse)
+```
+
+::: {style="font-size: 30px;"}
+**Content**
+:::
+
+::: {style="font-size: 30px;"}
+
+* Introduction to Markdown
+* Simple document: RMarkdown
+* Markdown Syntax
+* First glimpse of Quarto
+
+:::
+
+::: {style="font-size: 30px;"}
+<br>
+
+**References**
+
+* [RMarkdown Official Site](https://rmarkdown.rstudio.com)
+* [Quarto Official Site with R](https://quarto.org/docs/computations/r.html)
+
+:::
+
+## Communication
+
+Finally, the aim of this unit is to show you how to make reports in a reproducible and automated way. 
+
+![](img/data-science-communicate.png)
+
+## 
+
+#### Reviewing the resources in our analysis process
+
+![](img/tidyverse_ecosystem.png){style="margin-left: 50px;"}
+
+## What is Markdown?
+
+Markdown is a plain-text formatting syntax that can be converted to XHTML or other formats, like PDF. 
+
+It is widely used for developing reports, documents, slides and any other of formats that include code, plots, images, etc. 
+
+It is widely used in Data Science and Scientific research, as it allows to create reproducible documentation and automate reporting processes. 
+
+## Markdown in R
+
+In R we can create markdown files with our code to create reports or slides with our results and reports...
+
+There are several implementations:
+
+* **RMarkdown** document [.rmd extension]
+* **Quarto** document (**NEW**) [.qmd extension]
+
+We will start using RMarkdown to know the basics as they are used in the two types of documents. 
+
+## RMarkdown (.rmd)
+
+R Markdown is the first implementation for writing reports with R and Markdown syntax. We can create a simple R Markdown file as follows...
+
+1. Open a Rmd file
+2. Write some **content** and include some **code**
+3. Render it to the selected format (html, pdf, etc.)
+
+## RMarkdown (.rmd)
+
+::: {layout-ncol="2"}
+
+::: {.column}
+
+::: {style="font-size:30px"}
+
+Go to File > New File > RMarkdown
+
+:::
+
+![](img/new_rmd_file_menu_1.png)
+
+::: {style="font-size:30px"}
+
+In the creation pop-up enter the fields and output file type, we will use html or pdf this course (you can change them later)
+::: 
+
+:::
+
+::: {.column}
+
+![](img/new_rmd_file_menu_2.png)
+
+:::
+
+:::
+
+## File structure
+
+![](img/markdown_layout.png)
+
+## YAML part for rendering
+
+::: {style="font-size:30px"}
+
+Markdown files for R are divided in two parts, a first section where we can find file attributes like title, author and parameters for rendering. This is called YAML...
+
+:::
+
+```yaml
+---
+title: "Untitled"
+author: "Luke Skywalker"
+output: html_document
+date: "2023-08-25"
+---
+```
+
+::: {.columns style="font-size:30px}
+
+**output**
+
+* pdf_document (for generate a pdf)
+* html_document (for generate a html website type)
+
+more parameters are available to customize your file
+
+:::
+
+## Rendering
+
+When rendering R will execute each fragment of code in the file (if there are errors rendering will fail). It will generate a new version of the file in the selected output. 
+
+Normally a preview of the file will open once finished and the file will se saved in your working directory. 
+
+`knitr` package should be installed for doing the rendering as is the motor used. In case of generating a pdf you will need to have installed `tinytex` look for your PC needs in this case. 
+
+## Markdown Syntax
+::: {layout-ncol="2" style="font-size:30px"}
+
+::: {.column}
+Writing
+
+![](img/md_text.png)
+:::
+
+::: {.column}
+Miscellaneous
+
+![](img/md_miscellaneous.png)
+
+:::
+
+:::
+
+## Markdown Syntax
+
+::: {.columns style="font-size:30px"}
+
+::: {.column}
+Blocks & tables
+
+![](img/md_special.png)
+
+:::
+
+::: {.columns}
+
+:::
+
+:::
+
+## Markdown Syntax:  Code
+
+![](img/code_chunks.png)
+
+## Markdown Syntax:  Code
+
+![](img/chunk_options.png)
+
+## Quarto, the next step
+
+::: {style="font-size:30px"}
+
+Quarto is the next step for markdown documentation it preserves the same features of RMarkdown but now including new ones as well as being capable of using it with other programming languages, like python. 
+
+It comes pre-installed inside your RStudio installation. You should be able to create quarto documents following the steps used for RMarkdown, but selecting Quarto Document this time. 
+
+If you open the document you will see is pretty similar to a RMarkdown file, but internally works a litter bit different and has new features that make it more powerful. All the features and functionalities you have learn from RMardown are valid and used in quarto so you already know how to use it.
+
+:::
+
+![](img/quarto.png){width=300}
+
+
+## 
+![](img/final.gif){width=1000}

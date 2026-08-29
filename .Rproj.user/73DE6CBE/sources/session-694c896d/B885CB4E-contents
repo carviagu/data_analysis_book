@@ -1,0 +1,60 @@
+---
+title: "Software Installation Guide"
+author: "R & RStudio IDE Software"
+latex-tinytex: false
+pdf-engine: lualatex
+format: 
+  pdf:
+      fontfamily: libertinus
+      include-in-header: 
+         text: |
+          \usepackage{titling}
+          \usepackage{fancyhdr}
+          \pagestyle{fancyplain} % use fancy for all pages except chapter start
+          \rhead{\includegraphics[height=1cm]{logo_new.png}} % right logo
+          \pretitle{\begin{flushleft}\huge\bfseries}
+          \posttitle{\end{flushleft}}
+          \renewcommand\maketitlehookc{\vspace{-5em}}
+          \preauthor{\begin{flushleft}\Large}
+          \postauthor{\end{flushleft}}
+---
+
+For working during the course you will need to install the needed software on your computer. In this document you will find the installation recommendations and steps you must follow to make your computer ready for the course.
+
+# Prior recommendations
+
+There are some rules we suggest following when doing programming, here are some useful tips:
+
+::: callout-important
+# File Naming Conventions
+
+Do not use special characters, blank spaces when naming files, folders. This will avoid problems when installing and executing code in the future.
+:::
+
+::: callout-tip
+# Display File Extensions
+
+It is strongly recommended to show file extensions on all the files. A file extension is the text you can find below the file name, for example in `synopsis.txt`, the `.txt` part tell us is a text file. Generally, this extensions are visible in majority of operative systems, for Windows users it is hidden by default, but you can change it using [**this tutorial**](https://www.howtogeek.com/205086/beginner-how-to-make-windows-show-file-extensions/).
+:::
+
+# R Language
+
+We are going to learn R, so you will need to install it in your computer. This will let you use it and your computer understand it for executing the code.
+
+R language is a powerful tool for doing statistics analysis and data manipulation, optimizing your work and allowing you making further analysis.
+
+It is maintained by an international team of developers who make the language available through the web page of [**The Comprehensive R Archive Network**](https://cran.r-project.org/). The top of the web page provides three links for downloading R. Follow the link that describes your operating system (OS): Windows, Mac, or Linux.
+
+# RStudio IDE
+
+For using R you would need to have a development environment (IDE), a set of tools for working properly and take the whole potential of the programming language. RStudio will be the IDE we are going to use...
+
+- It is the same for every OS.
+- It is widely use by everyone who works with R
+- It is free!
+
+You can download RStudio for desktop, from its [**official website**](https://www.rstudio.com/products/rstudio/), and there is also an online version in case you needed. Here you can find the [**download links**](https://docs.posit.co/ide/user/#direct-downloads-open-source).
+
+For installing all, you can follow [**this chapter**](https://rstudio-education.github.io/hopr/starting.html#how-to-download-and-install-r) from an online book that explains with detail how to install it in each operative system. You can find also tutorial throughout the internet to help you (videos, blogs, etc.).
+
+You can start learning about the IDE on how to use it in the following online guide avaiable [**here**](https://docs.posit.co/ide/user/ide/guide/ui/ui-panes.html).

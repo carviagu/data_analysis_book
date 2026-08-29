@@ -1,0 +1,276 @@
+---
+title: "1.2 Basics & Objects in R"
+output: 
+  html_document:
+    toc: true
+---
+
+## Introduction to R Markdown Notebooks
+
+In the last lesson you saw what is a R script, now you are going to learn to use **R notebooks (.Rmd)**.
+
+This type of file **combines both code and text in a single file**, so you can have a full detailed document with your code and explanations ordered.
+
+In the top of document source code you can see a configuration block called `yaml`, in this block we defined the document name (`title`) and the kind of output we want when rendering the document (`output`), by default it will be an html file. See how the output is generated pressing `Knit` button.
+
+You can write text using Markdown syntax and write code using the code chunks like the one below. You will see that the output of the code is displayed below.
+
+```{r}
+# This is a code chunk
+print("Hello World")
+```
+
+During the course we will use both scripts and notebooks to understand the different concepts.
+
+## Variables
+
+As we have seen you can use variables in R to store values and intermediate results and use them later. For assigning variables we use `<-` notation.
+
+```{r}
+# We define variable 'a' that stores number 10
+a <- 10
+a
+```
+
+```{r}
+# We increase by 3 and store the result on new variable 'b'
+b <- a + 3
+b
+```
+
+You can control all variables in your environment tab of RStudio.
+
+> **Tip:** When naming a variable you can't use special characters like '\$','\@', etc.
+
+```{r}
+# Assign to 'a' a new value, what happens to the old one?
+```
+
+## Introduction to Functions
+
+In R we have some predefined functions. Functions are small programs designed to support quick operations and be reusable each time we need it.
+
+For example function `mean`:
+
+```{r}
+mean(1:10)
+```
+
+We have a lot of different useful functions like `min`, `max`, `log`, etc. If you have any doubt on how to use them type `? function_name` to see the function documentation.
+
+## Basic Types
+
+For programming R uses different data types that we need to know and understand:
+
+### numeric
+
+```{r}
+c <- 5
+d <- 6
+c + d
+```
+
+Use function `class` to know the object you are working with...
+
+```{r}
+class(d)
+```
+
+Inside `numeric` class we can have different sub-types...
+
+```{r}
+# typeof checks the inner type inside the class
+typeof(d)
+typeof(1.5)
+typeof(1L) # integer
+```
+
+### character
+
+```{r}
+sentence <- "may the force be with you"
+number <- "24"
+
+class(sentence)
+```
+
+You can convert objects from one type to another...
+
+```{r}
+10 + as.numeric(number)
+```
+
+> **Exercise:** How about converting a number to character?
+
+```{r}
+# try to convert a number to a text
+# hint: there is an equivalent to as.numeric for characters
+```
+
+### logical
+
+Also known as *boolean* values...
+
+```{r}
+class(TRUE)
+class(FALSE)
+```
+
+Are the results of logical expressions (conditions)
+
+```{r}
+class(1 == 1) # equal
+```
+
+```{r}
+1 > 5
+```
+
+> **Exercise:** Convert 1 and 0 to logical values, what happens?
+
+```{r}
+# 1 to logical
+
+# 0 to logical
+
+```
+
+### Vectors
+
+In the last data types we have work with a single value or element, but sometimes we will need to work with a collection of elements. A **vector** is collection of elements of the **same data type**
+
+```{r}
+numbers <- c(1, 2, 3.23, 4.223, 5.21, 6.6)
+words <- c("hotel", "dinosaur", "transport")
+logical <- c(TRUE, FALSE, TRUE, FALSE, TRUE, TRUE)
+
+numbers
+```
+
+Check the data type of each vector. What it returns?
+
+```{r}
+# Check the type of each vector
+```
+
+You can access to the element of each vector using the element position
+
+```{r}
+# vectors position start at 1
+words[1] # first element
+```
+
+You can also select a range of elements...
+
+```{r}
+numbers[2:4]
+```
+
+You can know the size of a vector using `length` function.
+
+```{r}
+length(words)
+```
+
+> **Exercise**: Using the following vector `v <- seq(1,200,4)` select the last 10 elements
+
+You can change vector elements using a similar approach
+
+```{r}
+vec <- 1:10
+
+# Modifying values with single selection
+vec[3] <- 300
+vec
+```
+
+```{r}
+# Modifying values with multiple selection
+vec[c(1,4)] <- c(100, 400)
+vec
+```
+
+```{r}
+# Modifying a full range of values
+vec[c(5:7)] <- vec[c(5:7)] + 100
+vec
+```
+
+In the last example of modification we have seen what we call an **element-wise operation**
+
+R is capable on adapt the operations with vectors depending on their size.
+
+-   Vector - Number
+
+```{r, echo=TRUE}
+b <- 1:10
+b
+b + 7
+```
+
+-   Vector - Vector (same length)
+
+```{r, echo=TRUE}
+b
+b * b
+```
+
+-   Vector - Vector (different length)
+
+```{r, echo=TRUE}
+d <- 1:2
+e <- 1:4
+
+# Showing vectors
+d
+e
+
+# Product of both vectors
+d * e
+```
+
+### Lists
+
+As we have seen vectors can only contain elements of the same data type, if we need to create a collection of elements of different types we should work with lists.
+
+```{r}
+mylist <- list(c("A", "B"), 1:10, Sys.time())
+mylist
+```
+
+It is considered an object itself, not like vectors...
+
+```{r}
+class(mylist)
+```
+
+```{r}
+# acceding at the first position of the list
+mylist[1]
+
+# acceding at the first element of the list
+mylist[[1]]
+
+```
+
+In addition, on lists, you can assign names to the each elements...
+
+```{r}
+# Now each element of mylist2 has an assigned name
+mylist2 <- list(letters = c("A", "B"), numbers = 1:10, time = Sys.time())
+
+mylist2
+```
+
+These names can be used for accessing each element too:
+
+```{r}
+# acceding at the first position by name
+mylist2["letters"]
+
+# acceding at the first element by name
+mylist2[["letters"]]
+
+# Other option using $ syntax if the names have no spaces
+mylist2$letters
+```

@@ -1,0 +1,116 @@
+{
+  "index.qmd": {
+    "index.html": "5446d8dd"
+  },
+  "01_introduction.qmd": {
+    "01_introduction.html": "d4e91353"
+  },
+  "01_01_installation.qmd": {
+    "01_01_installation.html": "130a2bd4"
+  },
+  "01_01_r_software.qmd": {
+    "01_01_r_software.html": "5beb141a"
+  },
+  "01_02_rstudio.qmd": {
+    "01_02_rstudio.html": "bd859e2f"
+  },
+  "01_03_getting_started.qmd": {
+    "01_03_getting_started.html": "8b1cb3eb"
+  },
+  "01_04_rmarkdown.qmd": {
+    "01_04_rmarkdown.html": "a6ca30bb"
+  },
+  "09_modelling.qmd": {
+    "09_modelling.html": "52b3f282"
+  },
+  "09_02_linear_regression.qmd": {
+    "09_02_linear_regression.html": "24fea9f7"
+  },
+  "09_01_models.qmd": {
+    "09_01_models.html": "a508b9b1"
+  },
+  "09_03_inference.qmd": {
+    "09_03_inference.html": "a3e6fbfc"
+  },
+  "02_programming.qmd": {
+    "02_programming.html": "32b9ef2e"
+  },
+  "02_01_objects.qmd": {
+    "02_01_objects.html": "6116d30b"
+  },
+  "02_01_first_concepts.qmd": {
+    "02_01_first_concepts.html": "1aa6d0c9"
+  },
+  "02_02_objects.qmd": {
+    "02_02_objects.html": "1f8c4a0b"
+  },
+  "02_03_dataframes.qmd": {
+    "02_03_dataframes.html": "f38bd411"
+  },
+  "01_05_packages.qmd": {
+    "01_05_packages.html": "c4940202"
+  },
+  "02_04_structures.qmd": {
+    "02_04_structures.html": "39a1ad3f"
+  },
+  "10_modelling.qmd": {
+    "10_modelling.html": "96bd612d"
+  },
+  "03_tidyverse.qmd": {
+    "03_tidyverse.html": "575dc464"
+  },
+  "04_visualization.qmd": {
+    "04_visualization.html": "d11a8da3"
+  },
+  "10_01_models.qmd": {
+    "10_01_models.html": "96ea8f6e"
+  },
+  "10_02_linear_regression.qmd": {
+    "10_02_linear_regression.html": "2c916dea"
+  },
+  "10_03_inference.qmd": {
+    "10_03_inference.html": "dfa4c6fd"
+  },
+  "03_01_tibbles.qmd": {
+    "03_01_tibbles.html": "82ab233e"
+  },
+  "04_01_plots.qmd": {
+    "04_01_plots.html": "2aec1d97"
+  },
+  "04_03_facets.qmd": {
+    "04_03_facets.html": "1a60b822"
+  },
+  "04_02_aesthetics.qmd": {
+    "04_02_aesthetics.html": "69bc00c4"
+  },
+  "04_04_datatypes.qmd": {
+    "04_04_datatypes.html": "844ac2b1"
+  },
+  "04_05_customization.qmd": {
+    "04_05_customization.html": "b3e983c4"
+  },
+  "05_01_basic_manipulation.qmd": {
+    "05_01_basic_manipulation.html": "d2d9eb20"
+  },
+  "05_02_filtering.qmd": {
+    "05_02_filtering.html": "3f656b2a"
+  },
+  "05_03_aggregations.qmd": {
+    "05_03_aggregations.html": "d9459906"
+  },
+  "06_eda.qmd": {
+    "06_eda.html": "e7dad946"
+  },
+  "07_reading.qmd": {
+    "07_reading.html": "afbc9de2"
+  },
+  "08_arrange.qmd": {
+    "08_arrange.html": "b053ec51"
+  },
+  "09_clean.qmd": {
+    "09_clean.html": "2697a02f"
+  },
+  "05_transformation.qmd": {
+    "05_transformation.html": "6a69c211"
+  }
+}

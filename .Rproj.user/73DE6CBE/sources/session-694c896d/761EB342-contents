@@ -1,0 +1,425 @@
+---
+title: "Data Analysis & Information Extraction"
+subtitle: "Welcome Session"
+author: "Carlos Viñals Guitart"
+format: 
+  revealjs:
+    logo: "img/logo2.png"
+    footer: "Data Analysis & Information Extraction"
+---
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 200px; font-size: 3em;"}
+Key Concepts
+:::
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 10px;"}
+Key Concepts
+:::
+
+### The concept of Data Science
+
+A general definition...
+
+> Data science combines math and statistics, specialized programming, advanced analytics, artificial intelligence (AI), and machine learning with specific subject matter expertise to uncover actionable insights hidden in an organization's data. These insights can be used to guide decision making and strategic planning.
+
+::: {style="margin-left: 1000px;"}
+*IBM*
+:::
+
+## 
+
+::: {style="margin-top: 10px;"}
+Key Concepts
+:::
+
+### The concept of Data Science
+
+![](img/ds_pillars.png){.absolute top="125" right="200"}
+
+::: footer
+:::
+
+## 
+
+::: {style="margin-top: 10px;"}
+Key Concepts
+:::
+
+### The concept of data
+
+> Unit of information
+
+We can identify two types of data:
+
+::::::: columns
+:::: {.column width="50%"}
+::: {.callout-note appearance="simple" icon="false"}
+## Structured Data
+
+Tabular data (rows and columns)
+
+![](img/table.png){width="75" right="10"}
+:::
+::::
+
+:::: {.column width="50%"}
+::: {.callout-note appearance="simple" icon="false"}
+## Unstructured Data
+
+Videos, Images, Pictures, Audio
+
+![](img/unstructured.png){width="75" right="10"}
+:::
+::::
+:::::::
+
+##  {auto-animate="true" auto-animate-easing="ease-in-out"}
+
+::: {style="margin-top: 10px;"}
+Key Concepts
+:::
+
+### Types of Analysis
+
+::::::::::::::: r-stack
+::: {data-id="box1" style="background: #000080; width: 450px; height: 450px; border-radius: 250px;"}
+:::
+
+::: {data-id="box2" style="background: #4169e1; width: 350px; height: 350px; border-radius: 250px;"}
+:::
+
+::: {data-id="box3" style="background: #1e90ff; width: 250px; height: 250px; border-radius: 250px;"}
+:::
+
+::: {data-id="box4" style="background: #87cefa; width: 150px; height: 150px; border-radius: 250px;"}
+:::
+
+::: {data-id="line1" style="background: #000000; width:300px; height: 2.5px; margin-right:225px; margin-bottom:425px"}
+:::
+
+::: {data-id="line2" style="background: #000000; width:300px; height: 2.5px; margin-right:225px; margin-bottom:370px"}
+:::
+
+::: {data-id="line3" style="background: #000000; width:300px; height: 2.5px; margin-right:225px; margin-bottom:315px"}
+:::
+
+::: {data-id="line4" style="background: #000000; width:300px; height: 2.5px; margin-right:225px; margin-bottom:260px"}
+:::
+
+::: {data-id="text4" style="margin-left:770px; margin-bottom:410px; font-size:35px;"}
+Descriptive
+:::
+
+::: {data-id="text3" style="margin-left:770px; margin-bottom:355px; font-size:35px;"}
+Diagnostic
+:::
+
+::: {data-id="text2" style="margin-left:770px; margin-bottom:300px; font-size:35px;"}
+Predictive
+:::
+
+::: {data-id="text2" style="margin-left:770px; margin-bottom:245px; font-size:35px;"}
+Prescriptive
+:::
+:::::::::::::::
+
+##  {auto-animate="true" auto-animate-easing="ease-in-out"}
+
+::: {style="margin-top: 10px;"}
+Key Concepts
+:::
+
+### Types of Analysis
+
+::::::: r-hstack
+::: {data-id="box1" auto-animate-delay="0" style="background: #000080; width: 200px; height: 150px; margin-right: 60px;"}
+![](img/descriptive.png){width="100" style="margin-left:50px"}
+:::
+
+::: {data-id="box2" auto-animate-delay="0.1" style="background: #4169e1; width: 200px; height: 150px; margin-right: 60px;"}
+![](img/diagnose.png){width="100" style="margin-left:50px"}
+:::
+
+::: {data-id="box3" auto-animate-delay="0.2" style="background: #1e90ff; width: 200px; height: 150px; margin-right: 70px;"}
+![](img/predict.png){width="100" style="margin-left:50px"}
+:::
+
+::: {data-id="box4" auto-animate-delay="0.2" style="background: #87cefa; width: 200px; height: 150px; margin-right: 60px;"}
+![](img/prescript.png){width="100" style="margin-left:50px"}
+:::
+:::::::
+
+::::::::::::::: columns
+::::: {.column width="25%"}
+::: {style="font-size:30px"}
+**Descriptive**
+:::
+
+::: {style="font-size:20px"}
+Sum up the information of the data set.
+
+First kind of analysis to do, understand data composition. We will need statistics to try to generalize the information obtained.
+:::
+:::::
+
+::::: {.column width="25%"}
+::: {style="font-size:30px"}
+**Diagnostic**
+:::
+
+::: {style="font-size:20px"}
+Understand relations between data, reasons behind changes.
+
+If we introduce statistics we can do inferential analysis working with a sample and extract information.
+:::
+:::::
+
+::::: {.column width="25%"}
+::: {style="font-size:30px"}
+**Predictive**
+:::
+
+::: {style="font-size:20px"}
+Use existing data to predict more data never seen before.
+
+The capability of predict X with Y doesn't mean that Y is the cause of X. Prediction is not casualty.
+:::
+:::::
+
+::::: {.column width="25%"}
+::: {style="font-size:30px"}
+**Prescriptive**
+:::
+
+::: {style="font-size:20px"}
+Guide decision making with the help of rest of analysis.
+
+Related with causal analysis, to identify what happens to a variable with the change of another.
+:::
+:::::
+:::::::::::::::
+
+## 
+
+::: {style="margin-top: 10px;"}
+Key Concepts
+:::
+
+#### Types of Analysis: Descriptive
+
+![](img/exploratory_analysis.png)
+
+## 
+
+::: {style="margin-top: 10px;"}
+Key Concepts
+:::
+
+#### Types of Analysis: Diagnostic
+
+![](img/diagnostic_analysis.png)
+
+## 
+
+::: {style="margin-top: 10px;"}
+Key Concepts
+:::
+
+#### Types of Analysis: Predictive & Prescriptive
+
+![](img/predictive_analysis.png)
+
+## In this course
+
+::: {style="font-size:30px;"}
+We will understand data science and analytics with R, focused in two aspects...
+
+-   Structured data (tables)
+
+-   Descriptive and diagnostic analysis (exploration and inference)
+:::
+
+![](img/data-science.png){style="width:900px"}
+
+## A data analysis project
+
+::: {style="font-size:30px;"}
+-   **Data Wrangling**
+    1.  **Import**: Load data from different sources (databases, files, applications, etc.)
+    2.  **Organize**: Save the data for the analysis.
+    3.  **Transform**: Filter, create new variables, etc.
+-   **Data Exploration**
+    4.  **Visualization**: Think questions, create new variables, etc.
+    5.  **Exploratory Analysis**: Visualize and transform in a systematic way.
+-   **Modelling**
+    6.  **Check hypothesis and answer questions**.
+-   **Communication**
+    7.  **Show the results**.
+:::
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 200px; font-size: 3em;"}
+A powerful tool is needed...
+:::
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 10px;"}
+A powerful tool is needed...
+:::
+
+### Programming with R
+
+::: {style="font-size:30px;"}
+For doing all these tasks and obtain a efficient and powerful analysis we will need to use a programming language.
+
+-   We will use a **programming language** design for support statistics and data manipulation: [R](https://cran.rstudio.com/)
+
+-   We will need a **development environment** or IDE that allows us to use R and work with it in a better way: [RStudio](https://posit.co/download/rstudio-desktop/)
+:::
+
+::: {.callout-note appearance="simple"}
+**Installation**
+
+You can go [here](https://rstudio-education.github.io/hopr/starting.html) or see the available guide on canvas.
+:::
+
+## Programming Expectations
+
+Programming requires of facing problems by yourself, creativity and understanding of the programming concepts. And know how to use available resources.
+
+::: absolute
+![](img/programming-or-googling.jpg){style="margin-left:600px"}
+:::
+
+Three rules:
+
+1.  **Practice** makes the expert.
+2.  Take your **time**.
+3.  Learn to **find**.
+
+## Programming Expectations
+
+![](img/meme2.jpg){style="margin-left:260px"}
+
+## Programming Expectations (AI)
+
+::::: {layout-ncol="2" style="font-size:30px;"}
+::: col
+**YOU ARE NOW LEARNING! AI IS NOT ALLOWED HERE!**
+
+You need to learn the different components of the programming methodology and learn to solve problems by yourself, AI is not useful at this stage.
+
+[ChatGPT May Be Eroding Critical Thinking Skills, According to a New MIT Study](https://time.com/7295195/ai-chatgpt-google-learning-school/)
+:::
+
+::: col
+![](img/aiclasroom.png.webp)
+:::
+:::::
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 200px; font-size: 3em;"}
+The course
+:::
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 10px;"}
+The course
+:::
+
+**Data Analysis & Information Extraction**
+
+Teacher: Carlos Viñals (carlos.vinals\@colaborador.cunef.edu)
+
+Key topics:
+
+-   Unit 1 - *Programming with R*
+-   Unit 2 - *Exploratory Data Analysis*
+-   Unit 3 - *Data Wrangling*
+-   Unit 4 - *Modelling*
+-   Unit 5 - *Communication*
+
+## 
+
+::: {style="margin-top: 10px;"}
+The course
+:::
+
+### Planification
+
+Lessons: Campus Almansa B2-6 (2nd floor - classroom 6) on Tuesdays, Wednesdays and Thursdays from 18 to 19 hours.
+
+## 
+
+::: {style="margin-top: 10px;"}
+The course
+:::
+
+### Planification
+
+::: {style="font-size:30px;"}
+Here is the tentative schedule for the course and exams dates...
+:::
+
+![](img/calendar_2026.png){width="356"}
+
+## 
+
+::: {style="margin-top: 10px;"}
+The course
+:::
+
+### Evaluation
+
+::::: columns
+::: {.column width="50%" style="font-size:30px"}
+#### Ordinary
+
+-   Continuous Assessment:
+    -   1st Mid-Term: Units 1 and 2 (20%)
+    -   2nd Mid-Term: Units 3 and 4 (20%)
+-   Final exam: Exam covering all units (60%)
+:::
+
+::: {.column width="50%" style="font-size:30px"}
+#### Extraordinary
+
+-   Mark obtained during continuous assessment (40%)
+-   Re-take of final exam (60%)
+:::
+:::::
+
+Midterms: 1st (20th October) / 2nd (1st December)
+
+## 
+
+::: {style="margin-top: 10px;"}
+The course
+:::
+
+### Resources
+
+::: {style="font-size:30px"}
+Most of the course content is based on this online book...
+
+[R for Data Science](https://r4ds.had.co.nz) Wickham and Grolemund (2016-17)
+
+Take into account the book has a second edition recently updated, the course content has been designed following first edition but we have updated some contents with the second. Use mainly the first edition.
+
+In addition you can use official R packages documentation and cheatsheets...
+
+-   [Tidyverse packages](https://www.tidyverse.org/packages/)
+-   [Cheatsheets repository](https://posit.co/resources/cheatsheets/)
+:::
+
+## 
+
+![](img/final.gif){width="1000"}

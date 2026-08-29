@@ -1,0 +1,166 @@
+# Visualizing Different Data Types {.unnumbered}
+
+When choosing the best way of analyze data we need to consider the number of variables we are working with:
+
+- **Uni-variate Data Analysis**: Single variable distribution.
+
+- **Bi-variate Data Analysis**: Relation between two variables.
+
+- **Multi-variate Data Analysis**: Relation between different variables, normally focusing between two of them but conditioned by the rest.
+
+And the type of the variables:
+
+- **Numeric**: Data expressed on a numeric scale
+  - *Continuous*: Can take any value in an interval (float, numeric)
+  - *Discrete*: Can take only integer values, such counts.
+- **Categorical**: Data expressed with an specific set of values or categories.
+  - *Binary*: Special case when only two values are possible e.g. 1/0, true/false, yes/no, etc.
+  - *Ordinal*: Categorical data that follows an explicit order
+  - *Non-Ordinal*: Rest of categorical representations not covered in last groups.
+
+::: callout-note
+# Examples of variable types
+
+Some examples...
+
+- the height of a person is? - *NUMERIC & CONTINUOUS*
+- the number of votes for each party is? - *NUMERIC & DISCRETE*
+- the years of a person is? - *NUMERIC & DISCRETE*
+- the color of the eyes is? - *CATEGORICAL & NON-ORDINAL*
+- the size of a shirt is? - *CATEGORICAL & ORDINAL*
+:::
+
+## Uni-Variate Numeric Values
+
+When working with uni-variate numeric values we need to consider the following key points to analyze:
+
+* **Shape**: how the data is represented...
+  * asymmetry: symmetric, asymmetric to the right, asymmetric to the left
+  * mode: single mode, more than one mode, uniform. 
+
+* **Location or Centrality**: mean, median, mode
+
+* **Variability or Dispersion**: rank, standard deviation, interquartile range
+
+* **Outliers**: anomalies on the data 
+
+We are going to see it with an example using **Anscombe's Quartet** data available on `Tmisc` library. We are going to compute the statistics of the four datasets contained inside the quartet, this data sets have idential properties.
+
+```{r, echo=TRUE, message=FALSE}
+library(Tmisc) # loading Tmisc
+library(tidyverse)
+
+quartet %>%
+  group_by(set) %>% # grouping the data by set
+  summarise( 
+    mean_x = mean(x), mean_y = mean(y),
+    sd_x = sd(x), sd_y = sd(y),
+    r = cor(x, y)
+  ) # summarizing main stats
+```
+
+As you can see the four sets have the same properties for all key **Shape** metrics we have computed (mean, standard deviation and correlation). But it is true that they are equal? Seeing the results it is reasonable to think that, but we can confirm it visualizing the data...
+
+```{r, echo=T}
+ggplot(quartet, aes(x = x, y = y)) +
+  geom_point() +
+  facet_wrap(~ set, ncol = 4)
+```
+
+Now we have the whole picture, we can see that despite having equal properties in their metrics. Each data set is different in terms how the data is represented in the plots. That is why **is important to visualize the data and not only take assumptions based on the metrics.**
+
+### Histograms
+
+For analyzing visually the a single continuous numeric variable we normally rely on histograms. Histograms are a frequency plot, that show us the number of observations that have a value between a given range. Look at these example.
+
+```{r, echo=TRUE, message=FALSE}
+library(gapminder)
+
+gapminder67 <- gapminder[gapminder$year == 1967, ]
+
+ggplot(gapminder67, mapping = aes(x = gdpPercap)) + 
+     geom_histogram(binwidth = 1000)
+```
+
+We can see the count (frequency) of observations in bar for each possible value of `gdpPercap`. This bars are called **bins**, you can manage how bins are generated using different ways...
+
+* `binwidth`, number of values to consider en each bin. In the example we have defined the binwidth as 1000, means that it will show number of values in ranges of 1000, so the first bin is 0-999, second 1000 to 1999, on so on...
+* `bins`, instead of defining the number of values to consider we define the number of bins we want ot have (number of bars). So ggplot will automatically compute the range to show the whole data in the number of bins we want. 
+
+```{r, echo=TRUE}
+ggplot(gapminder67, mapping = aes(x = gdpPercap)) + 
+     geom_histogram(bins = 100)
+```
+
+Going back to the plot, we can see that we have a bin with a value higher than 80000, a possible outlier? While the rest of observations are located between 0 a 30000. 
+
+### Density Plot
+
+Another way of analyzing a single continuous numeric variable is using a density plot. It will show a similar shape as histograms, as it shows as the density (% of observations among total observations) for each possible values the variable can take.
+
+```{r, echo=TRUE}
+ggplot(gapminder67, mapping = aes(x = gdpPercap)) + 
+     geom_density(color = "blue") + # density plot
+     theme_bw()
+```
+
+What if we combine everything in a single plot. This way we can see both the histogram and the density plot. For doing that we use a *key word* called `..density..` on the `y` axis when defining the plot. 
+
+```{r, echo=TRUE, warning=FALSE}
+ggplot(gapminder67, mapping = aes(x = gdpPercap, y =..density..)) + 
+     geom_histogram(bins = 100, fill="grey") + 
+     geom_density(color = "blue") + # density plot
+     theme_bw()
+```
+
+
+## Uni-Variate Categorical Values
+
+Bar plot... (uses stats by default to count observations)
+
+```{r, echo=TRUE}
+ggplot(gapminder67, mapping = aes(x = continent)) + 
+  geom_bar()
+```
+
+Column plot... (need more data treatment for doing the same)
+
+```{r, echo=TRUE}
+gapminder67 %>% 
+  group_by(continent) %>% 
+  summarise(count = n()) %>% 
+ggplot(gapminder67, mapping = aes(x = continent, y = count)) + 
+  geom_col()
+```
+
+## Visualizing Bi-Variate Data
+
+### Continuous - Categorical: BoxPlots
+
+```{r, echo=T}
+ggplot(gapminder67, mapping = aes(x = continent, y = gdpPercap)) +
+  geom_boxplot()
+```
+
+### Continuous - Continuous: ScatterPlot
+
+See patterns and tendency in the data...
+```{r, echo=TRUE}
+ggplot(gapminder67, aes(x = gdpPercap, y = lifeExp) ) +
+  geom_point() +
+  scale_x_log10() +
+  geom_smooth()
+```
+
+### Categorical - Categorical
+
+```{r, echo=TRUE}
+ggplot(data = diamonds, mapping = aes(x = clarity, fill = cut)) +
+  geom_bar()
+```
+
+```{r, echo=TRUE}
+ggplot(data = diamonds, mapping = aes(x = clarity, fill = cut)) +
+  geom_bar(position = "fill") +
+  labs(y = "proportion")
+```

@@ -1,0 +1,696 @@
+---
+title: "Exploratory Data Analysis: Transformation"
+subtitle: "Data Analysis & Information Extraction"
+author: "Carlos Viñals Guitart"
+format: 
+  revealjs:
+    logo: "img/logo2.png"
+    footer: "EDA - Transformation"
+    highlight-style: github
+---
+
+## Unit overview
+
+::: {style="font-size: 30px;"}
+**Content**
+:::
+
+::: {style="font-size: 30px;"}
+-   Transforming data with  *dplyr*
+-   Working with columns
+-   Working with rows
+-   Working with missing values
+-   Creating columns
+-   Transforming data
+:::
+
+::: {style="font-size: 30px;"}
+<br>
+
+**References**
+
+[*R for Data Science*](https://r4ds.had.co.nz/transform.html)*, Wickham and Grolemund (2016)*
+:::
+
+## Exploratory Data Analysis (EDA)
+
+Observe the data and analyze it to generate hypothesis and test them.
+
+**Objective**: Generate questions to analyze them more deeply.
+
+![](img/data-science-explore.png)
+
+## Transforming data
+
+::: {style="font-size:30px;"}
+As we have seen, visualization is key for the correct understanding of the data, but is very rare to find the data in the correct format the first time so we can do so.
+
+Generally we will need...
+
+-   Create new variables
+
+-   Sum up some of them.
+
+-   Rename variables
+
+-   Reorder
+
+-   Grouping
+
+... among other things.
+:::
+
+## 
+
+### The *tidyverse* ecosystem for data analysis
+
+![](img/tidyverse_ecosystem.png){style="margin-left: 50px;"}
+
+## dplyr
+
+::: {style="font-size:30px;"}
+We will use an special package designed inside the *tidyverse* universe for this purpose... **dplyr**
+
+This package has his own language (verbs) for doing the different tasks of the transformation process...
+:::
+
+::: {style="font-size:20px;"}
+* Working with rows...
+  -   **arrange** to order rows
+  -   **slice** to subset rows
+  -   **filter** to select rows according to a certain condition
+
+* Working with columns...
+  -   **select** to choose columns
+  -   **rename** to rename columns
+  -   **mutate** to create new columns
+  
+* And other much more...
+:::
+
+## Basic *dplyr* rules
+
+::: {style="font-size:30px;"}
+All verbs work similar:
+
+-   first argument is the data frame
+-   second and subsequent arguments are used to specify what to do with the data frame
+-   each verb will return a new data frame modified
+
+All verbs can be **concatenated** using the pipe `%>%`
+
+For starting working with **dplyr** we will need to load it...
+
+```{r, echo=TRUE}
+library(tidyverse)  # Do library(dplyr) for the package only
+```
+:::
+
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 200px; font-size: 3em;"}
+Working with columns: **select()**
+:::
+
+## **select()** verb
+
+When working with data we will find different columns and plenty of variables, and sometimes we will only want to work with some of them.
+
+We can use `select()` to subset some of them for our analysis and avoid using the full data set.
+
+```{r}
+library(gapminder)
+```
+
+## Selecting a single column
+
+::: {style="font-size:30px;"}
+We want to analyze only the variable related to life expectancy (**lifeExp**):
+
+::: {layout-ncol="2"}
+```{r,echo=TRUE}
+gapminder %>% 
+  select(lifeExp)
+```
+
+-   We pass the data frame to the function using the pipe operator (`%>%`) to select function.
+
+-   The argument is the variable with out commas: `lifeExp`.
+
+-   This will return a data frame of 1074 rows and 1 column.
+:::
+:::
+
+## Selecting multiple columns
+
+::: {style="font-size:30px;"}
+::: {layout-ncol="2"}
+```{r, echo=TRUE}
+#| code-line-numbers: "2" 
+gapminder %>% 
+  select(lifeExp, country)
+```
+
+```{r, echo=TRUE}
+#| code-line-numbers: "2" 
+gapminder %>% 
+  select(lifeExp:country)
+```
+:::
+
+Take into account that the function doesn't modify the data frame, if you want to keep it you need to save it in a new data frame
+
+```{r, echo=TRUE}
+gapminder2 <- gapminder %>% 
+  select(lifeExp:country)
+```
+:::
+
+## Inverse selection (all except)
+
+::: {layout-ncol="2"}
+```{r, echo=TRUE}
+#| code-line-numbers: "2" 
+gapminder %>% 
+  select(-lifeExp, -pop, -year)
+```
+
+```{r, echo=TRUE}
+#| code-line-numbers: "2" 
+gapminder %>% 
+  select(-(lifeExp:country))
+```
+:::
+
+## Advanced selection
+
+::: {style="font-size:30px"}
+There are some special functions we can use together with `select()`
+
+-   `starts_with("abc")` will select all columns that start with `abc`
+-   `ends_with("abc")` will select all columns that end with `abc`
+-   `contains("abc")` column that contains `abc`
+-   `matches("(.)//1")` use regular expression to select the column
+-   `num_range("x",1:3)` will select x1, x2 and x3
+:::
+
+## Advanced selection
+
+An example...
+
+```{r, echo=TRUE}
+gapminder %>% 
+  select(starts_with("co"))
+```
+
+## Select `everything()`
+
+Useful to put some columns first and then the rest...
+
+```{r, echo=TRUE}
+gapminder %>% 
+  select(year, everything())
+```
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 200px; font-size: 3em;"}
+Key operator: **pipes**
+:::
+
+## *pipe* operator
+
+Pipe is a technique designed to pass data from a process to another.
+
+The structure has been implemented in the **magrittr** package (that is included inside **tidyverse**)
+
+1.  We initially start with the whole data set
+
+```{r, echo=TRUE, eval=FALSE}
+#| code-line-numbers: "1" 
+gapminder %>% 
+  select(country, year, lifeExp) %>% 
+  arrange(lifeExp)
+```
+
+## *pipe* operator
+
+Pipe is a technique designed to pass data from a process to another.
+
+The structure has been implemented in the **magrittr** package (that is included inside **tidyverse**)
+
+2.  Then we use select to have a subset of three columns (country, year, lifeExp)
+
+```{r, echo=TRUE, eval=FALSE}
+#| code-line-numbers: "2" 
+gapminder %>% 
+  select(country, year, lifeExp)
+```
+
+## *pipe* operator
+
+Combined with **ggplot** we can pass the resulted processing with dplyr to the plot we want to create
+
+```{r, echo=TRUE}
+gapminder %>%
+  filter(year == 2007) %>%
+  ggplot(., aes(x = lifeExp, fill = continent)) +
+  geom_histogram(bins = 100)
+```
+
+## *pipe* operator(S) 
+
+::: {.callout-caution style="font-size:30px"}
+
+# More than one kind of pipe operator
+
+As you see in these notes we are using **magrittr** pipe operator ( `%>%` ), this was the first operator of its kind implemented in 2014 and incorporated in the **tidyverse** packages. 
+
+Despite this, pipe operations are very useful and R base has incorporated this kind of operations too. In 2021 with the release of R 4.1.0 an R base pipe operator (`|>`) was introduced making pipe operations always available. 
+
+Both pipes work similarly in simple case but have some differences. We are going to work with the **tidyverse* one but take this into account when reading books, code examples that can use the other pipe. 
+
+:::
+
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 200px; font-size: 3em;"}
+Working with columns: **rename()**
+:::
+
+## **rename()** verb
+
+Use to rename the variables when needed...
+
+```{r, echo=TRUE}
+gapminder %>% 
+  select( state = country )
+```
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 200px; font-size: 3em;"}
+Working with rows: **arrange()**
+:::
+
+## **arrange()** verb
+
+::: {layout-ncol="2"}
+Select country, year and life expectancy and order the returned data frame by life expectancy in **ascending** order.
+
+```{r, echo=TRUE}
+gapminder %>% 
+  select(country, year, lifeExp) %>% 
+  arrange(lifeExp)
+```
+:::
+
+## **arrange()** verb
+
+::: {layout-ncol="2"}
+Select country, year and life expectancy and order the returned data frame by life expectancy in **descending** order.
+
+```{r, echo=TRUE}
+#| code-line-numbers: "3" 
+gapminder %>% 
+  select(country, year, lifeExp) %>% 
+  arrange(desc(lifeExp))
+```
+:::
+
+## **arrange()** verb
+
+¿What is happening in this case?
+
+```{r, echo=TRUE}
+#| code-line-numbers: "2,3" 
+gapminder %>% 
+  select(country, year, lifeExp) %>% 
+  arrange(desc(country))
+```
+
+## **arrange()** verb
+
+-   `arrange()` orders in ascending order by default (numbers)
+-   In the case of strings, `arrange()` will order using the alphabetical order.
+-   We can use `desc()` function to change the order.
+-   If more than one variable is provided, the first will be used for doing the order, in case of draws the next variables will be used for deciding the order.
+-   Missing values will be order at the end.
+
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 200px; font-size: 3em;"}
+Working with rows: **slice()**
+:::
+
+## **slice()** verb
+
+Slice will help us selecting a subset by rows instead of columns, having a sample of the number of rows or range we provide.
+
+```{r, echo=TRUE}
+gapminder %>%
+  select(country) %>%
+  slice(1:3)
+```
+
+What would you do to get the last 3 rows of the data frame?
+
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 200px; font-size: 3em;"}
+Working with rows: **distinct()**
+:::
+
+## **distinct()** verb
+It will find the unique different values
+```{r, echo=TRUE}
+gapminder %>% 
+  distinct(continent, year) %>%
+  arrange(continent, desc(year) )
+```
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 200px; font-size: 3em;"}
+Working with rows: **count()**
+:::
+
+## **count()** verb
+We can use it to analyze frequency of values...
+
+::: {layout-ncol="2"}
+
+```{r, echo=TRUE}
+gapminder %>% 
+  distinct(continent, country) %>% 
+  count(continent)
+```
+
+```{r, echo=TRUE}
+#| code-line-numbers: "3" 
+gapminder %>% 
+  distinct(continent, country) %>% 
+  count(continent, sort=TRUE)
+```
+
+:::
+
+## Count and order
+
+```{r, echo=TRUE}
+gapminder %>% 
+  distinct(continent, country) %>% 
+  count(continent) %>% 
+  arrange(n)
+```
+
+## Count more than one variable
+
+```{r, echo=TRUE}
+gapminder %>% 
+  count(continent, year)
+```
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 200px; font-size: 3em;"}
+Working with rows: **filter()**
+:::
+
+## **filter()** verb
+
+Will select rows depending of its values.
+
+We will provide the filter conditions as arguments of the function...
+
+```{r, echo=TRUE}
+#| code-line-numbers: "2" 
+gapminder %>%
+  filter(country == "Spain", lifeExp > 80)
+```
+
+
+## Filtering
+
+For building complex filters we need to know the different logical operators...
+
+
+::: {style="font-size: 30px;"}
+::: {layout-ncol="2"} 
+
+
+| operator | definition|
+|-----------|----------|
+| <  | Less than |
+| <= | Less or equal than |
+| >  | More than   |
+| >= | More or equal than |
+| == | Equal |
+| != | Distinct |
+
+
+
+| operator | definition|
+|-----------|----------|
+| x & y  | x AND y |
+| x \| y  | x OR y |
+| is.na(x) | is x a NA value |
+| x %in% y | x belongs to y |
+| !x | opposite of x * |
+
+:::
+
+*You can use `!` to negate an expression meaning the opposite
+:::
+
+## **filter()** verb
+
+::: {style="font-size: 30px;"}
+All the multiple arguments we provide, are analyzed as a single filtering condition. 
+
+Example: American countries that had life expectancy superior than 75 years or GDP inferior to 6000 during 2007. 
+:::
+
+```{r, echo=TRUE, eval=FALSE}
+#| code-line-numbers: "2,3" 
+gapminder %>% 
+  filter(year == 2007, continent == "Americas",
+         (lifeExp > 77 | gdpPercap < 6000))
+```
+
+```{r}
+gapminder %>% 
+  filter(year == 2007, continent == "Americas",
+         (lifeExp > 77 | gdpPercap < 6000)) %>% head(10)
+```
+
+## Filtering: an strange case
+
+What is happening here?
+
+```{r, echo=TRUE}
+sqrt(2)^2 == 2
+
+near(sqrt(2)^2, 2)
+```
+
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 200px; font-size: 3em;"}
+Working with missing values
+:::
+
+## Missing values
+Missing values (```NA```) are something inevitable and highly frequently in the data. 
+
+All operations done with missing values will return another missing value...
+
+```{r, echo=TRUE}
+NA == 2
+
+NA + 3
+
+NA == NA
+```
+
+## Missing values
+When filtering the resulted data frame will only contain data that makes **TRUE** the condition. Data making **FALSE** the condition and missing values will be excluded. 
+
+```{r, echo=TRUE}
+df <- tibble(x = c(1, NA, 3))
+filter(df, x > 1)
+
+filter(df, is.na(x) | x > 1)
+```
+
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 200px; font-size: 3em;"}
+Creating variables: **mutate()**
+:::
+
+## **mutate()** verb
+
+We can create new columns...
+
+```{r, echo=TRUE}
+gapminder %>%
+  mutate(gdp = gdpPercap * pop) %>%
+  filter(year == 2007) %>%
+  arrange( desc(gdp) )
+```
+
+
+## **mutate()** verb
+Some considerations...
+
+*   You can create more than one variable in a single call to the function. Each variable will be in a different argument. 
+*   You can re-use a variable (it will be overwritten).
+
+## Creating new columns
+Another multiple functions you can use to create columns...
+
+* Arithmetic operators.
+* Modular arithmetic operators: integer division `%/%` and module `%%`
+* Logarithm
+* Cumulative aggregations: `cumsum()`, `cumprod()`, `cummin()` and `cummax()`
+* Logical comparisons
+* Rankings: `min rank()`
+
+## Creating columns
+
+Some examples...
+
+```{r, echo=TRUE}
+x = c(1,3,2,7,6)
+# Ranking
+min_rank(x)
+
+# Module
+33 %% 10
+
+# Cumulative sum
+cumsum(x)
+```
+
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 200px; font-size: 3em;"}
+Transforming data: **summarise()**
+:::
+
+## Creating summary stats of the data
+
+**summarise()** will collapse of the rows creating a single summary stat, it will delete not necessary columns
+
+
+```{r, echo=TRUE}
+gapminder %>%
+  filter(year == 1967) %>%
+  summarise(mean_gdpPerCapita = mean(gdpPercap))
+```
+
+## Most common summary stats
+
+* Location: `mean()` and `median()`
+* Dispersion: `sd()` and `IQR()`
+* Rank: `min()`, `quantile(x, 0.25)` and `max()`
+* Count: `n()` and `n_distinct()`
+
+##  {auto-animate="true"}
+
+::: {style="margin-top: 200px; font-size: 3em;"}
+Transforming data: **group_by()**
+:::
+
+## Grouping data
+::: {style="font-size:30px"}
+**summary()** function is powerful when creating groups with **group_by()**. We can obtain different summary stats for groups in the data. 
+:::
+
+```{r, echo=TRUE}
+gapminder %>%
+  filter(year == 1967) %>%
+  group_by(continent) %>%
+  summarise(mean_gdpPerCapita = mean(gdpPercap))
+```
+::: {style="font-size:30px"}
+Take into account that ```group_by()``` creates groups but doesn't aggregates the data, that's why you need `summarise()`
+:::
+## Grouping data
+
+
+```{r, echo=TRUE}
+gapminder %>%
+  filter(year == 1967) %>%
+  group_by(continent) %>%
+  summarise(n = n(),
+            mean_gdpPerCapita = mean(gdpPercap),
+            median_gdpPercapita = median(gdpPercap),
+            )
+```
+
+::: {style="font-size:30px"}
+**Missing values.** Take into account that missing values can be present on the data. Use `na.rm = TRUE` e.g. `mean(x, na.rm=TRUE)`
+
+:::
+
+## Grouping data
+::: {style="font-size:30px"}
+Grouping more variables...
+:::
+
+```{r, echo=TRUE, eval=FALSE}
+gapminder %>%
+  group_by(continent, year) %>%
+  summarise(
+            max_gdpPercapita    = max(gdpPercap),
+            min_gdpPercapita    = min(gdpPercap)
+            ) %>% 
+  filter(year %in% c(1967, 2007))
+```
+
+```{r}
+gapminder %>%
+  group_by(continent, year) %>%
+  summarise(
+            max_gdpPercapita    = max(gdpPercap),
+            min_gdpPercapita    = min(gdpPercap)
+            ) %>% 
+  filter(year %in% c(1967, 2007)) %>% 
+  head(8)
+```
+
+## Grouping data, another approach
+::: {style="font-size:30px"}
+I want for each country to have the deviation from the continents maximum life expectancy for each year. 
+:::
+
+```{r, echo=TRUE, eval=FALSE}
+gapminder %>% 
+  group_by(year, continent) %>% 
+  mutate(
+    lifeExp_dev = lifeExp - max(lifeExp)
+  ) %>% 
+  ungroup() # important to avoid unexpected behaviors
+```
+
+```{r}
+gapminder %>% 
+  group_by(year, continent) %>% 
+  mutate(
+    lifeExp_dev = lifeExp - max(lifeExp)
+  ) %>% 
+  arrange(year, continent, desc(lifeExp)) %>% 
+  head(5)
+```
+
+##
+![](img/final.gif){width="1000"}

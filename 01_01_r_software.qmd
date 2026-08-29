@@ -1,0 +1,86 @@
+# R Programming Language {.unnumbered}
+
+R is free open-source software environment created with the idea of offering a complete and advance tool for statistical computing, analysis, and visualization.
+
+The language used in this environment is also called R. You can discover more about the R-project at their website (<https://www.r-project.org/>)
+
+This language is fully supported by an enormous group of users, communities and groups dedicated to program and develop different tools. It is available at the main operative systems: Windows, MacOS and Linux distributions.
+
+## R Installation
+
+You can install R in your computer going to the official R website on [The R Project for Statistical Computing](https://www.r-project.org/)
+
+In the website you can follow these simple steps:
+
+1.  Go to the <https://www.r-project.org/> website and select *download R* option.
+
+![](pictures/r_project.png)
+
+2.  The website will show you the full list of CRAN repositories. A repository is a place where packages are located so you can install them from it. Although you or your organization might have a local repository, typically, they are online and accessible to everyone. Here we recommend select the one near your location, in our case Spain. This is the direct link to the recommended Spain repository: <https://cran.rediris.es>
+
+![](pictures/cran_repository.png)
+
+::: callout-note
+## Learn more about repositories
+
+Three of the most popular repositories for R packages are:
+
+- **CRAN**: the official repository, it is a network of ftp and web servers maintained by the R community around the world. The R foundation coordinates it, and for a package to be published here, it needs to pass several tests that ensure the package is following CRAN policies.
+
+- **Bioconductor**: this is a topic-specific repository intended for open-source software for bioinformatics. As CRAN, it has its own submission and review processes, and its community is very active, having several conferences and meetings per year.
+
+- **Github**: although this is not R-specific, Github is probably the most popular repository for open-source projects. Its popularity comes from the unlimited space for open source, the integration with git, a version control software, and its ease to share and collaborate with others. But be aware that there is no review process associated with it.
+:::
+
+3.  Then on the Spain repository, select the desired R version according to your computer Operative System (OS): Windows, MacOS or Linux Distribution.
+
+::: panel-tabset
+## Windows
+
+If your OS is Windows, select the option on the list and then select the first link **base**. This is the default installation of R we will use.
+
+![](pictures/r_install_windows_01.png)
+
+On the next screen select the main version of R and download the installation file.
+
+![](pictures/r_install_windows_02.png)
+
+On your computer execute the installation file, and follow the instructions as it is your first time [accept the default installation options]{.underline}.
+
+## MacOS
+
+If your computer is a MacOS (Apple) select that option. On the next screen choose the version according to your processor.
+
+![](pictures/r_install_macos.png)
+
+If your Apple computer is relatively new probably you will have a Apple Silicon processor (M1,M2,...), but if it is an older computer you may have an Inter processor. You can check it going to this [site](https://www.macworld.com/article/671418/how-to-check-the-specs-of-your-mac-find-out-processor-and-ram.html).
+
+On your computer execute the installation file, and follow the instructions as it is your first time [accept the default installation options]{.underline}.
+:::
+
+## R Versions
+
+When installing R you may have seen that it uses a number code. The number is relevant for understanding with **version of R** we are installing and using.
+
+Version codes follows a three number code system, *i.e 4.4.1* The numbers are separated by a dot (.), each number represent relevant information of the version we are working with and they work in a sequential order.
+
+> ***major.minor.patch***
+
+The different parts of the release represent different things:
+
+- **major**: a **significant change to the package** that may cause old code to not work. This is very rarely updated when the release has been redesigned in some way.
+
+- **minor**: a minor version update means that **new functionality has been added to the package**. These can be new features or improvements to existing features that are supported by most of the existing code.
+
+- **patch**: patch updates are **bug fixes**. They fix existing problems but do nothing new.
+
+In addition, R versions include a name so the code is followed by a name given by the developers. Here is an example of some verions names::
+
+* 4.0.0 "Arbor Day"
+* 4.6.1 "Happy Hop"
+
+## Other Software
+
+If you are working with Windows you may need to install **Rtools**, this software is needed as a complement to you R installation to work with some additional R packages.
+
+You can find the latest version of Rtools available [here](https://cran.r-project.org/bin/windows/Rtools/)

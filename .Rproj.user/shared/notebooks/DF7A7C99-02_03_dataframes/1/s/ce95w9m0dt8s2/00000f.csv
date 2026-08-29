@@ -1,0 +1,7 @@
+"0","df <- data.frame("
+"0","  id = 1:4, "
+"0","  company = c(""Apple"", ""Google"", ""Microsoft"", ""Huawei""), "
+"0","  share_dif = c(3.4, -2.5, 10.1, -0.05), "
+"0","  consolidate = c(""YES"", ""NO"", ""NO"", ""YES"")"
+"0",")"
+"0","df"

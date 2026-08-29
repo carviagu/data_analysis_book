@@ -1,0 +1,19 @@
+{
+  "hash": "a3a32b4f4f9b1971962839d957b51734",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# Tidyverse {.unnumbered}\n\nWe have learn how to use R so far, and how to do some basic programming. Variables, data types, objects and key programming structures. In the next chapters of the course we are going to start to learn R as programming language for data analysis. \n\nWe will understand data science and analytics with R, focused in two aspects...\n\n-   Structured data (tables)\n\n-   Descriptive and diagnostic analysis (exploration and inference)\n\n\nFor doing that the learning structure of the next chapters is structured as follows:\n\n![](pictures/data-science.png){style=\"width:900px\"}\n\n-   **Data Wrangling**\n    1.  **Import**: Load data from different sources (databases, files, applications, etc.)\n    2.  **Organize**: Save the data for the analysis.\n    3.  **Transform**: Filter, create new variables, etc.\n-   **Data Exploration**\n    4.  **Visualization**: Think questions, create new variables, etc.\n    5.  **Exploratory Analysis**: Visualize and transform in a systematic way.\n-   **Modelling**\n    6.  **Check hypothesis and answer questions**.\n-   **Communication**\n    7.  **Show the results**.\n    \n    \n## The *tidyverse* ecosystem for data analysis\n\nWe want to analyze data in a **reproducible** way, and, for doing that we will use tools that can allow us develop strong analytics in R. Through the course we will use this set of packages that contains a full set of tools used for doing data science with R. Know more about [tidyverse packages](https://www.tidyverse.org/)\n\n![](pictures/tidyverse_ecosystem.png)\nSo we need to start loading  the **tidyverse** package (take into account that this package will load all tidyverse packages including tibble one). If you need to install tidyverse check the packages section on the first chapters of the book. \n\n\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {
+      "knitr": [
+        "{\"type\":\"list\",\"attributes\":{},\"value\":[]}"
+      ]
+    },
+    "preserve": null,
+    "postProcess": false
+  }
+}

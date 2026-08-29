@@ -1,0 +1,94 @@
+# Tibbles {.unnumbered}
+
+All *tidyverse* packages use an special type of data structure called **tibble**, that is the next evolution of the data frames at R. 
+
+**Tibbles** are similar to data frames but they have special features that make them more interesting for data analysis. 
+
+**Remember!!** First all we need to load *tidyverse* package (take into account that this package will load all tidyverse packages including tibble one).
+
+```{r, echo=TRUE, message=FALSE}
+#| code-line-numbers: false
+library(tidyverse)
+```
+
+
+## Data Frames vs Tibbles
+
+### Printing
+
+This is how `iris` data set looks as a data frame object:
+
+```{r}
+#| code-line-numbers: false
+head(iris)
+```
+
+Now we are going to convert `iris` to a tibble, we will use tidyverse function `as_tibble()`:
+
+```{r}
+iris_tb <- as_tibble(iris)
+head(iris_tb)
+```
+
+We see that in the console...
+* output of the data frame we only get the data displayed directly and unorganized.
+* output of the tibble shows a summary of dimensions as well as a compact visualization of the columns and types of each column. 
+
+### Column Names
+
+On tibbles column names don't need to be consecutive you can have names with spaces, like this example:
+
+```{r}
+dt <- tibble(
+  p  = c("A", "B", "C", "D", "E"),
+  x = 1:5,
+  y = 2,
+  `sum of values` = x + y # we can reference other columns
+)
+dt
+```
+
+### Selection
+
+When selecting and modifying values you can work the same as a data frame but consider that the output of any selection will return a data frame always...
+
+```{r}
+# first value of first column as DF
+dt[1,1]
+```
+
+If we want to manipulate the value we will need to do a second selection
+
+```{r}
+# first value of first column
+dt[1,1][[1]]
+```
+
+
+You need to use name selection or double selection to access the values itself.
+
+```{r}
+#| code-line-numbers: false
+# first column as vector
+dt$p
+```
+
+```{r}
+#| code-line-numbers: false
+# first column value as value
+dt[[1]][1]
+```
+
+## Creating a tibble
+
+In case you need to create a tibble manually, you can defined it as the following example.
+
+```{r, echo=T}
+dt <- tibble(
+  p  = c("A", "B", "C", "D", "E"),
+  x = 1:5,
+  y = 2,
+  `sum of values` = x + y
+)
+dt
+```

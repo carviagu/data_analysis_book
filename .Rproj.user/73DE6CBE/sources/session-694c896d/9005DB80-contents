@@ -1,0 +1,25 @@
+# Visualization {.unnumbered}
+
+## Exploratory Data Analysis (EDA)
+
+An Exploratory Data Analysis or EDA consists on observe the data and analyze it to generate hypothesis and test them.
+
+**Objective**: Generate questions to analyze them more deeply.
+
+![](pictures/data-science-explore.png){fig-align="center" width="402"}
+
+EDAs include visualization and data manipulation. This process, combined with the curiosity and skepticism, try to find interesting questions and answers about the data.
+
+At this part of the course we will focus on create and study visual representations with the data. Using **ggplot2** a package inside the *tidyverse* ecosystem to create visualizations.
+
+## Visualization: *ggplot2*
+
+The visualization package of *tidyverse*. **G**rammar of **G**raphics comes from the work by Leland Wilkinson. It will help us describe the different components of the plot in a sequential way, with defining the different layers of the final visualization.
+
+![](pictures/grammar-of-graphics.png){style="width:500px; aling:center;"}
+
+For using **ggplot2** we need to load the library first, as it is part of tidyverse we will load the full package
+
+```{r, echo=TRUE, message=FALSE}
+library(tidyverse) # Do library(ggplot2) for the package only
+```

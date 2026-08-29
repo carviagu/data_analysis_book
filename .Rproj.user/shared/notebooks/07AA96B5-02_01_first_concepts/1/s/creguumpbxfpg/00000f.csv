@@ -1,0 +1,7 @@
+"0","# We increase by 3 and store the result on new variable 'b'"
+"0","b <- a + 3"
+"0","b"
+"1","[1]"
+"1"," 13"
+"1","
+"

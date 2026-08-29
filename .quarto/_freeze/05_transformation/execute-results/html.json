@@ -1,0 +1,15 @@
+{
+  "hash": "feaf63b5d2f23b1db45a607ffbd17ce1",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# Transformation {.unnumbered}\n\nTransformation is one of the key tasks for the correct use of the data, but is very rare to find the data fully ready for an analysis, so we probabluy need to do some tasks to adapt it for the analysis we want to do.\n\n![](pictures/data-science-explore.png){fig-align=\"center\" width=\"402\"}\n\nGenerally we will need...\n\n-   Create new variables\n\n-   Sum up some of them.\n\n-   Rename variables\n\n-   Reorder\n\n-   Grouping\n\n... among other things.\n\n## Transformation: **dplyr**\n\nWe will use an special package designed inside the *tidyverse* universe for this purpose... **dplyr**\n\nThis package has his own language (verbs) for doing the different tasks of the transformation process...\n\n* Working with rows...\n  -   **arrange** to order rows\n  -   **slice** to subset rows\n  -   **filter** to select rows according to a certain condition\n\n* Working with columns...\n  -   **select** to choose columns\n  -   **rename** to rename columns\n  -   **mutate** to create new columns\n  \n* And other much more...\n\n## Basic *dplyr* rules\n\nAll verbs work similar:\n\n-   first argument is the data frame\n-   second and subsequent arguments are used to specify what to do with the data frame\n-   each verb will return a new data frame modified\n\nAll verbs can be **concatenated** using the pipe `%>%`\n\nFor starting working with **dplyr** we will need to load it...\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code  code-line-numbers=\"false\"}\nlibrary(tidyverse)  # Do library(dplyr) for the package only\n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

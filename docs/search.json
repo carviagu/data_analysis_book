@@ -1,0 +1,1230 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Data Analysis & Information Extraction",
+    "section": "",
+    "text": "Welcome\nThis is the book website for the Data Analysis & Information Extraction course at CUNEF Universidad.\nThe book covers all course contents and provides full explanation of the different topics. You will find explanations and examples to guide your learning.\nThe book is structured following the course schedule. Now we explain the content of each chapter with references to each of the main units the course is structured.\n\nIntroduction to Programming chapter covers the configuration and introduces R and RStudio software we will use for developing with R during the course. It introduces the different parts of the software and how to use it. (Unit 1)\nProgramming with R focuses on explaining all basic concepts of the R language, teaching the different data types, main functions and programming structures. To provide the student with the basic knowledge needed for following the next chapters. (Unit 1)\nVisualization will teach you the different tools available on R for creating plots and use them accordingly for showing the insights of the data. (Unit 2)\nManipulation chapter will review the different available elements to manipulate the data and transform the information to analyze what we need. (Unit 2)\nExploratory Data Analysis will summarise all we have seen until this point and provide you a template guide on how to explore data and find useful insights. (Unit 2)\nReading\nArrange\nTransformation\nModelling\nCommunication",
+    "crumbs": [
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "01_01_r_software.html",
+    "href": "01_01_r_software.html",
+    "title": "R Programming Language",
+    "section": "",
+    "text": "R Installation\nYou can install R in your computer going to the official R website on The R Project for Statistical Computing\nIn the website you can follow these simple steps:",
+    "crumbs": [
+      "Introduction to Programming",
+      "R Programming Language"
+    ]
+  },
+  {
+    "objectID": "01_01_r_software.html#r-installation",
+    "href": "01_01_r_software.html#r-installation",
+    "title": "R Programming Language",
+    "section": "",
+    "text": "Go to the https://www.r-project.org/ website and select download R option.\n\n\n\nThe website will show you the full list of CRAN repositories. A repository is a place where packages are located so you can install them from it. Although you or your organization might have a local repository, typically, they are online and accessible to everyone. Here we recommend select the one near your location, in our case Spain. This is the direct link to the recommended Spain repository: https://cran.rediris.es\n\n\n\n\n\n\n\n\nLearn more about repositories\n\n\n\nThree of the most popular repositories for R packages are:\n\nCRAN: the official repository, it is a network of ftp and web servers maintained by the R community around the world. The R foundation coordinates it, and for a package to be published here, it needs to pass several tests that ensure the package is following CRAN policies.\nBioconductor: this is a topic-specific repository intended for open-source software for bioinformatics. As CRAN, it has its own submission and review processes, and its community is very active, having several conferences and meetings per year.\nGithub: although this is not R-specific, Github is probably the most popular repository for open-source projects. Its popularity comes from the unlimited space for open source, the integration with git, a version control software, and its ease to share and collaborate with others. But be aware that there is no review process associated with it.\n\n\n\n\nThen on the Spain repository, select the desired R version according to your computer Operative System (OS): Windows, MacOS or Linux Distribution.\n\n\nWindowsMacOS\n\n\nIf your OS is Windows, select the option on the list and then select the first link base. This is the default installation of R we will use.\n\nOn the next screen select the main version of R and download the installation file.\n\nOn your computer execute the installation file, and follow the instructions as it is your first time accept the default installation options.\n\n\nIf your computer is a MacOS (Apple) select that option. On the next screen choose the version according to your processor.\n\nIf your Apple computer is relatively new probably you will have a Apple Silicon processor (M1,M2,…), but if it is an older computer you may have an Inter processor. You can check it going to this site.\nOn your computer execute the installation file, and follow the instructions as it is your first time accept the default installation options.",
+    "crumbs": [
+      "Introduction to Programming",
+      "R Programming Language"
+    ]
+  },
+  {
+    "objectID": "01_01_r_software.html#r-versions",
+    "href": "01_01_r_software.html#r-versions",
+    "title": "R Programming Language",
+    "section": "R Versions",
+    "text": "R Versions\nWhen installing R you may have seen that it uses a number code. The number is relevant for understanding with version of R we are installing and using.\nVersion codes follows a three number code system, i.e 4.4.1 The numbers are separated by a dot (.), each number represent relevant information of the version we are working with and they work in a sequential order.\n\nmajor.minor.patch\n\nThe different parts of the release represent different things:\n\nmajor: a significant change to the package that may cause old code to not work. This is very rarely updated when the release has been redesigned in some way.\nminor: a minor version update means that new functionality has been added to the package. These can be new features or improvements to existing features that are supported by most of the existing code.\npatch: patch updates are bug fixes. They fix existing problems but do nothing new.\n\nIn addition, R versions include a name so the code is followed by a name given by the developers. Here is an example of some verions names::\n\n4.0.0 “Arbor Day”\n4.6.1 “Happy Hop”",
+    "crumbs": [
+      "Introduction to Programming",
+      "R Programming Language"
+    ]
+  },
+  {
+    "objectID": "01_01_r_software.html#other-software",
+    "href": "01_01_r_software.html#other-software",
+    "title": "R Programming Language",
+    "section": "Other Software",
+    "text": "Other Software\nIf you are working with Windows you may need to install Rtools, this software is needed as a complement to you R installation to work with some additional R packages.\nYou can find the latest version of Rtools available here",
+    "crumbs": [
+      "Introduction to Programming",
+      "R Programming Language"
+    ]
+  },
+  {
+    "objectID": "01_02_rstudio.html",
+    "href": "01_02_rstudio.html",
+    "title": "RStudio IDE",
+    "section": "",
+    "text": "RStudio Installation\nYou can install RStudio going to the official Posit RStudio website here you need to select download RStudio option.\nOn the next screen download the version of RStudio that fits with your Operative System (OS).\nOn your computer execute the installation file, and follow the instructions as it is your first time accept the default installation options\nIf all goes well you may see the blue icon of RStudio available on your computer.",
+    "crumbs": [
+      "Introduction to Programming",
+      "RStudio IDE"
+    ]
+  },
+  {
+    "objectID": "01_02_rstudio.html#first-overview-of-rstudio",
+    "href": "01_02_rstudio.html#first-overview-of-rstudio",
+    "title": "RStudio IDE",
+    "section": "First Overview of RStudio",
+    "text": "First Overview of RStudio\nNow that we have everything installed in our computer we can start using it. Open the RStudio app and the following screen will be displayed.\n\n\n\n\n\nOn the screen you will see four tabs available…\n\nFile editor: It shows the file or files we are working with, containing our code and comments. It is possible that this tab is now opened by default as it only appears when we have files open.\nMultifunctionnal pane 01: Environment storage and other configurations.** This panel allows us to mainly view the variables that we have been creating in the R sessions (Environment), delete all the variables from the R memory\nMultifunctionnal pane 02: File browser, plot, slides, and viewer.\nConsole and terminal: It allows us to communicate directly with R. A &gt; symbol called a prompt will appear to indicate that R is ready to work. All our code will be executed here.",
+    "crumbs": [
+      "Introduction to Programming",
+      "RStudio IDE"
+    ]
+  },
+  {
+    "objectID": "01_02_rstudio.html#recommended-configurations",
+    "href": "01_02_rstudio.html#recommended-configurations",
+    "title": "RStudio IDE",
+    "section": "Recommended Configurations",
+    "text": "Recommended Configurations\nFor working in the course we are going to review some of the key configurations you can do in your RStudio session.\nFor setting up your environment you need to go to Global Options pane, for doing that go to Tools section on the top header in the screen and choose Global Options.\n\n\n\n\n\nOnce on Global Options a new window will appear, we are going to check all of the different configuration you may use…\n\nGeneral Settings\nHere you can define general settings of your RStudio installation like the workspace general configurations.\n\n\n\n\n\n\nRecommended Configuration\n\n\n\nHere you may see an example of a recommended configuration you can have for this course:\n\nUn-check the .RData restore option and set “Save workspace on exit option” to Never. This is done for avoiding saving unnecessary data each time.\nUn-check bot History options to avoid saving unnecessary data and avoid issues each time we work in class.\nRemember to apply each change each time you modify something new.\n\n\n\n\n\n\n\n\n\n\nAppearance Settings\nYou can modify the code appearance, font size and any other aspect on how the environment look like. Go to this link to know more\n\n\nPane Settings\nUnderstand all available configurations and how to adapt your pane view here.\n\n\nPackage Configurations\nFinally, among the different configurations you can change the features on how to update your R base installation to obtain more code funtionalities. For doing this correctly we need to implement some recommended changes to our configuration in the RStudio.\n\nChange the primary CRAN repository to the most nearest, in this case Spain (Madrid)\nUn-Check the “Use secure download method for HTTP”. Normally we won’t remove this check as for safety resons is better to have it active, but as we are going to work in the organizational environment is better to not have it active to avoid errors due to network security.\nRemember to apply each change each time you modify something new.",
+    "crumbs": [
+      "Introduction to Programming",
+      "RStudio IDE"
+    ]
+  },
+  {
+    "objectID": "01_03_getting_started.html",
+    "href": "01_03_getting_started.html",
+    "title": "Getting Started",
+    "section": "",
+    "text": "The Console\nOn our first interaction with R we are going to learn how to use the console. When you see the console the following message will appear when opening it for the first time.\nThis message shows us relevant information:\nIn addition we can see the prompt:\nWhen this symbol appears the console is asking as for inputs, here we can write code and commands so they are executed. Let’s do an example typing the word version and press enter, you will see something similar to this output.\nSee that, when the order execution has ended, the console shows the prompt again so we can type more orders to be executed.",
+    "crumbs": [
+      "Introduction to Programming",
+      "Getting Started"
+    ]
+  },
+  {
+    "objectID": "01_03_getting_started.html#the-console",
+    "href": "01_03_getting_started.html#the-console",
+    "title": "Getting Started",
+    "section": "",
+    "text": "R version code number\nRelease date of the version\nR version nickname\nSystem we are working in (platform)\n\n\n&gt;\n\n\n\n\n\n\n\n\nR as a calculator\nType this computation 100*23 on the console and press enter…\n\n100*23\n\n[1] 2300\n\n\nWhen executing the operation the console will return the output of the operation.\n\n\n\n\n\n\nExamples\n\n\n\nTry the following commands on your console… What is the output? What they do?\n\n1000:1020\n\n\n(7 + 7) / 7 * 2 - 4",
+    "crumbs": [
+      "Introduction to Programming",
+      "Getting Started"
+    ]
+  },
+  {
+    "objectID": "01_03_getting_started.html#using-scripts",
+    "href": "01_03_getting_started.html#using-scripts",
+    "title": "Getting Started",
+    "section": "Using Scripts",
+    "text": "Using Scripts\nIn RStudio we can work with multiple file types. The most common file will be the R script. An script for R will use the .R extension in the file name, for example myscript.R\nFor creating an script you can go to new file icon on the left corner in RStudio and select R Script option.\n\n\n\n\n\nYour new script will appear on the editor tab, you can have multiple scripts open. Inside the script you can write code and comments, all needs to be saved each time so it can be executed later. For saving you can use save command: CTRL+S (Windows) or command+S (macOS), or simply selecting save icon.\n\n\n\n\n\n\n\n\n\nUnsaved script name color is red\n\n\n\n\n\n\n\nSaved script name is black\n\n\n\n\n\nLet’s create an script and include the following code…\n\n# This is a comment\n# Sum all numbers from 1 to 100\nsum(1:100)\n\nIn the script we have included comments, they are types starting with #. You can differentiate a comment from code by the color being displayed on the editor. Comments are not readed when the code is executed so here we can type anything we want to make the code more clear.\n\n\n\n\n\n\nTip\n\n\n\nEveryone codes differently and comments helps understanding code written from different programmers, and can always help you understand your own code after some time… Take time to add comments to your code always!\n\n\nTry to execute the code of your script, for doing that you can use the run icon located on the top right corner of the file pane:\n\nWhen execute it you will see that the code is copied on the console and then executed, the output is also shown there.\n\n\nFile Naming and Extensions\nDo not use special characters, blank spaces when naming files, folders. This will avoid problems when installing and executing code in the future.\nA file extension is the text you can find below the file name, for example in synopsis.txt, the .txt part tell us is a text file. Scripts of R use .R extension, this way we can see that is an R script with code.\n\n\n\n\n\n\nDisplay File Extensions\n\n\n\nIt is strongly recommended to show file extensions on all the files. Generally, this extensions are visible in majority of operative systems, for Windows users it is hidden by default, but you can change it using this tutorial.",
+    "crumbs": [
+      "Introduction to Programming",
+      "Getting Started"
+    ]
+  },
+  {
+    "objectID": "01_04_rmarkdown.html",
+    "href": "01_04_rmarkdown.html",
+    "title": "RMarkdown & Notebooks",
+    "section": "",
+    "text": "What is Markdown?\nMarkdown is a plain-text formatting syntax that can be converted to XHTML or other formats, like PDF.\nIt is widely used for developing reports, documents, slides and any other of formats that include code, plots, images, etc.\nIt is widely used in Data Science and Scientific research, as it allows to create reproducible documentation and automate reporting processes.",
+    "crumbs": [
+      "Introduction to Programming",
+      "RMarkdown & Notebooks"
+    ]
+  },
+  {
+    "objectID": "01_04_rmarkdown.html#rmarkdown-files",
+    "href": "01_04_rmarkdown.html#rmarkdown-files",
+    "title": "RMarkdown & Notebooks",
+    "section": "RMarkdown files",
+    "text": "RMarkdown files\nWe have seen how to use scripts for running R code, but there are other possible files we can use. One of the most common files we can use in a data analysis environment are RMarkdown notebooks.\nRMarkdown documents are files that combine both text and code in the same place, so you can generate full documentation and code to show tables, plots and other outputs to include in your documents. We can differentiate an script of R with a RMarkdown file seeing the extension. RMarkdown files use .Rmd extension.",
+    "crumbs": [
+      "Introduction to Programming",
+      "RMarkdown & Notebooks"
+    ]
+  },
+  {
+    "objectID": "01_04_rmarkdown.html#creating-a-rmarkdown-file",
+    "href": "01_04_rmarkdown.html#creating-a-rmarkdown-file",
+    "title": "RMarkdown & Notebooks",
+    "section": "Creating a RMarkdown file",
+    "text": "Creating a RMarkdown file\nFor creating an RMarkdown document go to File &gt; New File &gt; RMarkdown\n\n\n\n\n\nIn the creation pop-up enter the fields and output file type, we will use html or pdf this course (you can change them later)",
+    "crumbs": [
+      "Introduction to Programming",
+      "RMarkdown & Notebooks"
+    ]
+  },
+  {
+    "objectID": "01_04_rmarkdown.html#parts-of-a-rmarkdown-file",
+    "href": "01_04_rmarkdown.html#parts-of-a-rmarkdown-file",
+    "title": "RMarkdown & Notebooks",
+    "section": "Parts of a RMarkdown file",
+    "text": "Parts of a RMarkdown file\nIn the file we can differentiate three parts:\n\nYAML header:\n\n\nIt goes at the beginning between ---\nIt defines the title, author, date, and the output format (HTML/PDF/Word), options such as toc, etc.\n\n\nDocument body: normal text.\nR code chunks: executable code blocks (chunks) and inline R code.\n\n\n\n\n\n\n\nYAML part for rendering\nMarkdown files for R are divided in two parts, a first section where we can find file attributes like title, author and parameters for rendering. This is called YAML…\n---\ntitle: \"Untitled\"\nauthor: \"Luke Skywalker\"\noutput: html_document\ndate: \"2023-08-25\"\n---\noutput is the kind of document we want to generate, it can be…\n\npdf_document (for generate a pdf)\nhtml_document (for generate a html website type)\n\nmore parameters are available to customize your file",
+    "crumbs": [
+      "Introduction to Programming",
+      "RMarkdown & Notebooks"
+    ]
+  },
+  {
+    "objectID": "01_04_rmarkdown.html#rendering",
+    "href": "01_04_rmarkdown.html#rendering",
+    "title": "RMarkdown & Notebooks",
+    "section": "Rendering",
+    "text": "Rendering\nWhen rendering R will execute each fragment of code in the file (if there are errors rendering will fail). It will generate a new version of the file in the selected output.\nNormally a preview of the file will open once finished and the file will se saved in your working directory.\nknitr package should be installed for doing the rendering as is the motor used. In case of generating a pdf you will need to have installed tinytex look for your PC needs in this case.\nFor rendering the file we need to press the knit button on the top of the document file. It will start an execution in the RStudio terminal and generate the desired file performing the renderization. Remember that in RMarkdown, rendering means converting your .Rmd file into the final document: Word, PDF, or HTML. Rendering both runs the code and creates the document.",
+    "crumbs": [
+      "Introduction to Programming",
+      "RMarkdown & Notebooks"
+    ]
+  },
+  {
+    "objectID": "01_04_rmarkdown.html#markdown-syntax",
+    "href": "01_04_rmarkdown.html#markdown-syntax",
+    "title": "RMarkdown & Notebooks",
+    "section": "Markdown Syntax",
+    "text": "Markdown Syntax\nFor writing text in markdown we have an specific syntax we need to use in the following pictures you can find a summary of all rules we can use for customize our text.",
+    "crumbs": [
+      "Introduction to Programming",
+      "RMarkdown & Notebooks"
+    ]
+  },
+  {
+    "objectID": "01_04_rmarkdown.html#markdown-syntax-code",
+    "href": "01_04_rmarkdown.html#markdown-syntax-code",
+    "title": "RMarkdown & Notebooks",
+    "section": "Markdown Syntax: Code",
+    "text": "Markdown Syntax: Code\nCode chunks are the blocks in markdown were we type the code we want to include in the document. This code will be executed each time the document is rendered.\n\n\n\n\n\nHere you can see an example of a code chunk and the different functions available.\n\nConfiguration block where we enter the programming language the code chunk is using (r) and other configurations regarding the behavior of the chunk.\nFor running the cell we can use the green icon, and check the code is working at the same time we build the document.\nThe output of the cell, here we can see what will be the output and what is going to be shown when the document is reendered.\n\n\n\n\n\n\nYou can enter specific configurations to your code chunks and change their behavior on execution. Here are the most common ones:\n\necho, is used for displaying the code when the value is true (default) or false if we don’t want to display the code.\neval, is used for deciding to run the code or not. If eval is false the code won’t be executed and no output will be displayed.\n\n\n\n\n\n\n\n\n\n\n\n\nExecution Order\n\n\n\nThe order of the code chunks in the document matters, if you use variables or other elements existing in other chunks you need make sure the cells are executed before the current cell.",
+    "crumbs": [
+      "Introduction to Programming",
+      "RMarkdown & Notebooks"
+    ]
+  },
+  {
+    "objectID": "01_05_packages.html",
+    "href": "01_05_packages.html",
+    "title": "Packages & Libraries",
+    "section": "",
+    "text": "As we have seen, R base has a lot of pre-defined functions and tools you can use when programming. But sometimes (very often) we will need more tools don’t available by default… we can build a function to do that… but probably we can use already created packages by other users that have a lot of functions that do what we need.\nA package is an extension for R that includes functions and data sets we can use and load in our projects. The possibility of using and creating code packages makes powerful R helping doing different tasks.\nYou can learn more about packages here.\nFor installing a package we just need to type the following command in our R console…\n\ninstall.packages(\"tidyverse\")\n\nWhen installing packages with this command, never type it on the script to avoid issues and possible problems if you already have the library installed.\nOnce installed we need to load it to use it, we can do that writing in our scripts the following command at the beginning of the code…\n\nlibrary(\"tidyverse\")\n\nIt is recommended to write this commands at the beginning of the script so the programmer can see all libraries needed.",
+    "crumbs": [
+      "Introduction to Programming",
+      "Packages & Libraries"
+    ]
+  },
+  {
+    "objectID": "02_01_first_concepts.html",
+    "href": "02_01_first_concepts.html",
+    "title": "First Concepts of R",
+    "section": "",
+    "text": "Variables\nAs seen in the introduction of programming with R we can perform several operations in the R scripts. Like the one below…\n10 + 3\n\n[1] 13\nBut in most cases we will need to store values so we can re-use them later.\nImagine that we need to keep a value or the result of an operation, for doing that, we need to store them on the memory with an identifier… a variable.\nFor creating a a variable we need to define the name and then assign a value or object that will be stored on the variable using the &lt;- syntax.\nLet’s see it with an example…\n# We define variable 'a' that stores number 10\na &lt;- 10\na\n\n[1] 10\nThen we can use the value stored on variable a and use them in more operations.\n# We increase by 3 and store the result on new variable 'b'\nb &lt;- a + 3\nb\n\n[1] 13\nConsider that the variables can be overwritten, so if you assign a new value to an existing variable their value will change.\nc &lt;- 5\nc\n\n[1] 5\nc &lt;- 20\nc\n\n[1] 20\nYou can control all existing variables and their content in the Environment tab on RStudio. But you can also check tipyng the ls() function on the console or your script it will return the existing variables in your environment.\nls()\n\n[1] \"a\" \"b\" \"c\"\nIn the other hand, you would like to clean all variables at some point. You can use rm(list=ls())) command, to clean all variables. Being rm() the remove function and on the function we will provide the list of variables to delete.\nClean variables is important when we are not going to use them anymore as it will free space in the memory of your computer allowing to be used for other processes and other variables.",
+    "crumbs": [
+      "Programming with R",
+      "First Concepts of R"
+    ]
+  },
+  {
+    "objectID": "02_01_first_concepts.html#variables",
+    "href": "02_01_first_concepts.html#variables",
+    "title": "First Concepts of R",
+    "section": "",
+    "text": "&lt;variable_name&gt; &lt;- &lt;value&gt;\n\n\n\n\n\n\n\n\n\n\nEnvironment\n\n\n\nEach time you create a variable or object it will appear on the Environment tab, so you can have control of all elements you have created.\n\n\n\n\n\n\n\n\n\nNaming Variables\n\n\n\nWhen naming variable take into account that it cannot start by a number and cannot have special characters such @, $, etc.",
+    "crumbs": [
+      "Programming with R",
+      "First Concepts of R"
+    ]
+  },
+  {
+    "objectID": "02_01_first_concepts.html#introduction-to-functions",
+    "href": "02_01_first_concepts.html#introduction-to-functions",
+    "title": "First Concepts of R",
+    "section": "Introduction to Functions",
+    "text": "Introduction to Functions\nFunctions are already created code programs we can use. They are pre-built and available on R and we can call them to perform quick operations, instead of creating the whole code. We have seen some examples in the variables section.\nThe have a defined name and normally are followed by parenthesis (), inside the parenthesis we can include additional arguments to the function (inputs) that are needed to perform the operation we want to do (not all functions have arguments). The function will return the result.\n&lt;function_name&gt;(&lt;arguments_1&gt;, &lt;arguments_2&gt;, ..., &lt;arguments_n&gt;)\nR has different pre-defined functions we can use…\n\n# compute the mean from number 1 to 10\nmean(1:10)\n\n[1] 5.5\n\n# we can combine functions\nround(mean(1:10))\n\n[1] 6\n\n\nIn the examples we have seen we have computed the mean of ten numbers, so the function mean() has one arguments we need to enter that is the numbers to use in the computation (we have provide with a range 1:10). In the second case we have use the output to round it removing decimal numbers with round() function whose input arguments is the value to round.\nAs we have seen functions can have multiple arguments, with a name each one. When providing arguments we can enter them by name or we can provide them without naming the arguments, in the second case we need to enter them on the same order they are expected to be included. We can check the order and the arguments in the function documentation.\n\n# sample a number between 1 to 10\nsample(x = 1:10, size = 1)\n\n[1] 7\n\n# we don't need to use the name if we follow the same order\nsample(1:10, 1)\n\n[1] 1\n\n\nYou can see the arguments of a function using args() function.\n\nargs(sample)\n\nfunction (x, size, replace = FALSE, prob = NULL) \nNULL\n\n\nSome arguments have a default value, so you don’t need to provide one always. See round() function for example.\n\nargs(round)\n\nfunction (x, digits = 0, ...) \nNULL\n\n\nIn the function digits have default value as 0, so if we do not provide a value for that argument the function will use the value 0.\nIf you have doubts of about any function, its arguments or how it works you can use ? command to see the official documentation.\n? round\nThis will show the documentation of the function in the Help tab of RStudio.\n\nHere you have a summary of frequently used functions in R:\n\n\n\nFunction\nUse\n\n\n\n\nlog()\ncomputes the logarithm\n\n\nexp()\ncomputes the exponential\n\n\nmin()\ncomputes the min number\n\n\nmax()\ncomputes the max number\n\n\nsum()\ncomputes the sum\n\n\nmean()\ncomputes the average\n\n\nmedian()\ncomputes the median\n\n\nvar()\ncomputes the variance\n\n\nsd()\ncomputes the standard deviation\n\n\nquantile()\ncomputes quantiles 0, 25, 50, 75, 100\n\n\ncor()\ncomputes de correlation",
+    "crumbs": [
+      "Programming with R",
+      "First Concepts of R"
+    ]
+  },
+  {
+    "objectID": "02_02_objects.html",
+    "href": "02_02_objects.html",
+    "title": "Objects",
+    "section": "",
+    "text": "Basic Types\nFor programming R uses different data types that we need to know and understand. Data types are the basic objects we will work with and that are used to create much more complex objects.",
+    "crumbs": [
+      "Programming with R",
+      "Objects"
+    ]
+  },
+  {
+    "objectID": "02_02_objects.html#basic-types",
+    "href": "02_02_objects.html#basic-types",
+    "title": "Objects",
+    "section": "",
+    "text": "numeric\nnumeric type is the one used for working with numbers…\n\nc &lt;- 5\nd &lt;- 6\nc + d\n\n[1] 11\n\n\nYou can know the type of an object using the function class to know the exactly which one you are working with.\n\nclass(d)\n\n[1] \"numeric\"\n\n\nInside numeric class we can have different sub-types as it is a family of types for representing all number formats.\n\n# typeof checks the inner type inside the class\ntypeof(d)\n\n[1] \"double\"\n\ntypeof(1.5)\n\n[1] \"double\"\n\ntypeof(1L) # integer\n\n[1] \"integer\"\n\n\n\n\n\n\n\n\nclass() or typeof()\n\n\n\nYou have seen we have use class() and typeof() method to identify an object type.\n\nclass() is more generic as it identifies the object class, a basic R structure that defines a common properties shared with types of the same class.\ntypeof() is more accurate to the specific type.\n\nIn some cases (mostly) it will return the same output.\n\n\nBut if we want to verify that an object is numeric we can use the is.numeric() function. That will check if the object is from class numeric.\n\n# Check if a value is of certain type\nis.numeric(1L)\n\n[1] TRUE\n\n\nSee that the function returns a “word” called TRUE. This is not exactly a word is an other type called boolean that we will learn later. In this case TRUE means that the object is a numeric type.\n\n\ncharacter\ncharacter data type is the one used for working with texts.\n\nsentence &lt;- \"may the force be with you\"\n\ntypeof(sentence)\n\n[1] \"character\"\n\n\nYou can know the number of letters an object of type character has with nchar() function (number of characters). Consider that white spaces are also characters.\n\nnchar(sentence)\n\n[1] 25\n\n\nYou can transform to one type to another. For example, we have a number written as a character and we want to use it as a number.\n\nnumber &lt;- \"20\"\n\n10 + as.numeric(number)\n\n[1] 30\n\n\nYou can do the opposite too… transform a number to a text with as.character\n\nnum &lt;- 10 + as.numeric(number)\nnum \n\n[1] 30\n\nas.character(num)\n\n[1] \"30\"\n\n\n\n\nlogical\nAlso known as boolean values,\n\nclass(TRUE)\n\n[1] \"logical\"\n\nclass(FALSE)\n\n[1] \"logical\"\n\n\nNormally they are the result of the evaluation of logical expressions (conditions)\n\nclass(1 == 1) # equal\n\n[1] \"logical\"\n\n\n\n1 &gt; 5\n\n[1] FALSE\n\n\nHere you have a summary of different possible conditions…\nSummary of logical operations…\n\n\n\n\n\n\n\n\nOperator\nDefinition\nUse example (all of them are TRUE)\n\n\n\n\n==\nEqual\n10 == 10\n\n\n!=\nDistinct\n10 != 20\n\n\n&gt;\nHigher\n10 &gt; 9\n\n\n&gt;=\nHigher or Equal\n10 &gt;= 9, 10 &gt;= 10\n\n\n&lt;\nLower\n9 &lt; 10\n\n\n&lt;=\nLower or Equal\n9 &lt;= 10, 10 &lt;= 10\n\n\n%in%\nIs inside a collection\n9 %in% c(1,8,9,10)\n\n\n\nThey can be seen as numeric values too, this is coercion, again…\n\nTRUE == 1\n\n[1] TRUE\n\nFALSE == 0\n\n[1] TRUE\n\n\n\n\n\n\n\n\nBasic Types Functions\n\n\n\nWe have seen that we can use several functions to transform between types and also to check types.\nTransformation Functions\n\n\n\nfunction\ndecription\n\n\n\n\nas.numeric()\nto change to numeric\n\n\nas.character()\nto change to character\n\n\nas.logical()\nto change to logical\n\n\n\nType Verification Functions\n\n\n\nfunction\ndecription\n\n\n\n\nis.numeric()\nto check to numeric\n\n\nis.character()\nto check to character\n\n\nis.logical()\nto check to logical",
+    "crumbs": [
+      "Programming with R",
+      "Objects"
+    ]
+  },
+  {
+    "objectID": "02_02_objects.html#vectors",
+    "href": "02_02_objects.html#vectors",
+    "title": "Objects",
+    "section": "Vectors",
+    "text": "Vectors\nIn the last data types we have work with a single value or element, but sometimes we will need to work with a collection of elements. A vector is collection of elements of the same data type\n\nnumbers &lt;- c(1, 2, 3.23, 4.223, 5.21, 6.6)\nwords &lt;- c(\"hotel\", \"dinosaur\", \"transport\")\nlogical &lt;- c(TRUE, FALSE, TRUE, FALSE, TRUE, TRUE)\n\nnumbers\n\n[1] 1.000 2.000 3.230 4.223 5.210 6.600\n\n\nIf we check the data type of a vector it will return the basic type of its values. So a vector can only be of a single basic type.\n\ntypeof(words)\n\n[1] \"character\"\n\n\nIn fact, if you try to create a vector of different types. R will try to understand the basic type and apply it to all elements. This is called coercion. Read more about coercion here.\n\na &lt;- c(1,2,3,\"Hola\")\na\n\n[1] \"1\"    \"2\"    \"3\"    \"Hola\"\n\n\nIf you want to check that an object is a vector you can use is.vector function.\n\nis.vector(words)\n\n[1] TRUE\n\n\n\nSelection of elements\nAs vectors have several values, we will want to access the different elements individually. For doing that we just need to enter the position we want to access to.\n\n# vectors position start at 1\nwords[1] # first element\n\n[1] \"hotel\"\n\n\nAnd you can access a range of elements directly…\n\nnumbers[2:4]\n\n[1] 2.000 3.230 4.223\n\n\nAnd make a much more wise selection using a vector with the position, in the example we want elements 1 and 4. It will return a new vector with the values of the selected positions.\n\nnumbers[c(1,4)]\n\n[1] 1.000 4.223\n\n\nFor vectors, we have an specific function to know exactly the number of elements we have in the vector: length()\n\nlength(words)\n\n[1] 3\n\n\nTo summarise everything we know about vectors you can check this schema:\n\n\n\n\n\n\n\n\n\n\n\nExercise: Selecting values of a vector\n\n\n\nUsing the following vector v &lt;- seq(1,200,4) select the last 10 elements\n\n\n\n\nModification of elements\nUsing the selection syntax we have seen we can also modify parts of the vector, instead of changing the whole vector.\n\nvec &lt;- 1:10\n\n# Modifying values with single selection\nvec[3] &lt;- 300\nvec\n\n [1]   1   2 300   4   5   6   7   8   9  10\n\n\nAnd you can modify multiple elements if needed:\n\n# Modifying values with multiple selection\nvec[c(1,4)] &lt;- c(100, 400)\nvec\n\n [1] 100   2 300 400   5   6   7   8   9  10\n\n\n\n# Modifying a full range of values\nvec[c(5:7)] &lt;- vec[c(5:7)] + 100\nvec\n\n [1] 100   2 300 400 105 106 107   8   9  10\n\n\n\n\nOperations with vectors\nIn the last example of modification we have seen what we call an element-wise operation\nR is capable on adapt the operations with vectors depending on their size to apply the operation to all elements.\n\nVector - Number: it will apply the same operation with that number to all elements of the vector\n\n\nb &lt;- 1:10\nb\n\n [1]  1  2  3  4  5  6  7  8  9 10\n\nb + 7\n\n [1]  8  9 10 11 12 13 14 15 16 17\n\n\n\nVector - Vector (same length): it will apply the operation between the same positions of each vector.\n\n\nb\n\n [1]  1  2  3  4  5  6  7  8  9 10\n\nb * b\n\n [1]   1   4   9  16  25  36  49  64  81 100\n\n\n\nVector - Vector (different length)\n\n\nd &lt;- 1:2 # length = 2\ne &lt;- 1:4 # length = 4\n\n# Showing vectors\nd\n\n[1] 1 2\n\ne\n\n[1] 1 2 3 4\n\n# Product of both vectors\nd * e\n\n[1] 1 4 3 8\n\n\nWhen doing a operation of vectors with different length, R will compare both of them. The shorter one will try to adapt to the size of the bigger one, so elements will be repeated on the short vector until it reaches the larger one. If the short one cannot cover the larger one R will show you a warning message.\n\nf &lt;- 1:3 # length = 3\ng &lt;- 1:4 # length = 4\n\n# Product of both vectors\nf * g\n\nWarning in f * g: longer object length is not a multiple of shorter object\nlength\n\n\n[1] 1 4 9 4\n\n\n\n\n\n\n\n\nWarning messages\n\n\n\nA warning in programming is a message shown by the computer informing us of an undesired behavior in the execution. They are not errors as the code has been able to perform the execution successfully but it inform us in case the operation has not been done correctly.",
+    "crumbs": [
+      "Programming with R",
+      "Objects"
+    ]
+  },
+  {
+    "objectID": "02_02_objects.html#lists",
+    "href": "02_02_objects.html#lists",
+    "title": "Objects",
+    "section": "Lists",
+    "text": "Lists\nAs we have seen vectors can only contain elements of the same data type, if we need to create a collection of elements of different types we should work with lists.\n\nmylist &lt;- list(c(\"A\", \"B\"), 1:10, Sys.time())\nmylist\n\n[[1]]\n[1] \"A\" \"B\"\n\n[[2]]\n [1]  1  2  3  4  5  6  7  8  9 10\n\n[[3]]\n[1] \"2026-08-29 19:15:53 CEST\"\n\n\nIn contrast with vectors, lists are considered a data type (object):\n\nclass(mylist)\n\n[1] \"list\"\n\n\n\nSelection of elements\nFor acceding the elements of a list we need to consider that each position of the list stores objects inside. So we have two ways of acceding the elements:\n\nAcceding the position (similar to vectors)\nAcceding the element inside that position\n\n\n# acceding at the second position of the list\nmylist[2]\n\n[[1]]\n [1]  1  2  3  4  5  6  7  8  9 10\n\n# acceding at the second element of the list\nmylist[[2]]\n\n [1]  1  2  3  4  5  6  7  8  9 10\n\n\nTo understand the difference look what happens when we ask for the types…\n\nclass(mylist[2])\n\n[1] \"list\"\n\nclass(mylist[[2]])\n\n[1] \"integer\"\n\n\nIn the first case we are obtaining a new list with the element selected. While on the second case we exactly obtaining the element, in this case a vector of characters.\nOne insteresting fact of lists, is that you can assign names to the each elements…\n\n# Now each element of mylist2 has an assigned name\nmylist2 &lt;- list(letters = c(\"A\", \"B\"), numbers = 1:10, time = Sys.time())\n\nmylist2\n\n$letters\n[1] \"A\" \"B\"\n\n$numbers\n [1]  1  2  3  4  5  6  7  8  9 10\n\n$time\n[1] \"2026-08-29 19:15:53 CEST\"\n\n\nThese names can be used for accessing each element too:\n\n# acceding at the first position by name\nmylist2[\"letters\"]\n\n$letters\n[1] \"A\" \"B\"\n\n# acceding at the first element by name\nmylist2[[\"letters\"]]\n\n[1] \"A\" \"B\"\n\n# Other option using $ syntax if the names have no spaces\nmylist2$letters\n\n[1] \"A\" \"B\"\n\n\nIf you are not sure if the list you are working with has names in their elements you can use the attributes function.\n\nattributes(mylist2)\n\n$names\n[1] \"letters\" \"numbers\" \"time\"   \n\n\nYou can see that this list contains some names defined. You can also use names function to see it.\n\nnames(mylist2)\n\n[1] \"letters\" \"numbers\" \"time\"",
+    "crumbs": [
+      "Programming with R",
+      "Objects"
+    ]
+  },
+  {
+    "objectID": "02_02_objects.html#matrix",
+    "href": "02_02_objects.html#matrix",
+    "title": "Objects",
+    "section": "Matrix",
+    "text": "Matrix\nWe use it for storing bi-dimensional structures…\n\nm &lt;- matrix(1:10, nrow=2)\nm\n\n     [,1] [,2] [,3] [,4] [,5]\n[1,]    1    3    5    7    9\n[2,]    2    4    6    8   10\n\nm &lt;- matrix(1:10, nrow=2, byrow=TRUE)\nm\n\n     [,1] [,2] [,3] [,4] [,5]\n[1,]    1    2    3    4    5\n[2,]    6    7    8    9   10\n\n\nWe can check number of elements in each dimension of the matrix.\n\nncol(m)\n\n[1] 5\n\nnrow(m)\n\n[1] 2",
+    "crumbs": [
+      "Programming with R",
+      "Objects"
+    ]
+  },
+  {
+    "objectID": "02_02_objects.html#arrays",
+    "href": "02_02_objects.html#arrays",
+    "title": "Objects",
+    "section": "Arrays",
+    "text": "Arrays\n\narray(1:12, dim = c(2,2,3))\n\n, , 1\n\n     [,1] [,2]\n[1,]    1    3\n[2,]    2    4\n\n, , 2\n\n     [,1] [,2]\n[1,]    5    7\n[2,]    6    8\n\n, , 3\n\n     [,1] [,2]\n[1,]    9   11\n[2,]   10   12",
+    "crumbs": [
+      "Programming with R",
+      "Objects"
+    ]
+  },
+  {
+    "objectID": "02_02_objects.html#datetime",
+    "href": "02_02_objects.html#datetime",
+    "title": "Objects",
+    "section": "Datetime",
+    "text": "Datetime\nWe can manage dates and time inside R…\n\nhour &lt;- Sys.time()\nhour\n\n[1] \"2026-08-29 19:15:53 CEST\"\n\ntypeof(hour)\n\n[1] \"double\"\n\nclass(hour)\n\n[1] \"POSIXct\" \"POSIXt\"",
+    "crumbs": [
+      "Programming with R",
+      "Objects"
+    ]
+  },
+  {
+    "objectID": "02_02_objects.html#factors",
+    "href": "02_02_objects.html#factors",
+    "title": "Objects",
+    "section": "Factors",
+    "text": "Factors\nFactors are used to store categorical variables, with a fixed level of categories…\n\naddict &lt;- factor(c(\"YES\", \"NO\", \"NO\", \"YES\"))\nattributes(addict)\n\n$levels\n[1] \"NO\"  \"YES\"\n\n$class\n[1] \"factor\"\n\n# We can pass from a factor to a character\naddict &lt;- as.character(addict)\nclass(addict)\n\n[1] \"character\"",
+    "crumbs": [
+      "Programming with R",
+      "Objects"
+    ]
+  },
+  {
+    "objectID": "02_03_dataframes.html",
+    "href": "02_03_dataframes.html",
+    "title": "Data Frames",
+    "section": "",
+    "text": "Dimensions\nAs we have said data frame are bi-dimensional structures. You can check the dimensions of a data frame using dim function.\ndim(df)\n\n[1] 4 4\nThe first value is the number of rows, and the second the number of columns. You can explore them separately…\nncol(df) # number of columns\n\n[1] 4\n\nnrow(df) # number of rows\n\n[1] 4\nAnd you can check the columns that the dataframe has…\nnames(df)\n\n[1] \"id\"          \"company\"     \"share_dif\"   \"consolidate\"",
+    "crumbs": [
+      "Programming with R",
+      "Data Frames"
+    ]
+  },
+  {
+    "objectID": "02_03_dataframes.html#selecting-elements",
+    "href": "02_03_dataframes.html#selecting-elements",
+    "title": "Data Frames",
+    "section": "Selecting elements",
+    "text": "Selecting elements\nFor selecting elements in the dataframe we need to work with its bi-dimensional structure, so we need to provide information of the position…\ndataframe_name[rows, columns]\nWe can retrieve a single row…\n\n# First row\ndf[1,]\n\n  id company share_dif consolidate\n1  1   Apple       3.4         YES\n\n\nWe get a dataframe with the first row only\nWe can retrieve a single column…\n\n# Second column using position\ndf[,2]\n\n[1] \"Apple\"     \"Google\"    \"Microsoft\" \"Huawei\"   \n\n# Second column using name of the column\ndf$company\n\n[1] \"Apple\"     \"Google\"    \"Microsoft\" \"Huawei\"   \n\n\nWe get a vector with all the elements of the column.\nWe can retrieve an specific register providing both elements. Using two possible syntax.\n\n# First element of second column by position\ndf[1,2]\n\n[1] \"Apple\"\n\n# First element of second column by name and position\ndf$company[1]\n\n[1] \"Apple\"\n\n\n\nAdvance selection\nYou can make more complex selections…\n\n# Multiple elements\ndf[1:2, 2:3] # firs and second rows of columns 2 to 3\n\n  company share_dif\n1   Apple       3.4\n2  Google      -2.5\n\n# Negative numbers in the selection\ndf[-c(1,2),1:3] # last two rows of columns 1 to 3\n\n  id   company share_dif\n3  3 Microsoft     10.10\n4  4    Huawei     -0.05\n\n\nUsing negative values makes the dataframe do reversed selection, all except the ones informed.\n\ndf[,-2] # All except second column (company)\n\n  id share_dif consolidate\n1  1      3.40         YES\n2  2     -2.50          NO\n3  3     10.10          NO\n4  4     -0.05         YES\n\n\nAnd other examples…\n\n# Using logical values\ndf[1,c(TRUE, TRUE, FALSE)]\n\n  id company consolidate\n1  1   Apple         YES\n\n# Selection with column names\ndf[c(1,3), \"consolidate\"]\n\n[1] \"YES\" \"NO\"",
+    "crumbs": [
+      "Programming with R",
+      "Data Frames"
+    ]
+  },
+  {
+    "objectID": "02_03_dataframes.html#filtering",
+    "href": "02_03_dataframes.html#filtering",
+    "title": "Data Frames",
+    "section": "Filtering",
+    "text": "Filtering\nYou can select elements by filtering the data frame depending on conditions. For doing that you need to use conditional logical expressions on the row part of the selection.\nWe want to select all companies with a positive share_dif:\n\ndf[df$share_dif &gt; 0, ]\n\n  id   company share_dif consolidate\n1  1     Apple       3.4         YES\n3  3 Microsoft      10.1          NO\n\n\nRationale…\nWe want registers with a positive share_dif, this means that all rows with a value on share_dif higher than 0 should be selected. If the type the condition:\n\ndf$share_dif &gt; 0\n\n[1]  TRUE FALSE  TRUE FALSE\n\n\nWe get a vector of logical values, if the provide this vector to the selection syntax of the data frame rows it will get all rows whose position is TRUE.\n\nfilter &lt;- df$share_dif &gt; 0\ndf[filter,]\n\n  id   company share_dif consolidate\n1  1     Apple       3.4         YES\n3  3 Microsoft      10.1          NO\n\n\n\n\n\n\n\n\nCombining logical expressions\n\n\n\nCombining logical expressions with Boolean expressions can be done using special operators:\n\n& for AND, both expressions must be successful to pass the condition.\n| for OR, if any of the expression is successful the whole condition will be met.\n\n\nexp1 &lt;- 5 &gt; 3\nexp2 &lt;- \"A\" != \"A\"\nexp3 &lt;- 3 %in% c(1,2,3)\n# AND\nexp1 & exp2\n\n[1] FALSE\n\n# OR\nexp1 | exp2\n\n[1] TRUE\n\n\nThe order for this combinations matters, the most critical condition needs to be put on the left part of the whole structure to be evaluated first.\nAlso, you can express the opposite of a condition adding ! operator at the left:\n\n# Negation\n!exp1\n\n[1] FALSE\n\n\n\n\n\n\n\n\n\n\nExercise: Using filters\n\n\n\nFilter the data frame df used in the examples to return all registers that have a negative share_dif and that consolidate (YES).",
+    "crumbs": [
+      "Programming with R",
+      "Data Frames"
+    ]
+  },
+  {
+    "objectID": "02_03_dataframes.html#modification",
+    "href": "02_03_dataframes.html#modification",
+    "title": "Data Frames",
+    "section": "Modification",
+    "text": "Modification\nYou can add a new column to the data frame.\n\n# Adding a new variable to the data frame\ndf$in_stock &lt;- c(1,1,1,0)\ndf\n\n  id   company share_dif consolidate in_stock\n1  1     Apple      3.40         YES        1\n2  2    Google     -2.50          NO        1\n3  3 Microsoft     10.10          NO        1\n4  4    Huawei     -0.05         YES        0\n\n\nWe have defined a new column name and assign a vector containing the values for the column.\nAnd you can drop a column following the NULL syntax.\n\n# Adding a new variable to the data frame\ndf$consolidate &lt;- NULL\ndf\n\n  id   company share_dif in_stock\n1  1     Apple      3.40        1\n2  2    Google     -2.50        1\n3  3 Microsoft     10.10        1\n4  4    Huawei     -0.05        0\n\n\nYou can modify a single value, using the selection syntax seen before:\n\n# Modifying an specific value\ndf[1, \"share_dif\"] &lt;- df[1, \"share_dif\"] + 1.4\ndf\n\n  id   company share_dif in_stock\n1  1     Apple      4.80        1\n2  2    Google     -2.50        1\n3  3 Microsoft     10.10        1\n4  4    Huawei     -0.05        0",
+    "crumbs": [
+      "Programming with R",
+      "Data Frames"
+    ]
+  },
+  {
+    "objectID": "02_04_structures.html",
+    "href": "02_04_structures.html",
+    "title": "Programming Structures",
+    "section": "",
+    "text": "Conditional Structures\nConditional structures check if a condition is met, and if it is true an specific code will be executed.\nLook at the example below:\nx &lt;- 3\nif (x &gt; 2) { \n  print(\"x is greater than 2\")\n}\n\n[1] \"x is greater than 2\"\nYou can manage alternative path for your code with else statement.\nAnd you can manage more conditions with else if, that allows you to include an additional condition to apply.\nHere you have a full example with the whole structure:\nx &lt;- 2\nif (x &gt; 2) { \n  print(\"x is greater than 2\")\n} else if (x == 2) {\n  print(\"x is equal to 2\")\n} else {\n  print(\"x is less than 2\")\n}\n\n[1] \"x is equal to 2\"",
+    "crumbs": [
+      "Programming with R",
+      "Programming Structures"
+    ]
+  },
+  {
+    "objectID": "02_04_structures.html#conditional-structures",
+    "href": "02_04_structures.html#conditional-structures",
+    "title": "Programming Structures",
+    "section": "",
+    "text": "if(condition){\n do this if the condition is TRUE\n}\n\n\n\nif(condition){\n do this if the condition is TRUE\n} else {\n do this if the condition is FALSE\n}\n\nif(condition 1){\n do this if the condition 1 is TRUE\n} else if (condition 2) {\n do this if the condition 2 is TRUE\n} else {\n do this if none of the conditions are TRUE\n}\n\n\n\nIt will check if the value is greater than 2. If it is it will return “x is greater than 2” message.\nIf it is not greater than two, it will check if it is equal to 2. If it is equal it will return “x is equal to 2”.\nFinally, if none of the last two conditions are met, it will display a message “x is less than 2”\n\n\n\n\n\n\n\nExercise\n\n\n\nCheck the following piece of code, what will be the result and why? Hint: %% is the module operation returning the rest of a division\n\na &lt;- 10\nb &lt;- -3\n\n# %% operator will return the module of a division\n# we check if the value is even\nif(a %% 2 == 0 & b %% 2 == 0){ \n  c &lt;- a / 2 - b / 2\n} else if(a %% 2 == 0 & b &lt; 0){\n  c &lt;- a / 2 - b\n} else {\n  c &lt;- a + b\n}\nc\n\n[1] 8",
+    "crumbs": [
+      "Programming with R",
+      "Programming Structures"
+    ]
+  },
+  {
+    "objectID": "02_04_structures.html#iterative-structures-loops",
+    "href": "02_04_structures.html#iterative-structures-loops",
+    "title": "Programming Structures",
+    "section": "Iterative Structures (Loops)",
+    "text": "Iterative Structures (Loops)\nIterative operations, also called loops, are designed to perform repetitive tasks without needing to rewrite the same code multiple times.\nWe can use different kinds of loops, here we will learn for and while.\n\nFor loop\nFor loop is used for perform a task a limited number of times. It is commonly used for travelling through a collection (vector, lists or data frames).\nfor (value in collection){\n  do this\n}\nHere an example:\n\nfor(x in c(\"A\", \"B\", \"C\")){\n  print(x)\n}\n\n[1] \"A\"\n[1] \"B\"\n[1] \"C\"\n\n\n\n\nWhile loop\nIt is used for repeating a task while a condition is met. When the condition is not successful the loop will stop.\nwhile (condition){\n  do this\n}\n\nx &lt;- 0\nwhile(x &lt; 8){\n  print(x)\n  x &lt;- x + 1\n}\n\n[1] 0\n[1] 1\n[1] 2\n[1] 3\n[1] 4\n[1] 5\n[1] 6\n[1] 7\n\n\n\n\n\n\n\n\nExercise\n\n\n\nGiven the following vector v &lt;- sample(1:20,10,replace=FALSE) compute with a loop the total of the sum of all the elements of the vector. Hint: To check that your code is correct the result of the loop should match the value returned with sum(v).",
+    "crumbs": [
+      "Programming with R",
+      "Programming Structures"
+    ]
+  },
+  {
+    "objectID": "02_04_structures.html#creating-functions",
+    "href": "02_04_structures.html#creating-functions",
+    "title": "Programming Structures",
+    "section": "Creating Functions",
+    "text": "Creating Functions\nAs we have seen you have multiple functions available on R to perform several tasks. But, you can also create your own functions so you can use the same function multiple times without needing to write the code.\nFor doing that we need to follow the structure:\nmy_function &lt;- function(){}\nFor example we want to create a function that prints “Hello!” on the console.\n\nsay_hello &lt;- function() {\n  print(\"Hello!\")\n}\n\nNow we will use the function:\n\nsay_hello()\n\n[1] \"Hello!\"\n\n\nSometimes we will want the function to perform actions given some value and then return the output. For example, we want to write a function that given a number it divide the number by 2 and returns the result.\n\ndivide_by2 &lt;- function(x) {\n  y &lt;- x/2\n  return(y)\n}\n\ndivide_by2(10)\n\n[1] 5\n\n\nThe output can be stored to be used later\n\nb &lt;- divide_by2(10)\nb\n\n[1] 5\n\n\nWe can also define default values, so in case the user doesn’t provide a parameter the function can be executed without errors.\n\ndivide_by2 &lt;- function(x = 2) {\n  y &lt;- x/2\n  return(y)\n}\n\ndivide_by2()\n\n[1] 1\n\n\n\n\n\n\n\n\nExercise: Create a function\n\n\n\nCreate a function called mult_vector that given a vector and a number it should multiply each element of the vector by that number and return the new vector. Add a default value of 1 for the number so if it is not provided it will return the same vector. Also, include a control structure in the code, so if the default value is used the function should print a message on the console “No multiplier provided using 1 as default!”.",
+    "crumbs": [
+      "Programming with R",
+      "Programming Structures"
+    ]
+  },
+  {
+    "objectID": "03_01_tibbles.html",
+    "href": "03_01_tibbles.html",
+    "title": "Tibbles",
+    "section": "",
+    "text": "Data Frames vs Tibbles",
+    "crumbs": [
+      "Tidyverse",
+      "Tibbles"
+    ]
+  },
+  {
+    "objectID": "03_01_tibbles.html#data-frames-vs-tibbles",
+    "href": "03_01_tibbles.html#data-frames-vs-tibbles",
+    "title": "Tibbles",
+    "section": "",
+    "text": "Printing\nThis is how iris data set looks as a data frame object:\n\nhead(iris)\n\n  Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n1          5.1         3.5          1.4         0.2  setosa\n2          4.9         3.0          1.4         0.2  setosa\n3          4.7         3.2          1.3         0.2  setosa\n4          4.6         3.1          1.5         0.2  setosa\n5          5.0         3.6          1.4         0.2  setosa\n6          5.4         3.9          1.7         0.4  setosa\n\n\nNow we are going to convert iris to a tibble, we will use tidyverse function as_tibble():\n\niris_tb &lt;- as_tibble(iris)\nhead(iris_tb)\n\n# A tibble: 6 × 5\n  Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n         &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;  \n1          5.1         3.5          1.4         0.2 setosa \n2          4.9         3            1.4         0.2 setosa \n3          4.7         3.2          1.3         0.2 setosa \n4          4.6         3.1          1.5         0.2 setosa \n5          5           3.6          1.4         0.2 setosa \n6          5.4         3.9          1.7         0.4 setosa \n\n\nWe see that in the console… * output of the data frame we only get the data displayed directly and unorganized. * output of the tibble shows a summary of dimensions as well as a compact visualization of the columns and types of each column.\n\n\nColumn Names\nOn tibbles column names don’t need to be consecutive you can have names with spaces, like this example:\n\ndt &lt;- tibble(\n  p  = c(\"A\", \"B\", \"C\", \"D\", \"E\"),\n  x = 1:5,\n  y = 2,\n  `sum of values` = x + y # we can reference other columns\n)\ndt\n\n# A tibble: 5 × 4\n  p         x     y `sum of values`\n  &lt;chr&gt; &lt;int&gt; &lt;dbl&gt;           &lt;dbl&gt;\n1 A         1     2               3\n2 B         2     2               4\n3 C         3     2               5\n4 D         4     2               6\n5 E         5     2               7\n\n\n\n\nSelection\nWhen selecting and modifying values you can work the same as a data frame but consider that the output of any selection will return a data frame always…\n\n# first value of first column as DF\ndt[1,1]\n\n# A tibble: 1 × 1\n  p    \n  &lt;chr&gt;\n1 A    \n\n\nIf we want to manipulate the value we will need to do a second selection\n\n# first value of first column\ndt[1,1][[1]]\n\n[1] \"A\"\n\n\nYou need to use name selection or double selection to access the values itself.\n\n# first column as vector\ndt$p\n\n[1] \"A\" \"B\" \"C\" \"D\" \"E\"\n\n\n\n# first column value as value\ndt[[1]][1]\n\n[1] \"A\"",
+    "crumbs": [
+      "Tidyverse",
+      "Tibbles"
+    ]
+  },
+  {
+    "objectID": "03_01_tibbles.html#creating-a-tibble",
+    "href": "03_01_tibbles.html#creating-a-tibble",
+    "title": "Tibbles",
+    "section": "Creating a tibble",
+    "text": "Creating a tibble\nIn case you need to create a tibble manually, you can defined it as the following example.\n\ndt &lt;- tibble(\n  p  = c(\"A\", \"B\", \"C\", \"D\", \"E\"),\n  x = 1:5,\n  y = 2,\n  `sum of values` = x + y\n)\ndt\n\n# A tibble: 5 × 4\n  p         x     y `sum of values`\n  &lt;chr&gt; &lt;int&gt; &lt;dbl&gt;           &lt;dbl&gt;\n1 A         1     2               3\n2 B         2     2               4\n3 C         3     2               5\n4 D         4     2               6\n5 E         5     2               7",
+    "crumbs": [
+      "Tidyverse",
+      "Tibbles"
+    ]
+  },
+  {
+    "objectID": "04_01_plots.html",
+    "href": "04_01_plots.html",
+    "title": "Plots with ggplot2",
+    "section": "",
+    "text": "The Canvas\nFor creating a plot with ggplot2 we need to define the canvas, the plot object were we will draw the plot. For doing this we will use function ggplot().\nggplot(data = &lt;data_to_use&gt;, mapping = aes(x = &lt;col1&gt;, y = &lt;col2&gt;, ...))\nWe need to provide the ggplot function the data to use:\nggplot(gapminder)",
+    "crumbs": [
+      "Visualization",
+      "Plots with ggplot2"
+    ]
+  },
+  {
+    "objectID": "04_01_plots.html#geometries",
+    "href": "04_01_plots.html#geometries",
+    "title": "Plots with ggplot2",
+    "section": "Geometries",
+    "text": "Geometries\nWe have the initial canvas, but we need to define the object to draw. In ggplot we can draw different kinds of plots and combine them, all these objects are called geometries…\nIn this case we want to create an scatter plot, so we will use geom_poin() object. We have different options more, for example:\n\nscatter plot: geom_point()\nline plot: geom_line()\nhistograms: geom_hist()\n…\n\nIn this case we are adding a geom_point to the plot canvas, for doing that we need to use a + syntax and add it to the initial ggplot.\nggplot(gapminder) +\n  geom_point()\nBut there is something still missing… Which data we want to draw?!",
+    "crumbs": [
+      "Visualization",
+      "Plots with ggplot2"
+    ]
+  },
+  {
+    "objectID": "04_01_plots.html#aesthetics",
+    "href": "04_01_plots.html#aesthetics",
+    "title": "Plots with ggplot2",
+    "section": "Aesthetics",
+    "text": "Aesthetics\nAs we said we wanted to see the relation between lifeExp and gdpPercap, so our axis in the plot will be y as lifeExp and x as gdpPercap. How we introduce this information?\nAll geometries formulas have an argument called mapping were we need to introduce the aesthetics or aes(), this argument allow us to access the data inside the data frame. We will introduce the information as follows:\n\nggplot(data = gapminder67) +\n  geom_point(mapping = aes(y = lifeExp, x = gdpPercap))\n\n\n\n\n\n\n\n\nNow we got it! Aesthetics will help us incorporate more information to our plot, helping introducing more variables with different options.\nHere are some of the ones we can use…\n\nshape\ncolor / fill (first one borders, second full figure)\nsize\nalpha (transparency)\n\nAs you can see for creating plots with ggplot we introduce each element using +, it works as a layer system were we introduce different elements one by one until having the desired plot.",
+    "crumbs": [
+      "Visualization",
+      "Plots with ggplot2"
+    ]
+  },
+  {
+    "objectID": "04_01_plots.html#understanding-how-to-use-mappings",
+    "href": "04_01_plots.html#understanding-how-to-use-mappings",
+    "title": "Plots with ggplot2",
+    "section": "Understanding how to use mappings",
+    "text": "Understanding how to use mappings\nFor introducing the variables we need to use the mappings parameter and if the variable we need to use is from the data using the aes() function. In the example we are introducing the aesthetics into the geometries, but we can introduce them in the same ggplot, the difference depends on how it will interact with the layers of the plot.\nWe want to see how the possible values of lifeExp are distributed, we can see this with an histogram and a density plot. These geometries are geom_histogram and geom_density\n\nggplot(data = gapminder) +\n  geom_histogram(mapping = aes(x = lifeExp, y = after_stat(density)), fill = \"grey\") +\n  geom_density(mapping = aes(x = lifeExp), color=\"red\")\n\n`stat_bin()` using `bins = 30`. Pick better value `binwidth`.\n\n\n\n\n\n\n\n\n\nWe have defined the axis in both elements added to the plot. But as both geometries share the same x axis we can define the aesthetics on the ggplot instead.\n\nggplot(data = gapminder, mapping = aes(x = lifeExp)) +\n  geom_histogram(mapping = aes(y = after_stat(density)), fill = \"grey\") +\n  geom_density(color=\"red\")\n\n`stat_bin()` using `bins = 30`. Pick better value `binwidth`.\n\n\n\n\n\n\n\n\n\nWhen we define an aesthetics on the ggplot() object it will be shared with all the geometries we add to the figure.",
+    "crumbs": [
+      "Visualization",
+      "Plots with ggplot2"
+    ]
+  },
+  {
+    "objectID": "04_01_plots.html#adapting-the-plot-and-customizing",
+    "href": "04_01_plots.html#adapting-the-plot-and-customizing",
+    "title": "Plots with ggplot2",
+    "section": "Adapting the plot and Customizing",
+    "text": "Adapting the plot and Customizing\nReturning to our original plot about lifeExp and gdpPercap we are going to improve a bit eh overall plot appearance and display.\nThe dots are located very near each other showing a more dense visualization and not allowing a clear view of the data.\nFor solving that we can include a change in the scale in x using the log base, this technique is used frequently for improving how the data is displayed. In ggplot2 we can do it adding a new feature function called scale_x_log10()\n\nggplot(data = gapminder67) +\n  geom_point(mapping = aes(y = lifeExp, x = gdpPercap)) +\n  scale_x_log10()\n\n\n\n\n\n\n\n\nAs you can see we include all these new features using the + syntax, as this needs to be included in the same canvas we are using for creating the plot.\nWith the change of scale, now can see more clearly the relation between both variables.\n\nBoth variables show a positive relation, a higher GDP per capital is related with a higher Life Expectancy",
+    "crumbs": [
+      "Visualization",
+      "Plots with ggplot2"
+    ]
+  },
+  {
+    "objectID": "04_01_plots.html#titles-and-labels",
+    "href": "04_01_plots.html#titles-and-labels",
+    "title": "Plots with ggplot2",
+    "section": "Titles and Labels",
+    "text": "Titles and Labels\nFinally, we can include some customizing of the titles and labels. In ggplot this can be done using labs() function.\n\nggplot(data = gapminder67) +\n  geom_point(mapping = aes(y = lifeExp, x = gdpPercap)) +\n  scale_x_log10() +\n  labs(\n    title = \"Relation between Life Expectancy and GDP per capital\",\n    subtitle = \"Year 1967\",\n    y = \"Life Expectancy (years)\",\n    x = \"GDP per Capita (US$)\"\n  ) +\n  theme_light()\n\n\n\n\n\n\n\n\nThis way we can improve and generate a final visualization to include in our reports and analysis. In the last code we have also included a theme, ggplot has predefined themes than change the plot overall appearance, as you can see all these new features on the plot are included using +.",
+    "crumbs": [
+      "Visualization",
+      "Plots with ggplot2"
+    ]
+  },
+  {
+    "objectID": "04_02_aesthetics.html",
+    "href": "04_02_aesthetics.html",
+    "title": "Aesthetics",
+    "section": "",
+    "text": "Aesthetics for defining axis\n# Generating data to show\ngapminder67 &lt;- gapminder[gapminder$year == 1967, ]\n\n# Base plot\nggplot(data = gapminder67) +\n  geom_point(mapping = aes(y = lifeExp, x = gdpPercap)) +\n  scale_x_log10()\nIn the base plot, we defined inside the aesthetics the x and y axis to be used in the plot. Aesthetics\nBut we have more arguments that can be used:\nDepending on the geometry and type of data (continuous or discrete) we are using this parameters work differently and not all of them can be used in all aesthetics. Let’s see some examples with our current base plot.",
+    "crumbs": [
+      "Visualization",
+      "Aesthetics"
+    ]
+  },
+  {
+    "objectID": "04_02_aesthetics.html#aesthetics-for-defining-axis",
+    "href": "04_02_aesthetics.html#aesthetics-for-defining-axis",
+    "title": "Aesthetics",
+    "section": "",
+    "text": "shape\ncolor / fill (for borders or for full figure)\nsize\nalpha (transparency)",
+    "crumbs": [
+      "Visualization",
+      "Aesthetics"
+    ]
+  },
+  {
+    "objectID": "04_02_aesthetics.html#coloring-the-figures-color",
+    "href": "04_02_aesthetics.html#coloring-the-figures-color",
+    "title": "Aesthetics",
+    "section": "Coloring the figures: color",
+    "text": "Coloring the figures: color\nIn some cases we will want that the plot to be colored following the data or categories we have in the data set. In this case we can use color or fill parameter inside the aesthetics to add this information.\n\nggplot(data = gapminder67) +\n  geom_point(mapping = aes(y = lifeExp, x = gdpPercap, color=continent)) +\n  scale_x_log10()\n\n\n\n\n\n\n\n\nIn this case we have added color = continent argument inside the aes function of the geometry, this way the different possible values of continent will be used for coloring the dots.\n\n\n\n\n\n\nExercise: Color with a continuous variable\n\n\n\nTry now to do the same now using pop column instead of continent, what happens? Hint: pop is a continuous variable so this may affect how the aesthetic work.",
+    "crumbs": [
+      "Visualization",
+      "Aesthetics"
+    ]
+  },
+  {
+    "objectID": "04_02_aesthetics.html#inside-and-outside-the-aesthetics",
+    "href": "04_02_aesthetics.html#inside-and-outside-the-aesthetics",
+    "title": "Aesthetics",
+    "section": "Inside and outside the aesthetics",
+    "text": "Inside and outside the aesthetics\nSome parameters can be defined outside of the aesthetics block, this depends if we want to use data from the data frame or if we want to use a constant value.\n\nInside aesthetics: We want the figures to be colored following another data value or category.\nOutside aesthetics: We want to use an static value for the parameter.\n\nIn the example of color we have colored our values following another data, but we can color all dots with the same color if we want to:\n\nggplot(data = gapminder67) +\n  geom_point(mapping = aes(y = lifeExp, x = gdpPercap), color=\"red\") +\n  scale_x_log10()",
+    "crumbs": [
+      "Visualization",
+      "Aesthetics"
+    ]
+  },
+  {
+    "objectID": "04_02_aesthetics.html#parameters-color-vs-fill",
+    "href": "04_02_aesthetics.html#parameters-color-vs-fill",
+    "title": "Aesthetics",
+    "section": "Parameters color vs fill",
+    "text": "Parameters color vs fill\nIn some cases we have two possible options when coloring the plots, depending on the geometry both parameters work differently. For example, using the same histogram of the example:\n\nggplot(data = gapminder) +\n  geom_histogram(mapping = aes(x = lifeExp), color = \"red\")\n\n`stat_bin()` using `bins = 30`. Pick better value `binwidth`.\n\n\n\n\n\n\n\n\n\nUsing color with an histogram will only change the border of the bins or bars. If we want to color the full bin we need to use fill.\n\nggplot(data = gapminder) +\n  geom_histogram(mapping = aes(x = lifeExp), fill = \"red\")\n\n`stat_bin()` using `bins = 30`. Pick better value `binwidth`.\n\n\n\n\n\n\n\n\n\nThis behavior will change depending on the geometry we are using, for example, with the geom_point we can use color for the whole dot not using fill. You can know more about which aesthetics can be used reding the documentation of each geometry.",
+    "crumbs": [
+      "Visualization",
+      "Aesthetics"
+    ]
+  },
+  {
+    "objectID": "04_02_aesthetics.html#shaping-the-figures-shape",
+    "href": "04_02_aesthetics.html#shaping-the-figures-shape",
+    "title": "Aesthetics",
+    "section": "Shaping the figures: shape",
+    "text": "Shaping the figures: shape\nWe can change the shape of the certain geometries depending on the data or category. We can do it using shape, each group or category will have a different shape.\n\nggplot(data = gapminder67) +\n  geom_point(mapping = aes(y = lifeExp, x = gdpPercap, shape=continent)) +\n  scale_x_log10()\n\n\n\n\n\n\n\n\nAnd you can define a single shape for every dot too, using the argument outside of the aesthetics…\n\nggplot(data = gapminder67) +\n  geom_point(mapping = aes(y = lifeExp, x = gdpPercap),shape='triangle') +\n  scale_x_log10()",
+    "crumbs": [
+      "Visualization",
+      "Aesthetics"
+    ]
+  },
+  {
+    "objectID": "04_02_aesthetics.html#changing-the-size-using-size",
+    "href": "04_02_aesthetics.html#changing-the-size-using-size",
+    "title": "Aesthetics",
+    "section": "Changing the size using size",
+    "text": "Changing the size using size\nAnother common resource is changin the size of the elements following certain data. This is useful for continuous variables, we can see this example.\n\nggplot(data = gapminder67) +\n  geom_point(mapping = aes(y = lifeExp, x = gdpPercap, size=pop)) +\n  scale_x_log10()\n\n\n\n\n\n\n\n\nYou can define a unique size for all dots using the size argument outside aesthetics and providing a single number.",
+    "crumbs": [
+      "Visualization",
+      "Aesthetics"
+    ]
+  },
+  {
+    "objectID": "04_02_aesthetics.html#adding-transparency-using-alpha",
+    "href": "04_02_aesthetics.html#adding-transparency-using-alpha",
+    "title": "Aesthetics",
+    "section": "Adding transparency using alpha",
+    "text": "Adding transparency using alpha\nIn some cases our visuals will show overlapping elements, difficulty the analysis and vision of the data. We can add some transparency using alpha to make elements more visible when they have another one overlapping it.\nCheck this visual, we are using the full gapminder data and some dots are hiding another ones making difficult the analysis.\n\nggplot(data = gapminder) +\n  geom_point(mapping = aes(y = lifeExp, x = gdpPercap, size=pop)) +\n  scale_x_log10()\n\n\n\n\n\n\n\n\nFor improving the visualization we can use alpha, it takes a value between 1 to 0, 1 no transparency and 0 full transparency.\n\nggplot(data = gapminder) +\n  geom_point(mapping = aes(y = lifeExp, x = gdpPercap, size=pop),\n             alpha = 0.5) +\n  scale_x_log10()\n\n\n\n\n\n\n\n\nNow we can see more clearly all dots including those that are below another one.",
+    "crumbs": [
+      "Visualization",
+      "Aesthetics"
+    ]
+  },
+  {
+    "objectID": "04_02_aesthetics.html#to-sum-up",
+    "href": "04_02_aesthetics.html#to-sum-up",
+    "title": "Aesthetics",
+    "section": "To Sum Up",
+    "text": "To Sum Up\nWe can represent both continuous and discrete variables using aesthetics, here you can find a summary of the main possible aesthetics you can use to customize the plot and how will be its behavior depending on the variable type:\n\n\n\naesthetic\ndiscrete\ncontinuous\n\n\n\n\ncolor / fill\ndifferent colors\ngradient coloring\n\n\nshape\ndifferent shapes\ndoesn’t work with\n\n\nsize\ndiscrete steps\nlinear mapping",
+    "crumbs": [
+      "Visualization",
+      "Aesthetics"
+    ]
+  },
+  {
+    "objectID": "04_03_facets.html",
+    "href": "04_03_facets.html",
+    "title": "Facets",
+    "section": "",
+    "text": "Faceting using Grids: facet_grid\nFacet Grid works dividing the ggplot canvas in different areas creating a grid of rows and columns. For using it we need to use the function facet_grid() and provide to the grid the facets, the variables to use for generating the subplot.\nFor defining the facets we need to follow this format rows ~ columns, where rows will be the variable we want to use for generating subplots in each row, columns the same but per column. We can define only one of them or both.\nFor example we want to see the information per continent showing all continents in columns…\nggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + \n  geom_point(alpha=0.5) +\n  labs(title = \"GDP per Capita vs Life Expectancy\",\n       subtitle = \"By continent\",\n       x = \"GDP per Capita ($)\", y =  \"Life Expectancy (years)\") +\n  scale_x_log10()+\n  facet_grid(.~continent)\nThe other way, we want to see the information per continent showing all continents in rows…\nggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + \n  geom_point(alpha=0.5) +\n  labs(title = \"GDP per Capita vs Life Expectancy\",\n       subtitle = \"By continent\",\n       x = \"GDP per Capita ($)\", y =  \"Life Expectancy (years)\") +\n  scale_x_log10()+\n  facet_grid(continent~.)\nAs you can see, when we do not use any of the dimensions we type . so R understands that we do not use that dimension.",
+    "crumbs": [
+      "Visualization",
+      "Facets"
+    ]
+  },
+  {
+    "objectID": "04_03_facets.html#faceting-using-grids-facet_grid",
+    "href": "04_03_facets.html#faceting-using-grids-facet_grid",
+    "title": "Facets",
+    "section": "",
+    "text": "Exercise\n\n\n\nTry now to generate the same plot but using two dimensions, so you see all continents in columns and the year as rows. This way we will have one plot for each year for each continent. Use the new gapminder_90 data frame generated on the code below.",
+    "crumbs": [
+      "Visualization",
+      "Facets"
+    ]
+  },
+  {
+    "objectID": "04_03_facets.html#faceting-using-wraps-facet_wrap",
+    "href": "04_03_facets.html#faceting-using-wraps-facet_wrap",
+    "title": "Facets",
+    "section": "Faceting using Wraps: facet_wrap",
+    "text": "Faceting using Wraps: facet_wrap\nFacet Wrap works generating plots randomly and not following any defined structure like the Grid system. With wrap you can create different subplots and they will be generated one by one.\nIn this case we do not follow the rows and columns system, instead we use vars() function to provide the variable we want to use.\nSame plot using continent in columns section.\n\nggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + \n  geom_point(alpha=0.5) +\n  labs(title = \"GDP per Capita vs Life Expectancy\",\n       subtitle = \"By continent\",\n       x = \"GDP per Capita ($)\", y =  \"Life Expectancy (years)\") +\n  scale_x_log10()+\n  facet_wrap(vars(continent))\n\n\n\n\n\n\n\n\nConsider that you can use the same rows and columns syntax, but the output won’t change as facet_wrap doesn’t considers any structure.\n\n\n\n\n\n\nExercise\n\n\n\nTry now to generate the same plot but using two dimensions as the last exercise. This way we will have one plot for each year for each continent. Use the same gapminder_90 dataframe of the last exercise.",
+    "crumbs": [
+      "Visualization",
+      "Facets"
+    ]
+  },
+  {
+    "objectID": "04_03_facets.html#freeing-the-scales",
+    "href": "04_03_facets.html#freeing-the-scales",
+    "title": "Facets",
+    "section": "Freeing the scales",
+    "text": "Freeing the scales\nBy default when the plots are being generated you will see that all plots have fixed axis, and share the same scales. This is perfect for improving comparability and read the data into the same scaling.\nIn some cases we will want that each plot has different scales and is adjusted to the data being displayed. This is only fully possible using facet_wrap. As it doesn’t follow any grid structure and makes possible separating the axis, in facet_grid we can only do it on the not shared axis.\nFor doing that there is an argument called scales inside the facet function. This can be:\n\n“fixed” by default to fix all scales and share them.\n“free” to free both x and y so they are indepent for each plot.\n“free_x” or “free_y” to free only x or y, and share the other axis.\n\nSo imagine we want to free all axis of the plot, it will look like this:\n\nggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + \n  geom_point(alpha=0.5) +\n  labs(title = \"GDP per Capita vs Life Expectancy\",\n       subtitle = \"By continent\",\n       x = \"GDP per Capita ($)\", y =  \"Life Expectancy (years)\") +\n  scale_x_log10()+\n  facet_wrap(vars(continent), scales = \"free\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nExercise\n\n\n\nRepeat the last plot but now:\n\nUse facet_wrap and free y.\nUse facet_wrap and free x.\nUse facet_grid showing continent on columns and free x.\nUse facet_grid showing continent on columns and free y, it is really free?",
+    "crumbs": [
+      "Visualization",
+      "Facets"
+    ]
+  },
+  {
+    "objectID": "04_03_facets.html#to-sum-up",
+    "href": "04_03_facets.html#to-sum-up",
+    "title": "Facets",
+    "section": "To Sum Up",
+    "text": "To Sum Up\n\nfacet_grid()\n\n2 dimensions: rows ~ columns\nuse . to avoid using one of them\n\nfacet_wrap()\n\n1 dimension\nuse scales = (“free_x”, “free_y”, “free”) to fix the scales of the different subplots",
+    "crumbs": [
+      "Visualization",
+      "Facets"
+    ]
+  },
+  {
+    "objectID": "04_04_datatypes.html",
+    "href": "04_04_datatypes.html",
+    "title": "Visualizing Different Data Types",
+    "section": "",
+    "text": "Uni-Variate Numeric Values\nWhen working with uni-variate numeric values we need to consider the following key points to analyze:\nWe are going to see it with an example using Anscombe’s Quartet data available on Tmisc library. We are going to compute the statistics of the four data sets contained inside the quartet, this data sets have identical properties.\nlibrary(Tmisc) # loading Tmisc\nlibrary(tidyverse)\n\nquartet %&gt;%\n  group_by(set) %&gt;% # grouping the data by set\n  summarise( \n    mean_x = mean(x), mean_y = mean(y),\n    sd_x = sd(x), sd_y = sd(y),\n    r = cor(x, y)\n  ) # summarizing main stats\n\n# A tibble: 4 × 6\n  set   mean_x mean_y  sd_x  sd_y     r\n  &lt;fct&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 I          9   7.50  3.32  2.03 0.816\n2 II         9   7.50  3.32  2.03 0.816\n3 III        9   7.5   3.32  2.03 0.816\n4 IV         9   7.50  3.32  2.03 0.817\nAs you can see the four sets have the same properties for all key Shape metrics we have computed (mean, standard deviation and correlation). But it is true that they are equal? Seeing the results it is reasonable to think that, but we can confirm it visualizing the data…\nggplot(quartet, aes(x = x, y = y)) +\n  geom_point() +\n  facet_wrap(~ set, ncol = 4)\nNow we have the whole picture, we can see that despite having equal properties in their metrics. Each data set is different in terms how the data is represented in the plots. That is why is important to visualize the data and not only take assumptions based on the metrics.",
+    "crumbs": [
+      "Visualization",
+      "Visualizing Different Data Types"
+    ]
+  },
+  {
+    "objectID": "04_04_datatypes.html#uni-variate-numeric-values",
+    "href": "04_04_datatypes.html#uni-variate-numeric-values",
+    "title": "Visualizing Different Data Types",
+    "section": "",
+    "text": "Shape: how the data is represented…\n\nasymmetry: symmetric, asymmetric to the right, asymmetric to the left\nmode: single mode, more than one mode, uniform.\n\nLocation or Centrality: mean, median, mode\nVariability or Dispersion: rank, standard deviation, interquartile range\nOutliers: anomalies on the data\n\n\n\n\n\n\n\nHistograms\nFor analyzing visually the a single continuous numeric variable we normally rely on histograms. Histograms are a frequency plot, that show us the number of observations that have a value between a given range. Look at these example.\n\nlibrary(gapminder)\n\ngapminder67 &lt;- gapminder[gapminder$year == 1967, ]\n\nggplot(gapminder67, mapping = aes(x = gdpPercap)) + \n     geom_histogram(binwidth = 1000)\n\n\n\n\n\n\n\n\nWe can see the count (frequency) of observations in bar for each possible value of gdpPercap. This bars are called bins, you can manage how bins are generated using different ways…\n\nbinwidth, number of values to consider en each bin. In the example we have defined the binwidth as 1000, means that it will show number of values in ranges of 1000, so the first bin is 0-999, second 1000 to 1999, on so on…\nbins, instead of defining the number of values to consider we define the number of bins we want ot have (number of bars). So ggplot will automatically compute the range to show the whole data in the number of bins we want.\n\n\nggplot(gapminder67, mapping = aes(x = gdpPercap)) + \n     geom_histogram(bins = 100)\n\n\n\n\n\n\n\n\nGoing back to the plot, we can see that we have a bin with a value higher than 80000, a possible outlier? While the rest of observations are located between 0 a 30000.\n\n\nDensity Plot\nAnother way of analyzing a single continuous numeric variable is using a density plot. It will show a similar shape as histograms, as it shows as the density (% of observations among total observations) for each possible values the variable can take.\n\nggplot(gapminder67, mapping = aes(x = gdpPercap)) + \n     geom_density(color = \"blue\") + # density plot\n     theme_bw()\n\n\n\n\n\n\n\n\nWhat if we combine everything in a single plot. This way we can see both the histogram and the density plot. For doing that we use a key word called ..density.. on the y axis when defining the plot.\n\nggplot(gapminder67, mapping = aes(x = gdpPercap, y =..density..)) + \n     geom_histogram(bins = 100, fill=\"grey\") + \n     geom_density(color = \"blue\") + # density plot\n     theme_bw()",
+    "crumbs": [
+      "Visualization",
+      "Visualizing Different Data Types"
+    ]
+  },
+  {
+    "objectID": "04_04_datatypes.html#uni-variate-categorical-values",
+    "href": "04_04_datatypes.html#uni-variate-categorical-values",
+    "title": "Visualizing Different Data Types",
+    "section": "Uni-Variate Categorical Values",
+    "text": "Uni-Variate Categorical Values\nWhen we want to analyze a single categorical variable, we can follow a similar approach than with continuous, understand the frequency of observations for each category. In this case histograms don’t work as we are working with a categorical value, so we need to use another kind of plots.\n\nBar Plots\nBar plots are quick way to obtain the frequency of observations per category.\n\nggplot(gapminder67, mapping = aes(x = continent)) + \n  geom_bar()\n\n\n\n\n\n\n\n\nIn the example we only provide the variable we want to have the count of, in this case as on x axis. You can do it on the y variable too. And the geom_bar will compute a count of observations. This is the default behavior of this geometry.\n\n\nColumn Plot\nOther option is to use a Column Plot, the difference with the Bar plot is that it allow us to be more flexible in what information we want to show. Here you can see the same plot as before but done with a column plot.\n\ngapminder67 %&gt;% \n  group_by(continent) %&gt;% \n  summarise(count = n()) %&gt;% \nggplot(gapminder67, mapping = aes(x = continent, y = count)) + \n  geom_col()\n\n\n\n\n\n\n\n\nThe main difference in the code, is that you need to prepare the data first and then make the plot. In the bar plot you can simply make the plot and the geometry will perform the data preparation. As a recap you can have the following table:\n\n\n\n\n\n\n\nBar Plot geom_bar\nColumn Plot geom_col\n\n\n\n\nBar plot is used when we want to count the frequency of a single categorical variable (we can change the stat to do other operations)\nColumn plot can be used in all cases but needs data preparation before doing the plot. It allow us show much more complex metrics.\n\n\n\n\n\nPosition adjustment\nBoth Bar Plots and Column Plots allow us to make some adjustments to establish how the data is being displayed. All can be done using the position argument on the geometry.\nggplot(data = diamonds) +\ngeom_bar(mapping = aes(x = cut, fill = clarity), position=\"identity\")\nArgument options:\n\n\n\n\n\nidentity\n\n\n\n\n\nfill\n\n\n\n\n\n\ndodge",
+    "crumbs": [
+      "Visualization",
+      "Visualizing Different Data Types"
+    ]
+  },
+  {
+    "objectID": "04_04_datatypes.html#visualizing-bi-variate-data",
+    "href": "04_04_datatypes.html#visualizing-bi-variate-data",
+    "title": "Visualizing Different Data Types",
+    "section": "Visualizing Bi-Variate Data",
+    "text": "Visualizing Bi-Variate Data\nWhen we have a bi-variate data we need to understand which combination of data types we are working with. And most important in every case we want to understand if there is relation between them.\n\nContinuous - Categorical: BoxPlots\nIf we have a combination of continuous and categorical variables the most common way of analyzing their relation is using a Box Plot.\n\nggplot(gapminder67, mapping = aes(x = continent, y = gdpPercap)) +\n  geom_boxplot()\n\n\n\n\n\n\n\n\nBox plots are used to understand the distribution of numerical data. It shows the median, quartiles and possible outliers in a simple visual form. It is very interesting for comparing for each category the distribution of the data, so we can understand if each group behaves similarly of there are relevant differences between them.",
+    "crumbs": [
+      "Visualization",
+      "Visualizing Different Data Types"
+    ]
+  },
+  {
+    "objectID": "04_04_datatypes.html#statistical-transformations",
+    "href": "04_04_datatypes.html#statistical-transformations",
+    "title": "Visualizing Different Data Types",
+    "section": "Statistical Transformations",
+    "text": "Statistical Transformations\nBar plots, Histograms or Density plots are an example of statistical transformations. This geometries are used for computed pre-defined analysis, what they do is compute make transformations of the data prior to their representation:\n\nBar plots and Histograms: cluster the data and represent a number for each cluster.\nSmoothers: adjust the model and represent predictions generate by the same model.\nBox plots: calculate a summary of the distribution and show it in a determine format.\n\nThe argument we use for telling the geometric which method to use is stat you can see it using ? geom_bar documentation.\nIn addition you can create your custom visual with stats…\nYou can create your own stats. For example we want to create a visual that show us the minimun, maximun and median of each category…\n\nggplot(data = diamonds) +\n  stat_summary(\n    mapping = aes(x = cut, y = depth),\n    fun.min = min,\n    fun.max = max,\n    fun = median\n    )",
+    "crumbs": [
+      "Visualization",
+      "Visualizing Different Data Types"
+    ]
+  },
+  {
+    "objectID": "04_04_datatypes.html#last-tips-communication",
+    "href": "04_04_datatypes.html#last-tips-communication",
+    "title": "Visualizing Different Data Types",
+    "section": "Last tips: Communication",
+    "text": "Last tips: Communication\nTry to adapt your plots to the message you want to share and to the final customer, after all if they don’t understand quickly what you are showing they will loose interest.\nBe practical and simple, depending on the context:\n\ntechnical or scientific (probably you can be more complex),\nexecutive review (be simple and make the visualization that shows the message you want to tell)\n\nRecommended further reading… StorytellingWithData, to create simple and powerful plots to your executive presentations.",
+    "crumbs": [
+      "Visualization",
+      "Visualizing Different Data Types"
+    ]
+  },
+  {
+    "objectID": "04_05_customization.html",
+    "href": "04_05_customization.html",
+    "title": "Other Features",
+    "section": "",
+    "text": "Coordinates\nBy default ggplot uses Cartesian coordinates (x,y), but you can modify them easily using coord_XXXX() functions.\nggplot(data = mpg, \n       mapping = aes(x =class, y=hwy)) +\n  geom_boxplot()\nggplot(data = mpg, \n       mapping = aes(x =class, y=hwy)) +\n  geom_boxplot() +\n  coord_flip()",
+    "crumbs": [
+      "Visualization",
+      "Other Features"
+    ]
+  },
+  {
+    "objectID": "04_05_customization.html#maps",
+    "href": "04_05_customization.html#maps",
+    "title": "Other Features",
+    "section": "Maps",
+    "text": "Maps\nYou can use maps for your plots, and with coord_quickmap() it will compute the accurate ratio for the maps.\n\nlibrary(maps)\n\n\nAttaching package: 'maps'\n\n\nThe following object is masked from 'package:purrr':\n\n    map\n\nnz &lt;- map_data(\"nz\")\n\nggplot(nz, aes(long, lat, group = group)) +\n  geom_polygon(fill = \"white\", \n               colour = \"black\")\n\n\n\n\n\n\n\n\n\nggplot(nz, aes(long, lat, group = group)) +\n  geom_polygon(fill = \"white\", \n               colour = \"black\") +\n  coord_quickmap()",
+    "crumbs": [
+      "Visualization",
+      "Other Features"
+    ]
+  },
+  {
+    "objectID": "04_05_customization.html#polar-plots",
+    "href": "04_05_customization.html#polar-plots",
+    "title": "Other Features",
+    "section": "Polar Plots",
+    "text": "Polar Plots\nWe can change how to represent some data, using another visualization style. Imagine we have the following plot…\n\nggplot(diamonds) +\n  geom_bar(\n    aes(x = cut, fill=cut),\n    show.legend = F,\n    width = 1\n  ) +\n  theme(aspect.ratio = 1) +\n  labs(x=NULL, y=NULL) +\n  coord_flip()\n\n\n\n\n\n\n\n\nWe can change it to much more interesting style…\n\nggplot(diamonds) +\n  geom_bar(\n    aes(x = cut, fill=cut),\n    show.legend = F,\n    width = 1\n  ) +\n  theme(aspect.ratio = 1) +\n  labs(x=NULL, y=NULL) +\n  coord_polar()",
+    "crumbs": [
+      "Visualization",
+      "Other Features"
+    ]
+  },
+  {
+    "objectID": "05_01_basic_manipulation.html",
+    "href": "05_01_basic_manipulation.html",
+    "title": "Basic Manipulation",
+    "section": "",
+    "text": "Selecting columns: select\nWe can use select verb to choose which columns we want to work with.\ngapminder %&gt;% \n  select(country, year, gdpPercap)\n\n# A tibble: 1,704 × 3\n   country      year gdpPercap\n   &lt;fct&gt;       &lt;int&gt;     &lt;dbl&gt;\n 1 Afghanistan  1952      779.\n 2 Afghanistan  1957      821.\n 3 Afghanistan  1962      853.\n 4 Afghanistan  1967      836.\n 5 Afghanistan  1972      740.\n 6 Afghanistan  1977      786.\n 7 Afghanistan  1982      978.\n 8 Afghanistan  1987      852.\n 9 Afghanistan  1992      649.\n10 Afghanistan  1997      635.\n# ℹ 1,694 more rows\nLook that we have use the pipe operator included into de tidyverse package. This allow us to concatenate operations simplifying manipulation. Pipes pass the output of last operation as input for the first argument of next operation.\n# Without pipe\nselect(gapminder, country, year, gdpPercap)\n\n# A tibble: 1,704 × 3\n   country      year gdpPercap\n   &lt;fct&gt;       &lt;int&gt;     &lt;dbl&gt;\n 1 Afghanistan  1952      779.\n 2 Afghanistan  1957      821.\n 3 Afghanistan  1962      853.\n 4 Afghanistan  1967      836.\n 5 Afghanistan  1972      740.\n 6 Afghanistan  1977      786.\n 7 Afghanistan  1982      978.\n 8 Afghanistan  1987      852.\n 9 Afghanistan  1992      649.\n10 Afghanistan  1997      635.\n# ℹ 1,694 more rows\n\n# With pipe\ngapminder %&gt;% \n  select(country, year, gdpPercap)\n\n# A tibble: 1,704 × 3\n   country      year gdpPercap\n   &lt;fct&gt;       &lt;int&gt;     &lt;dbl&gt;\n 1 Afghanistan  1952      779.\n 2 Afghanistan  1957      821.\n 3 Afghanistan  1962      853.\n 4 Afghanistan  1967      836.\n 5 Afghanistan  1972      740.\n 6 Afghanistan  1977      786.\n 7 Afghanistan  1982      978.\n 8 Afghanistan  1987      852.\n 9 Afghanistan  1992      649.\n10 Afghanistan  1997      635.\n# ℹ 1,694 more rows",
+    "crumbs": [
+      "Transformation",
+      "Basic Manipulation"
+    ]
+  },
+  {
+    "objectID": "05_01_basic_manipulation.html#sorting-rows-arrange",
+    "href": "05_01_basic_manipulation.html#sorting-rows-arrange",
+    "title": "Basic Manipulation",
+    "section": "Sorting rows: arrange",
+    "text": "Sorting rows: arrange\nYou can sort the rows of the data frame using arrange verb.\nWe want to have the data per country and year sorted from lower to high life expectancy:\n\ngapminder %&gt;% \n  select(country, year, lifeExp) %&gt;% \n  arrange(lifeExp)\n\n# A tibble: 1,704 × 3\n   country       year lifeExp\n   &lt;fct&gt;        &lt;int&gt;   &lt;dbl&gt;\n 1 Rwanda        1992    23.6\n 2 Afghanistan   1952    28.8\n 3 Gambia        1952    30  \n 4 Angola        1952    30.0\n 5 Sierra Leone  1952    30.3\n 6 Afghanistan   1957    30.3\n 7 Cambodia      1977    31.2\n 8 Mozambique    1952    31.3\n 9 Sierra Leone  1957    31.6\n10 Burkina Faso  1952    32.0\n# ℹ 1,694 more rows\n\n\nAs you can see the data is now sorted from lower to high lifeExp, we can do the opposite, sorting from high to low. Just adding desc()\n\ngapminder %&gt;% \n  select(country, year, lifeExp) %&gt;% \n  arrange(desc(lifeExp))\n\n# A tibble: 1,704 × 3\n   country           year lifeExp\n   &lt;fct&gt;            &lt;int&gt;   &lt;dbl&gt;\n 1 Japan             2007    82.6\n 2 Hong Kong, China  2007    82.2\n 3 Japan             2002    82  \n 4 Iceland           2007    81.8\n 5 Switzerland       2007    81.7\n 6 Hong Kong, China  2002    81.5\n 7 Australia         2007    81.2\n 8 Spain             2007    80.9\n 9 Sweden            2007    80.9\n10 Israel            2007    80.7\n# ℹ 1,694 more rows\n\n\nYou can sort the data using multiple columns. In these cases the data will be sorted first using first column, then second in case of draw between rows. Look at the following code how the data has been sorted?\n\ngapminder %&gt;% \n  select(country, year, lifeExp) %&gt;% \n  arrange(year,desc(lifeExp))\n\n# A tibble: 1,704 × 3\n   country         year lifeExp\n   &lt;fct&gt;          &lt;int&gt;   &lt;dbl&gt;\n 1 Norway          1952    72.7\n 2 Iceland         1952    72.5\n 3 Netherlands     1952    72.1\n 4 Sweden          1952    71.9\n 5 Denmark         1952    70.8\n 6 Switzerland     1952    69.6\n 7 New Zealand     1952    69.4\n 8 United Kingdom  1952    69.2\n 9 Australia       1952    69.1\n10 Canada          1952    68.8\n# ℹ 1,694 more rows\n\n\nIn case of having NA values this are always sorted at the end of the data frame**\n\n\n\n\n\n\nExercise\n\n\n\nSort the gapminder data per country, what has happen how it is sorted?\nHint: The characters in computing are numbers internally, and they have a ordinal configuration se we can sort them properly.\n\n\n\n\n\n\n\n\nSum up: arrange\n\n\n\n\narrange() orders in ascending order by default (numbers)\nIn the case of strings, arrange() will order using the alphabetical order.\nWe can use desc() function to change the order.\nIf more than one variable is provided, the first will be used for doing the order, in case of draws the next variables will be used for deciding the order.\nMissing values will be order at the end.",
+    "crumbs": [
+      "Transformation",
+      "Basic Manipulation"
+    ]
+  },
+  {
+    "objectID": "05_01_basic_manipulation.html#creating-columns-mutate",
+    "href": "05_01_basic_manipulation.html#creating-columns-mutate",
+    "title": "Basic Manipulation",
+    "section": "Creating columns: mutate",
+    "text": "Creating columns: mutate\nYou can create new columns using mutate verb to add more information in your data frame.\nFor example, we want to add a new column called gdp that will be the result of multiplying the population (pop) by gpdPercap.\n\ngapminder %&gt;% \n  mutate(\n    gdp = pop * gdpPercap\n  ) %&gt;% \n  select(pop, gdpPercap, gdp)\n\n# A tibble: 1,704 × 3\n        pop gdpPercap          gdp\n      &lt;int&gt;     &lt;dbl&gt;        &lt;dbl&gt;\n 1  8425333      779.  6567086330.\n 2  9240934      821.  7585448670.\n 3 10267083      853.  8758855797.\n 4 11537966      836.  9648014150.\n 5 13079460      740.  9678553274.\n 6 14880372      786. 11697659231.\n 7 12881816      978. 12598563401.\n 8 13867957      852. 11820990309.\n 9 16317921      649. 10595901589.\n10 22227415      635. 14121995875.\n# ℹ 1,694 more rows\n\n\nSome important note to consider with mutate:\n\nYou can create more than one variable in a single call to the function. Each variable will be in a different argument.\nYou can re-use a variable (it will be overwritten).\n\nFor creating columns we have some useful functions we can use:\n\nArithmetic operators (+, -, *, /)\nModular arithmetic operators: integer division %/% and module %%\nLogarithm\nCumulative aggregations: cumsum(), cumprod(), cummin() and cummax()\nLogical comparisons\nRankings: min_rank()\n\n\nx = c(1,3,2,7,6)\n# Ranking\nmin_rank(x)\n\n[1] 1 3 2 5 4\n\n# Module\n33 %% 10\n\n[1] 3\n\n# Cumulative sum\ncumsum(x)\n\n[1]  1  4  6 13 19\n\n\n\n\n\n\n\n\nExercise\n\n\n\nIn gapminder data frame that we provide you in the code below create the perform the following operations, all operations must be done in the same structure and verb using pipes.\n\nCreate a new column total_pop that will be the sum of all pop. This is the total population.\nCreate a new column pop_rate that will be the division of pop per total_pop. Population % among total population.\nSort the data frame per pop_rate from higher to lower population rate.\nThe final output should be a data frame with the columns country, pop, pop_rate.\n\n\n\n\n\n\n\n\n\nSum up: mutate\n\n\n\n\nmutate() creates new columns or modify existing columns.\nYou can create more than one column in the same call and reuse a newly created column to create another one.\nThere are different functions and operators we can use to compute complex logics and create new columns.",
+    "crumbs": [
+      "Transformation",
+      "Basic Manipulation"
+    ]
+  },
+  {
+    "objectID": "05_01_basic_manipulation.html#other-manipulations",
+    "href": "05_01_basic_manipulation.html#other-manipulations",
+    "title": "Basic Manipulation",
+    "section": "Other manipulations",
+    "text": "Other manipulations\n\nSelecting rows: slice\nYou can select certain rows based on the index:\n\ngapminder %&gt;% \n  select(country, year, lifeExp) %&gt;% \n  slice(1:3)\n\n# A tibble: 3 × 3\n  country      year lifeExp\n  &lt;fct&gt;       &lt;int&gt;   &lt;dbl&gt;\n1 Afghanistan  1952    28.8\n2 Afghanistan  1957    30.3\n3 Afghanistan  1962    32.0\n\n\nWe have selected the first three rows of the data frame.\n\n\n\n\n\n\nExercise\n\n\n\nAdd a new operation to the output so the sorted by pop_rate returns only the top 5 countries per highest rate of population.\n\n\n\n\nSelecting rows: head\nWorks similar to slice, but it always start from the top. So we only need to provide the number of rows we want to have from the top of the data frame.\n\ngapminder %&gt;% \n  select(country, year, lifeExp) %&gt;% \n  head(3)\n\n# A tibble: 3 × 3\n  country      year lifeExp\n  &lt;fct&gt;       &lt;int&gt;   &lt;dbl&gt;\n1 Afghanistan  1952    28.8\n2 Afghanistan  1957    30.3\n3 Afghanistan  1962    32.0\n\n\n\n\nUnique rows or values: distinct\nSometimes we will need to know how many different categories or values we have, similarly to unique we have distinct.\n\ngapminder %&gt;% \n  distinct(continent)\n\n# A tibble: 5 × 1\n  continent\n  &lt;fct&gt;    \n1 Asia     \n2 Europe   \n3 Africa   \n4 Americas \n5 Oceania  \n\n\nThe relevant feature with distinct is that we can use it for the two or more columns so we can know combinations of values.\n\ngapminder %&gt;% \n  distinct(continent, year)\n\n# A tibble: 60 × 2\n   continent  year\n   &lt;fct&gt;     &lt;int&gt;\n 1 Asia       1952\n 2 Asia       1957\n 3 Asia       1962\n 4 Asia       1967\n 5 Asia       1972\n 6 Asia       1977\n 7 Asia       1982\n 8 Asia       1987\n 9 Asia       1992\n10 Asia       1997\n# ℹ 50 more rows",
+    "crumbs": [
+      "Transformation",
+      "Basic Manipulation"
+    ]
+  },
+  {
+    "objectID": "05_02_filtering.html",
+    "href": "05_02_filtering.html",
+    "title": "Filtering",
+    "section": "",
+    "text": "Missing Values on Filters\nMissing values (NA) are something inevitable and highly frequently in the data.\nAll operations done with missing values will return another missing value…\nNA == 2\n\n[1] NA\n\nNA + 3\n\n[1] NA\n\nNA == NA\n\n[1] NA\nWhen filtering the resulted data frame will only contain data that makes TRUE the condition. Data making FALSE the condition and missing values will be excluded.\ndf &lt;- tibble(x = c(1, NA, 3))\nfilter(df, x &gt; 1)\n\n# A tibble: 1 × 1\n      x\n  &lt;dbl&gt;\n1     3\n\nfilter(df, is.na(x) | x &gt; 1)\n\n# A tibble: 2 × 1\n      x\n  &lt;dbl&gt;\n1    NA\n2     3",
+    "crumbs": [
+      "Transformation",
+      "Filtering"
+    ]
+  },
+  {
+    "objectID": "05_03_aggregations.html",
+    "href": "05_03_aggregations.html",
+    "title": "Aggregations",
+    "section": "",
+    "text": "Transforming with summarise\nFor example, we need to retrieve some basic statistics of the whole data frame, this way we can understand the main data frame insights.\nFor doing that we can use summarise verb, with this function we can compute aggregated results for the data frame. We need to provide the column name where the result will be stored and the operation to perform\ngapminder %&gt;% \n  summarise(\n    min_lifeExp = min(lifeExp),\n    max_lifeExp = max(lifeExp),\n    avg_lifeExp = mean(lifeExp)\n  )\n\n# A tibble: 1 × 3\n  min_lifeExp max_lifeExp avg_lifeExp\n        &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;\n1        23.6        82.6        59.5\nRemember to be careful with NAs, if there are NA values present on the observations of the data frame the aggregation operations won’t succeed.\nlibrary(fivethirtyeight)\n\nSome larger datasets need to be installed separately, like senators and\nhouse_district_forecast. To install these, we recommend you install the\nfivethirtyeightdata package by running:\ninstall.packages('fivethirtyeightdata', repos =\n'https://fivethirtyeightdata.github.io/drat/', type = 'source')\n\nbiopics %&gt;% \n  summarise(\n    total_box_office = sum(box_office),\n    avg_box_office = mean(box_office)\n  )\n\n# A tibble: 1 × 2\n  total_box_office avg_box_office\n             &lt;dbl&gt;          &lt;dbl&gt;\n1               NA             NA\nIf that is the case remember to include na.rn = TRUE so NA values are not considered in the aggregations…\nbiopics %&gt;% \n  summarise(\n    total_box_office = sum(box_office, na.rm =T),\n    avg_box_office = mean(box_office, na.rm = T)\n  )\n\n# A tibble: 1 × 2\n  total_box_office avg_box_office\n             &lt;dbl&gt;          &lt;dbl&gt;\n1      10042773040      22981174.",
+    "crumbs": [
+      "Transformation",
+      "Aggregations"
+    ]
+  },
+  {
+    "objectID": "05_03_aggregations.html#summarise-vs-mutate",
+    "href": "05_03_aggregations.html#summarise-vs-mutate",
+    "title": "Aggregations",
+    "section": "summarise vs mutate",
+    "text": "summarise vs mutate\nSome cases we have confusion on when to use summarise and when to use mutate as both verbs create columns but they work differently.\n\nmutate creates new columns, but preserves the original structure of the data frame. It is used for adding new information to the data frame in a new variable.\nsummarise creates new columns that are the aggregations of the whole or groups of data in the data frame. The final output of the summarise changes the structure of the data frame completely providing a summarization of the data based on the requested operations.\n\nYou can use aggregation functions with mutate but they will work differently as the returned value will be replicated in all observations…\nFor example, we want to compare the gdpPercap of each country with the world average, assuming that the average of the data frame is the world average how we can due that?\n\ngapminder_67 &lt;- gapminder %&gt;% filter(year == 1967)\n\ngapminder_67 %&gt;% \n  mutate(\n    world_avg_gdp = mean(gdpPercap), # will compute the mean of the whole data for all registers\n    gpd_vs_world = gdpPercap - world_avg_gdp\n  ) %&gt;% \n  select(country, gdpPercap, world_avg_gdp, gpd_vs_world)\n\n# A tibble: 142 × 4\n   country     gdpPercap world_avg_gdp gpd_vs_world\n   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;\n 1 Afghanistan      836.         5484.      -4647. \n 2 Albania         2760.         5484.      -2723. \n 3 Algeria         3247.         5484.      -2237. \n 4 Angola          5523.         5484.         39.1\n 5 Argentina       8053.         5484.       2569. \n 6 Australia      14526.         5484.       9042. \n 7 Austria        12835.         5484.       7351. \n 8 Bahrain        14805.         5484.       9321. \n 9 Bangladesh       721.         5484.      -4762. \n10 Belgium        13149.         5484.       7665. \n# ℹ 132 more rows\n\n\nUsing aggregation functions with mutate is helpful for making this kind of analysis and understand relevant deviations in the observations.",
+    "crumbs": [
+      "Transformation",
+      "Aggregations"
+    ]
+  },
+  {
+    "objectID": "05_03_aggregations.html#using-basic-verbs-with-groups",
+    "href": "05_03_aggregations.html#using-basic-verbs-with-groups",
+    "title": "Aggregations",
+    "section": "Using basic verbs with groups",
+    "text": "Using basic verbs with groups\nGrouping is not only used for aggregations you can create groups and perform the same basic manipulation instructions but this time them will be applied considering the existing groups.\nFor example, we want to have the data frame ordered so for each year we have the countries ordered from lower to higher gdpPercap.\n\ngapminder_sorted &lt;- gapminder %&gt;% \n  group_by(year) %&gt;% # now all observations are grouped for their year\n  arrange(gdpPercap) # data frame will be sorted by lower to higher gdp but for each year\n\ngapminder_sorted %&gt;% \n  filter(year == 1977) %&gt;% \n  select(year, country, gdpPercap) %&gt;% \n  slice(1:10)\n\n# A tibble: 10 × 3\n# Groups:   year [1]\n    year country    gdpPercap\n   &lt;int&gt; &lt;fct&gt;          &lt;dbl&gt;\n 1  1977 Myanmar         371 \n 2  1977 Mozambique      502.\n 3  1977 Eritrea         506.\n 4  1977 Cambodia        525.\n 5  1977 Burundi         556.\n 6  1977 Ethiopia        557.\n 7  1977 Liberia         640.\n 8  1977 Bangladesh      660.\n 9  1977 Malawi          663.\n10  1977 Rwanda          670.",
+    "crumbs": [
+      "Transformation",
+      "Aggregations"
+    ]
+  },
+  {
+    "objectID": "10_01_models.html",
+    "href": "10_01_models.html",
+    "title": "Models",
+    "section": "",
+    "text": "Basic concepts\nAs we have seen in the introduction models are tools that help us find patterns in the data.\nWe will study models that relate a group of variables (prediction variables) with a variable we are interested in (answer variable)\nModels will represent these relations with functions. This functions will map a series of inputs to an output, we can express the function as:\n\\[\ny = 3x + 7\n\\] Where \\(x\\) is the input and \\(y\\) the output.",
+    "crumbs": [
+      "Data Modelling",
+      "Models"
+    ]
+  },
+  {
+    "objectID": "10_01_models.html#what-are-models",
+    "href": "10_01_models.html#what-are-models",
+    "title": "Models",
+    "section": "What are models?",
+    "text": "What are models?\nHere you can see an example of a model shown in a plot. That explains the relation between two variables weight of the car (wt) and miles per gallon (mpg) using the mtcars data set.\n\nlibrary(ggplot2)\nggplot(mtcars, aes(x=wt, y=mpg)) +\n  geom_point() +\n  theme_minimal() +\n  geom_smooth(method=\"lm\", se=FALSE, color=\"red\")",
+    "crumbs": [
+      "Data Modelling",
+      "Models"
+    ]
+  },
+  {
+    "objectID": "10_01_models.html#family-of-models-and-models",
+    "href": "10_01_models.html#family-of-models-and-models",
+    "title": "Models",
+    "section": "Family of models and models",
+    "text": "Family of models and models\nWhen we speak about models we need to understand two different things…\n\nFamily of models General designed models that define a pattern we want to capture. E.g. the family of linear models that relate \\(x\\) with \\(y\\) is…\n\n\\[\ny = \\beta_0 + \\beta_1x\n\\]\n\nFitted model the model inside the family that betters reproduce and captures the existing relation within the data.\n\nRemember models are simplifications of reality, but do not necessary express the reality. They help us summary the patterns and reproduce them.\nSo when we need to use a model we decide the family we want to use. Once selected the family we will apply that model (like a template) to the data we want to explain. The final model that is able to explain the relation will be de fitted model.\nWhen we see the structure of a model we need to understand three concepts:\n\nResponse variable: Variable we want to analyze and understand, the behavior and variation. It is also known as dependable variable. Normally we will drawn this variable in y axis.\nExplainable variables: Variables we want to use to explain the response variable behavior. Also known as independent variables, co-variables, predictors or features. We will normally drawn them on the x axis.\nPredicted variable: the output of our model for certain value of the explainable variables.",
+    "crumbs": [
+      "Data Modelling",
+      "Models"
+    ]
+  },
+  {
+    "objectID": "10_01_models.html#fitting-models",
+    "href": "10_01_models.html#fitting-models",
+    "title": "Models",
+    "section": "Fitting models",
+    "text": "Fitting models\nLook at the following data… do you see any pattern? detect the variables?\n\nggplot(mtcars, aes(x=wt, y=mpg)) + \n  geom_point() + theme_minimal()\n\n\n\n\n\n\n\n\n\nThe data shows a clear pattern.\nWe will use a model to try to capture the pattern.\nA linear model seems reasonable: \\(y = \\beta_0 + \\beta_1x\\)\nBut linear models is a big family of models, infinite models can exist.\n\nWhen creating a model we have multiple possibilities…\nAll possible models, or at least some of them…\n\nmodels &lt;- tibble(\na1 = runif(250, -20, 40),\na2 = runif(250, -5, 5)\n)\n\nggplot(mtcars, aes(wt, mpg)) +\n  geom_abline(aes(intercept = a1, \n                  slope = a2), \n              data = models, alpha = 1/4) +\n  geom_point() + theme_minimal()\n\n\n\n\n\n\n\n\n\nAs you can see these models are bad, didn’t capture the pattern.\nWe will need to determine which models are more close to the data.\n\nOne common approximation is to find the model that minimizes the sum of all vertical distances to each point of the straight line of the model.\n\nThis is what we know as Linear Regression.",
+    "crumbs": [
+      "Data Modelling",
+      "Models"
+    ]
+  },
+  {
+    "objectID": "10_02_linear_regression.html",
+    "href": "10_02_linear_regression.html",
+    "title": "Linear Regression",
+    "section": "",
+    "text": "Estimation of Coefficients",
+    "crumbs": [
+      "Data Modelling",
+      "Linear Regression"
+    ]
+  },
+  {
+    "objectID": "10_02_linear_regression.html#estimation-of-coefficients",
+    "href": "10_02_linear_regression.html#estimation-of-coefficients",
+    "title": "Linear Regression",
+    "section": "",
+    "text": "For estimating the values of \\(\\beta_0\\) and \\(\\beta_1\\) we use the available data.\nThe estimations found for each coefficient are the ones that minimize the vertical distance between the values and the model line.\nEach estimation will be known as \\(b_0\\) and \\(b_1\\), making the function \\(\\dot y = b_0 + b_1x\\) being \\(\\dot y\\) the predicted value",
+    "crumbs": [
+      "Data Modelling",
+      "Linear Regression"
+    ]
+  },
+  {
+    "objectID": "10_02_linear_regression.html#model-residuals",
+    "href": "10_02_linear_regression.html#model-residuals",
+    "title": "Linear Regression",
+    "section": "Model Residuals",
+    "text": "Model Residuals\nResiduals tell us how much far of the real value the predicted one is.\n\\[Residual = RealValue - PredictedValue = y - \\dot y\\] As the linear regression model is the one that minimizes the sum of vertical distances, is the same as telling the one that minimizes the residual sum of squares.\n\\[\\sum_{i=1}^n[y_i - \\dot y_i]^2 = \\sum_{i=1}^n[y_i - (\\beta_0 + \\beta_1x)]^2 \\]",
+    "crumbs": [
+      "Data Modelling",
+      "Linear Regression"
+    ]
+  },
+  {
+    "objectID": "10_02_linear_regression.html#visualizing-models",
+    "href": "10_02_linear_regression.html#visualizing-models",
+    "title": "Linear Regression",
+    "section": "Visualizing Models",
+    "text": "Visualizing Models\nWhen speaking about visualization about our models…\n\nThe predictions of our models.\nThe residuals of our models.\n\nFor doing this we will use modelr from tidyverse.\nFirst we are going to create a grid of dots of the predicted variable.\n\nlibrary(modelr)\n\ngrid &lt;- mtcars %&gt;% \n  data_grid(wt)\n\nhead(grid,6)\n\n# A tibble: 6 × 1\n     wt\n  &lt;dbl&gt;\n1  1.51\n2  1.62\n3  1.84\n4  1.94\n5  2.14\n6  2.2 \n\n\nWe can add some predictions…\n\n# Create the model\nreg_mod &lt;- lm(mpg ~ wt, data = mtcars)\n\n# Add the predictions\ngrid &lt;- grid %&gt;% \n  add_predictions(reg_mod)\n\nhead(grid,6)\n\n# A tibble: 6 × 2\n     wt  pred\n  &lt;dbl&gt; &lt;dbl&gt;\n1  1.51  29.2\n2  1.62  28.7\n3  1.84  27.5\n4  1.94  26.9\n5  2.14  25.8\n6  2.2   25.5\n\n\nA now we can visualize the model…\n\nggplot(mtcars, aes(wt)) +\n  geom_point(aes(y = mpg)) + theme_minimal() +\n  geom_line(aes(y = pred), data = grid, colour = \"red\", size = 1)\n\nWarning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.\nℹ Please use `linewidth` instead.\n\n\n\n\n\n\n\n\n\nWe can now add the residuals….\n\nmtcars &lt;- mtcars %&gt;% \n  add_residuals(reg_mod)\n\nggplot(mtcars, aes(wt, resid)) +\n  geom_ref_line(h = 0) + geom_point()\n\n\n\n\n\n\n\n\nTo summarise\n\nWith the predictions we can find which pattern we have been able to capture.\nWith the residuals we can know which pattern has not been captured.",
+    "crumbs": [
+      "Data Modelling",
+      "Linear Regression"
+    ]
+  },
+  {
+    "objectID": "10_02_linear_regression.html#using-and-understanding-our-models",
+    "href": "10_02_linear_regression.html#using-and-understanding-our-models",
+    "title": "Linear Regression",
+    "section": "Using and understanding our models",
+    "text": "Using and understanding our models\n\nWhat to do with our models?\n\nExplain: explain the relation between \\(y\\) and \\(x\\) with the parameters \\(\\beta_0\\) and \\(\\beta_1\\)\nPrediction: for a new value of \\(x\\) and obtain the equivalent value \\(y\\)\n\n\n\nInterpreting linear regression\nUsing the last created model, we can use now broom library from tidyverse ecosystem, that offers multiple functions to optimize a create more efficient code and tasks.\n\nlibrary(broom)\n\nmod_reg &lt;- lm(mpg ~ wt, data = mtcars)\ntidy(mod_reg)\n\n# A tibble: 2 × 5\n  term        estimate std.error statistic  p.value\n  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;\n1 (Intercept)    37.3      1.88      19.9  8.24e-19\n2 wt             -5.34     0.559     -9.56 1.29e-10\n\n\n\nIntercept\nOur linear regression model is…\n\\[\\dot{mpg} = \\beta_0 + \\beta_1wt\\] \\(\\beta_0\\) is the base value in a case of a zero value for \\(wt\\). This will be the predicted value in this case.\nEg. 0 as wt…\n\\[\\dot{mpg} = \\beta_0 + \\beta_1 * 0 = \\beta_0\\]\n\n\nSlope\nOur linear regression model is…\n\\[\\dot{mpg} = \\beta_0 + \\beta_1wt\\]\n\\(\\beta_1\\) is the increase we can expect for change in the explainable variable \\(wt\\)\nEg. what happens if we increase 1 wt…\n\\[\\beta_0 + \\beta_1(wt + 1) =\n\\beta_0 + \\beta_1wt + \\beta_1 =\n\\dot{mpg} + \\beta_1\\]\n\n\n\n\n\n\nExercise: Experience and Salary\n\n\n\nWe will see this example where we will try to model the years of experience to the salary of a teacher. In the following cell we are preparing the data sample we are going to work with and make a first visualization of the varibales we want to explain.\n\nlibrary(openintro)\n\n# Data preparation\ngrade &lt;- sample(\n  c(rep(\"elementary\", 20), \n    rep(\"middle\", 25),\n    rep(\"high\", 26))\n)\n\nteacher_sample &lt;- teacher %&gt;% \n  mutate(degree = factor(degree, c(\"MA\", \"BA\")),\n         grade = grade)\n\n# Visualization\nggplot(teacher_sample, \n       aes(x=years, y=base)) +\n  geom_point() + theme_minimal()\n\n\n\n\n\n\n\n\nPart 1. Fit a linear model, find the coefficients of the formula and interpret them.\nPart 2. Make a prediction for the salary of teacher with 15 years of experience in the field.",
+    "crumbs": [
+      "Data Modelling",
+      "Linear Regression"
+    ]
+  },
+  {
+    "objectID": "10_02_linear_regression.html#categorical-linear-regression",
+    "href": "10_02_linear_regression.html#categorical-linear-regression",
+    "title": "Linear Regression",
+    "section": "Categorical Linear Regression",
+    "text": "Categorical Linear Regression\nWe have started assuming \\(x\\) as a continuous value, but we can find situations where it is categorical.\nIn this case our normal formula \\(y = \\beta_0 + \\beta_1x\\) won’t fit the scenario as x is not a number. For example if x was a genre: male or female.\nWhat we can do is to create a new variable that has a value of 0 and 1 depending if one category is selected. Let’s see it with an example.\nWe will see it with an example using the same data of the last exercise. Now we are going to analyze the salary depending on the grade…\n\n# Fiting the model\nmod_base_degree &lt;- lm(base ~ degree, data=teacher_sample)\ntidy(mod_base_degree)\n\n# A tibble: 2 × 5\n  term        estimate std.error statistic  p.value\n  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;\n1 (Intercept)   56610.     1777.    31.8   5.44e-43\n2 degreeBA       -352.     2398.    -0.147 8.84e- 1\n\n\nR has created a indicator variable degreeBA; if the grade is BA takes value 1 otherwise 0.\nIn case of more than two variables it will create two or more indicator variables.\nBase level is the one that will be assumed by the variable when the rest are 0. We must interpret coefficients respect base level.\nSo how we can interpret each coefficient…\n\n# Fiting the model\nmod_base_degree &lt;- lm(base ~ degree, data=teacher_sample)\ntidy(mod_base_degree)\n\n# A tibble: 2 × 5\n  term        estimate std.error statistic  p.value\n  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;\n1 (Intercept)   56610.     1777.    31.8   5.44e-43\n2 degreeBA       -352.     2398.    -0.147 8.84e- 1\n\n\nNow we can add the predictions…\n\nmod_base_degree &lt;- lm(base ~ degree, data=teacher_sample)\n\ngrid &lt;- teacher_sample %&gt;% \n  data_grid(degree) %&gt;% \n  add_predictions(mod_base_degree)\n\ngrid\n\n# A tibble: 2 × 2\n  degree   pred\n  &lt;fct&gt;   &lt;dbl&gt;\n1 MA     56610.\n2 BA     56257.\n\n\nVisualizing the predictions… what we have predict… average\n\nggplot(teacher_sample, aes(x=degree)) + geom_point(aes(y=base)) +\n  theme_minimal() +\n  geom_point(data = grid, aes(y = pred), colour = \"red\", size = 4)",
+    "crumbs": [
+      "Data Modelling",
+      "Linear Regression"
+    ]
+  },
+  {
+    "objectID": "10_02_linear_regression.html#multiple-linear-regression",
+    "href": "10_02_linear_regression.html#multiple-linear-regression",
+    "title": "Linear Regression",
+    "section": "Multiple Linear Regression",
+    "text": "Multiple Linear Regression\nt is frequent to find scenarios where multiple predictor variables are found. The simplest linear model we can use is the multiple linear regression\n\\[\ny = \\beta_0 + \\beta_1x_1 + \\beta_2x_2 +  \\cdot\\cdot\\cdot + \\beta_nx_n  \n\\]\nThe effect of each variable can be analyzed independently of the rest of variables.\nWe are going to explain it with the same example, now combining both Degree and Experience to explain the Salary…\n\nmod_reg &lt;- lm(base ~ years + degree, data = teacher_sample)\n\ntidy(mod_reg)\n\n# A tibble: 3 × 5\n  term        estimate std.error statistic  p.value\n  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;\n1 (Intercept)   44838.    1156.      38.8  4.11e-48\n2 years           818.      54.0     15.2  1.75e-23\n3 degreeBA      -2560.    1164.      -2.20 3.12e- 2\n\n\nAdding the predictions\n\ngrid &lt;- teacher_sample %&gt;% \n  data_grid(years, degree) %&gt;% \n  add_predictions(mod_reg)\n\ngrid\n\n# A tibble: 76 × 3\n   years degree   pred\n   &lt;dbl&gt; &lt;fct&gt;   &lt;dbl&gt;\n 1     0 MA     44838.\n 2     0 BA     42278.\n 3     1 MA     45656.\n 4     1 BA     43096.\n 5     2 MA     46474.\n 6     2 BA     43914.\n 7     3 MA     47292.\n 8     3 BA     44732.\n 9     4 MA     48110.\n10     4 BA     45550.\n# ℹ 66 more rows\n\n\nVisualizing the model and the predictions…\n\nggplot(teacher_sample, aes(years, base, colour = degree)) +\n  geom_point() +\n  geom_line(data = grid, aes(y = pred)) + theme_minimal()",
+    "crumbs": [
+      "Data Modelling",
+      "Linear Regression"
+    ]
+  },
+  {
+    "objectID": "10_03_inference.html",
+    "href": "10_03_inference.html",
+    "title": "Inference",
+    "section": "",
+    "text": "Statistical Inference\nStatistical Inference is the process that allows, through data, obtain conclusions and apply them to the whole population where the sample was originated.\nWe will work with estimation here.\nFor the rest of this chapter we will work with a sample data to help us explain the concepts and a case: Average price of an Airbnb in València\nWe have obtained the data from València Airbnb prices thanks to Inside Airbnb data repository that scrapped all listings from the website on the 22nd of June 2024.\nPopulation for the analysis: All airbnb’ houses/apartments with at least 10 reviews in València.\nGoal Paremeter: Average price per night in those airbnbs.\nWhich is the average price for an airbnb with at leat 8 reviews in the city of Valéncia at the month of June?\nWe are going to use a random sample data with 50 airbnb locations with the price per night value informed.",
+    "crumbs": [
+      "Data Modelling",
+      "Inference"
+    ]
+  },
+  {
+    "objectID": "10_03_inference.html#statistical-inference",
+    "href": "10_03_inference.html#statistical-inference",
+    "title": "Inference",
+    "section": "",
+    "text": "Estimation, use the sample to estimate a possible interval of values for a given population parameter unknown.\nHypothesis Contrast, evaluate if the given sample shows an evidence of the application of a given affirmation about the population.",
+    "crumbs": [
+      "Data Modelling",
+      "Inference"
+    ]
+  },
+  {
+    "objectID": "10_03_inference.html#point-estimation",
+    "href": "10_03_inference.html#point-estimation",
+    "title": "Inference",
+    "section": "Point Estimation",
+    "text": "Point Estimation\nA point estimator is a value computed from the sample to serve as the “best estimation” for the population parameter.\nOur point estimator for the average price per night will be the average obtained from the sample:\n\ndata &lt;- read_csv(\"data/vlc_listings_50.csv\")\ndata %&gt;% \n  summarise(mean_price = mean(price))\n\n# A tibble: 1 × 1\n  mean_price\n       &lt;dbl&gt;\n1       138.\n\n\nNow we can see our point estimator and the sample represented with an histogram\n\nggplot(data) +\n  geom_histogram(aes(x=price),bins=10,fill=\"lightgrey\",color=\"black\") +\n  geom_vline(xintercept = 137.98, color=\"red\") +\n  geom_text(x=150, y = 15, label = \"137.9\", size = 4) +\n  ggtitle(\"AirBnB price distribution for June 2024 in València\") +\n  theme_minimal()\n\n\n\n\n\n\n\n\nPoint estimators are useful when we are trying to find a general value to define a parameter, but they can be not representative and highly affected by the distribution of the sample values. We can provide a range of values where the parameter can be found.\n\nIf we provide only a single value (point estimation), we can fail trying to find the exact parameter for the population.\nIf we provide a range of values, we have more probabilities of having the parameter inside the range of values we found.",
+    "crumbs": [
+      "Data Modelling",
+      "Inference"
+    ]
+  },
+  {
+    "objectID": "10_03_inference.html#confidence-intervals",
+    "href": "10_03_inference.html#confidence-intervals",
+    "title": "Inference",
+    "section": "Confidence Intervals",
+    "text": "Confidence Intervals\nFor building a confidence interval for the population parameter, we need to create a rank of possible values around the observed sample’s average.\nIt is important to note that the random samples, will be different between them. This means if we take a another random sample of more 50 listings about AirBnb in València, it is possible not to obtain the same price average.\nThere is a variability in the sample average.\nFor building a confidence interval, we need to measure this variability. This will give us on how much we can expect our sample average to variate from each sample.\n\nEx 1: We divide the class in two groups and we ask each student their height. Then we compute the average height for each group. Will you expect them to be the same, similar or different?\nEx 2: We take 50 students randomly and looks 5 of them write with the left hand. If you take another random sample of 50 students. How many of them will you expect to be left-handed? Will you be surprised if only 3 of them are left-handed? And if they were 40 this time?\n\n\nHow to measure variability?\nWe can measure variability of the sample values with different approaches:\n\nSimulation: we can use re-sampling techniques or “bootstrap” to find different values for the same metric.\nTheory: using the Central Limit Theorem (Normal Distribution)",
+    "crumbs": [
+      "Data Modelling",
+      "Inference"
+    ]
+  },
+  {
+    "objectID": "10_03_inference.html#bootstrap",
+    "href": "10_03_inference.html#bootstrap",
+    "title": "Inference",
+    "section": "Bootstrap",
+    "text": "Bootstrap\nBootstrap is a re-sample technique used for measuring the variance of an estimation.\nWe will use it for estimating the population parameter using only the given sample.\nIt uses the same principles of the statistical inference so it is considered an alternative.\n\n\nBootstrap Procedure\n\nTake a bootstrap sample, a random sample with replacement from the original sample, with the same size of the original sample.\nCompute the bootstrap statistic: the statistic we want to compute (average, median, correlation, …) using the bootstrap sample.\nRepeat steps 1 and 2 multiple times to create a bootstrap distribution - a distribution of bootstrap statistics.\nCompute the confidence interval limits of XX% as the region that has the XX% of the bootstrap distribution.\n\n\nStep by step\nStep 1. Take a bootstrap sample, a random sample with replacement from the original sample, with the same size of the original sample.\n\nset.seed(1)\nindices &lt;- sample(1:nrow(data), 50, replace = T)\nboot_samp_1 &lt;- data %&gt;% \n  select(price) %&gt;% \n  slice(indices)\n\n\nggplot(boot_samp_1) +\n  geom_histogram(aes(x=price),bins=10,fill=\"lightgrey\",color=\"black\") +\n  theme_minimal()\n\n\n\n\n\n\n\n\nStep 2. Compute the bootstrap statistic: the statistic we want to compute (the average price in this case) using the bootstrap sample.\n\nmean1 &lt;- round(mean(boot_samp_1$price), 2)\nggplot(boot_samp_1) +\n  geom_histogram(aes(x=price),bins=10,fill=\"lightgrey\",color=\"black\") +\n  geom_vline(xintercept = mean1, color=\"red\") +\n  geom_text(x=150, y = 15, label = mean1, size = 4) +\n  theme_minimal()\n\n\n\n\n\n\n\n\nStep 3. Repeat steps 1 and 2 multiple times to create a bootstrap distribution\n\n\n\n\n\n\n\n\n\nIn this case we have make 500 bootstrap re-samples and then compute the average for each one. What we do finally is represent all the averages in an histogram plot:\n\n\n\n\n\n\n\n\n\nHere we can compare the original sample and the distribution of bootstrap means.\n\n\n\n\n\n\n\n\n\nStep 4. Compute the limits of the bootstrap interval using the percentiles of the bootstrap distribution.\n\n\nd3 = require(\"d3@7\")\n\nviewof confidence = Inputs.range(\n  [0, 100], \n  {value: 95, step: 1, label: \"Confidence%:\"}\n)\n\nlowerBound = d3.quantile(boot_plot.boot_mean,(1-confidence/100)/2)\n\nupperBound = d3.quantile(boot_plot.boot_mean,confidence/100+(1-confidence/100)/2)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPlot.plot({\n  y: {\n    grid: true\n  },\n  marks: [\n    Plot.rectY(\n      boot_plot.boot_mean,\n      Plot.binX(\n        { \n          y: \"count\"\n        },{\n        fill: \"#ffdad8\",\n        \n        }\n      )\n    ),\n      Plot.ruleX([lowerBound]),\n      Plot.ruleX([upperBound])\n  ]\n})",
+    "crumbs": [
+      "Data Modelling",
+      "Inference"
+    ]
+  },
+  {
+    "objectID": "10_03_inference.html#infer-package",
+    "href": "10_03_inference.html#infer-package",
+    "title": "Inference",
+    "section": "infer package",
+    "text": "infer package\nInfer package help us do an inferential analysis like bootstraping but using the tidyverse ecosystem sintax.\n\nlibrary(infer)\n\n\nChoose a seed\n\nset.seed(123)\n\nWhen doing analysis, simulations and sampling techniques it is recommended to make them replicable.\nset.seed() is an R base function that help us establish a common starting point on your machine, helping you control simulations and making them replicable.\nThis means that if use the same seed, you will guarantee that each time you run your code you will get the same results.\n\n\nGenerate Bootstrap averages\n\nspecify()\n\ndata %&gt;% \n  # specifiy the variable of interest\n  specify(response = price)\n\nWith specify(), we will tell infer which is the variable we will use to make the re-sampling, our objective variable to obtain the bootstrap mean.\n\n\ngenerate()\n\ndata %&gt;% \n  # specifiy the variable of interest\n  specify(response = price) %&gt;% \n  # generate 15000 bootstrap samples\n  generate(reps = 1500, type = \"bootstrap\")\n\nWith generate(), we will tell infer which is the number of re-samplings we want to do, and the technique we want to use. In this case Bootstrap re-sampling.\n\n\ncalculate()\n\ndata %&gt;% \n  # specifiy the variable of interest\n  specify(response = price) %&gt;% \n  # generate 15000 bootstrap samples\n  generate(reps = 1500, type = \"bootstrap\") %&gt;% \n    # calculate the statistic of each bootstrap sample\n  calculate(stat = \"mean\")\n\nWith calculate(), we will tell infer which is the metric we want to compute for each sample, so we can get the metric distribution. In this case we choose the mean, but we can select other kind of metrics, like the median for example.",
+    "crumbs": [
+      "Data Modelling",
+      "Inference"
+    ]
+  },
+  {
+    "objectID": "10_03_inference.html#visualize-the-distribution",
+    "href": "10_03_inference.html#visualize-the-distribution",
+    "title": "Inference",
+    "section": "Visualize the distribution",
+    "text": "Visualize the distribution\n\nggplot(data = boot_dist, aes(stat)) +\n  geom_histogram(binwidth = 5, color = \"darkred\", fill = \"pink\") +\n  labs(x = \"\", y = \"\", title = \"Bootstrap distribution of sample means\") +\n  scale_x_continuous(breaks = seq(0, 250, by = 50)) + \n  xlim(0, 250) +\n  theme_minimal()",
+    "crumbs": [
+      "Data Modelling",
+      "Inference"
+    ]
+  },
+  {
+    "objectID": "10_03_inference.html#computing-confidence-intervals",
+    "href": "10_03_inference.html#computing-confidence-intervals",
+    "title": "Inference",
+    "section": "Computing Confidence Intervals",
+    "text": "Computing Confidence Intervals\nA confidence interval of 95% means that it contains the 95% central possible values of the bootstrap distribution. For obtaining this 95%, we need to exclude the other 5% of the sample.\nAs it is a 95% central, means that we need to exclude 2.5% of each side (5% / 2) of the distribution.\n\nFor making this computation with dplyr:\n\nci &lt;- boot_dist %&gt;%\n  summarise(lower_b = quantile(stat, 0.025), \n            upper_b = quantile(stat, 0.975))\nci\n\n# A tibble: 1 × 2\n  lower_b upper_b\n    &lt;dbl&gt;   &lt;dbl&gt;\n1    122.    158.",
+    "crumbs": [
+      "Data Modelling",
+      "Inference"
+    ]
+  },
+  {
+    "objectID": "10_03_inference.html#visualizing-confidence-intervals",
+    "href": "10_03_inference.html#visualizing-confidence-intervals",
+    "title": "Inference",
+    "section": "Visualizing Confidence Intervals",
+    "text": "Visualizing Confidence Intervals\n\nOption 1\nUsing ggplot geometric geom_vline() to mark the limits of the interval:\n\nggplot(data = boot_dist, mapping = aes(x = stat)) +\n  geom_histogram(binwidth = 5, alpha = .5) +\n  geom_vline(xintercept = ci$lower_b,\n             color = \"steelblue\", lty = 2, size = 1) + \n  geom_vline(xintercept = ci$upper_b,\n             color = \"steelblue\", lty = 2, size = 1) +\n  labs(title = \"Bootstrap distribution of the average price.\",\n       subtitle = \"with CI of 95%\",\n       x = \"Averages\", y = \"Number\") +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\n\nOption 2\nUsing visualize function together with shade_confidence_interval that prints the intervals passed.\n\nvisualize(boot_dist) +\n  shade_confidence_interval(endpoints = ci)+\n  labs(title = \"Bootstrap distribution of the average price.\",\n       subtitle = \"with CI of 95%\",\n       x = \"Averages\", y = \"Number\") +\n  theme_minimal()",
+    "crumbs": [
+      "Data Modelling",
+      "Inference"
+    ]
+  },
+  {
+    "objectID": "10_03_inference.html#interpreting-the-confidence-interval",
+    "href": "10_03_inference.html#interpreting-the-confidence-interval",
+    "title": "Inference",
+    "section": "Interpreting the Confidence Interval",
+    "text": "Interpreting the Confidence Interval\nOur Confidence Interval of 95% is [122, 158].\n\nThe population parameter can be or not in our interval. There is no a “probability of 95%” for it to be in an specific interval.\nBootstrap distribution computes the variance of the parameter based on sample of the population. And the idea that the origin data comes from a sample, means that if if we change the sample the interval with a confidence of 95% can change.\nAll that we can say, is that *if we take independent samples of the population and compute a 95% CI for the average for each one, we expect that the 95% of these intervals to contain the population average.\nBut we are not sure enough that the population parameter is inside the interval.\n\n\n\n\nWe have a 95% confidence that the average price of an apartment in València for June is between 122 and 158 euros.",
+    "crumbs": [
+      "Data Modelling",
+      "Inference"
+    ]
+  },
+  {
+    "objectID": "01_introduction.html",
+    "href": "01_introduction.html",
+    "title": "Introduction to Programming",
+    "section": "",
+    "text": "What is programming?\nProgramming consists in writing code that will be executed by a computer. This code we are writing is called an algorithm, an algorithm is basically a set of instructions, steps the computer needs to do to complete a task. Changing the topic, and with the idea of being simpler we can understand an algorithm as a cooking receipt, the different steps we need to do to cook our meal.\nBut it is important to understand that computers don’t see things as we do, we can’t write a sentence with the explanation of the step, like we will do when explaining how to cook rice. Computers are like a big calculator and the language they us is binary, 1 and 0. They execute tasks computing operations with these two numbers. Each thing we see in our computer screen has a representation with 1 and 0 for our computers. But it will be very difficult to explain the things we do with this language, for this reason we write code that will be later translated to the language of our computer.\nWhen we code, we write what is called high level programming language, then this language is compiled or interpreted by our computer translating it to binary language (machine language) so it can execute it.\nHigh level code makes us very easy to program, but there are a lot of different languages, and they are created and used for different purposes, despite a same language can be used for doing different kind of things. We can group programming languages in two big groups:\nWe can find language that use both systems or a mixture of them for working and being executed.",
+    "crumbs": [
+      "Introduction to Programming"
+    ]
+  },
+  {
+    "objectID": "01_introduction.html#what-is-programming",
+    "href": "01_introduction.html#what-is-programming",
+    "title": "Introduction to Programming",
+    "section": "",
+    "text": "Compiled. These languages are directly transformed once correctly written to a low-level language, that can be transformed later to the machine language used by our computer.\nInterpreted. The different instructions written for these languages are being “interpreted” and executed directly one by one.",
+    "crumbs": [
+      "Introduction to Programming"
+    ]
+  },
+  {
+    "objectID": "01_introduction.html#understanding-your-computer",
+    "href": "01_introduction.html#understanding-your-computer",
+    "title": "Introduction to Programming",
+    "section": "Understanding your computer",
+    "text": "Understanding your computer\nWe have explained the main idea and basic concepts of programming and how computers process these codes to execute the process we explain him. But, ¿what the main parts our computer uses to do all its tasks are?, it is important to understand the powerful tool we are going to use to develop our code and perform tasks:\nProcessor (CPU): The main component responsible of executing the different instructions and compute calculations, prior to transform the high-level language to the machine language it uses.\nMemory (RAM): Responsible of store the instructions, data and temporary resources needed for programs being executed by the processor. Is quick and with low capacity to focus only on the tasks being done.\nHard Disk (HDD or SDD): Computer main storage of data (programs and other files) persistently. It is very slow and with very high capacity, memory tends to access periodically to recover the information needed for our processor.\nOther devices (external) (I/O): External storage devices, input, and output devices such as our screen, the keyboard or the mouse are also present and the help to interact with our computer, add more data, or visualize it.\nHere is summary of our computer…",
+    "crumbs": [
+      "Introduction to Programming"
+    ]
+  },
+  {
+    "objectID": "01_introduction.html#what-is-a-program",
+    "href": "01_introduction.html#what-is-a-program",
+    "title": "Introduction to Programming",
+    "section": "What is a program?",
+    "text": "What is a program?\nAs we see computers execute programs that are codified by us, the programmers, these programs are composed of two key parts:\n\nInstructions. The different pieces of code that explains the computer (CPU) what he needs to do to run the program and do the different tasks. Examples: read a value from memory, show the result of a computation, end the program if a condition is fulfilled, etc.\nData. The information the program processes. This data can be stored at memory (RAM) if they are going to be used only when the program is running, or in the hard disk or external storage device if it needs to be kept by the end of the execution. Examples: data introduced at execution by other user, data from a file red by the program, etc.",
+    "crumbs": [
+      "Introduction to Programming"
+    ]
+  },
+  {
+    "objectID": "02_programming.html",
+    "href": "02_programming.html",
+    "title": "Programming with R",
+    "section": "",
+    "text": "In this chapter you will learn the basic concepts you need to know to start programming with R, from the basic concepts as data types, working with data structures, using functions and learning the programming structures to develop your code.",
+    "crumbs": [
+      "Programming with R"
+    ]
+  },
+  {
+    "objectID": "10_modelling.html",
+    "href": "10_modelling.html",
+    "title": "Data Modelling",
+    "section": "",
+    "text": "Studies\nThe way data is collected and treated, will affect how we can generalize the data to the population…\nAnd that’s not enough sometimes, specially when we speak about scientific studies…",
+    "crumbs": [
+      "Data Modelling"
+    ]
+  },
+  {
+    "objectID": "10_modelling.html#studies",
+    "href": "10_modelling.html#studies",
+    "title": "Data Modelling",
+    "section": "",
+    "text": "If we want to generalize the results we will need to use random sampling.\n\n\n\nUse random assignment. Establish different treatments as a way to avoid confusion variables.\n\n\nConfusion Variable: An external variable that can generate the effect on both variables, making a false conclusion of being related.\n\n\n\nWe can see two different studies…\n\nBased on observation. Collect data without any alteration on their generation. Allow us to see relation.\nBased on experimentation. Applying different treatments to the observations. Allow us to see effect and cause.",
+    "crumbs": [
+      "Data Modelling"
+    ]
+  },
+  {
+    "objectID": "10_modelling.html#modelling",
+    "href": "10_modelling.html#modelling",
+    "title": "Data Modelling",
+    "section": "Modelling",
+    "text": "Modelling\nModelling involves different tasks followed by an exploratory data analysis.\nThis analysis will help us identify the correct model and understand the data for better model improvements.\nA modelling project involves different steps, such as EDA, feature engineering (choosing variables), initial modelling, evaluation of models, model engineering and final models implementation.\nAs we have seen, we will focus in this course to use them for exploration.",
+    "crumbs": [
+      "Data Modelling"
+    ]
+  },
+  {
+    "objectID": "03_tidyverse.html",
+    "href": "03_tidyverse.html",
+    "title": "Tidyverse",
+    "section": "",
+    "text": "The tidyverse ecosystem for data analysis\nWe want to analyze data in a reproducible way, and, for doing that we will use tools that can allow us develop strong analytics in R. Through the course we will use this set of packages that contains a full set of tools used for doing data science with R. Know more about tidyverse packages\nSo we need to start loading the tidyverse package (take into account that this package will load all tidyverse packages including tibble one). If you need to install tidyverse check the packages section on the first chapters of the book.\nlibrary(tidyverse)",
+    "crumbs": [
+      "Tidyverse"
+    ]
+  },
+  {
+    "objectID": "04_visualization.html",
+    "href": "04_visualization.html",
+    "title": "Visualization",
+    "section": "",
+    "text": "Exploratory Data Analysis (EDA)\nAn Exploratory Data Analysis or EDA consists on observe the data and analyze it to generate hypothesis and test them.\nObjective: Generate questions to analyze them more deeply.\nEDAs include visualization and data manipulation. This process, combined with the curiosity and skepticism, try to find interesting questions and answers about the data.\nAt this part of the course we will focus on create and study visual representations with the data. Using ggplot2 a package inside the tidyverse ecosystem to create visualizations.",
+    "crumbs": [
+      "Visualization"
+    ]
+  },
+  {
+    "objectID": "04_visualization.html#visualization-ggplot2",
+    "href": "04_visualization.html#visualization-ggplot2",
+    "title": "Visualization",
+    "section": "Visualization: ggplot2",
+    "text": "Visualization: ggplot2\nThe visualization package of tidyverse. Grammar of Graphics comes from the work by Leland Wilkinson. It will help us describe the different components of the plot in a sequential way, with defining the different layers of the final visualization.\n\nFor using ggplot2 we need to load the library first, as it is part of tidyverse we will load the full package\n\nlibrary(tidyverse) # Do library(ggplot2) for the package only",
+    "crumbs": [
+      "Visualization"
+    ]
+  },
+  {
+    "objectID": "05_transformation.html",
+    "href": "05_transformation.html",
+    "title": "Transformation",
+    "section": "",
+    "text": "Transformation: dplyr\nWe will use an special package designed inside the tidyverse universe for this purpose… dplyr\nThis package has his own language (verbs) for doing the different tasks of the transformation process…",
+    "crumbs": [
+      "Transformation"
+    ]
+  },
+  {
+    "objectID": "05_transformation.html#transformation-dplyr",
+    "href": "05_transformation.html#transformation-dplyr",
+    "title": "Transformation",
+    "section": "",
+    "text": "Working with rows…\n\narrange to order rows\nslice to subset rows\nfilter to select rows according to a certain condition\n\nWorking with columns…\n\nselect to choose columns\nrename to rename columns\nmutate to create new columns\n\nAnd other much more…",
+    "crumbs": [
+      "Transformation"
+    ]
+  },
+  {
+    "objectID": "05_transformation.html#basic-dplyr-rules",
+    "href": "05_transformation.html#basic-dplyr-rules",
+    "title": "Transformation",
+    "section": "Basic dplyr rules",
+    "text": "Basic dplyr rules\nAll verbs work similar:\n\nfirst argument is the data frame\nsecond and subsequent arguments are used to specify what to do with the data frame\neach verb will return a new data frame modified\n\nAll verbs can be concatenated using the pipe %&gt;%\nFor starting working with dplyr we will need to load it…\n\nlibrary(tidyverse)  # Do library(dplyr) for the package only",
+    "crumbs": [
+      "Transformation"
+    ]
+  }
+]

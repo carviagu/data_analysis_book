@@ -1,0 +1,27 @@
+# Welcome {.unnumbered}
+
+This is the book website for the **Data Analysis & Information Extraction** course at **CUNEF Universidad**. 
+
+The book covers all course contents and provides full explanation of the different topics. You will find explanations and examples to guide your learning.
+
+The book is structured following the course schedule. Now we explain the content of each chapter with references to each of the main units the course is structured. 
+
+1. **Introduction to Programming** chapter covers the configuration and introduces R and RStudio software we will use for developing with R during the course. It introduces the different parts of the software and how to use it. (Unit 1)
+
+2. **Programming with R** focuses on explaining all basic concepts of the R language, teaching the different data types, main functions and programming structures. To provide the student with the basic knowledge needed for following the next chapters. (Unit 1)
+
+3. **Visualization** will teach you the different tools available on R for creating plots and use them accordingly for showing the insights of the data. (Unit 2)
+
+4. **Manipulation** chapter will review the different available elements to manipulate the data and transform the information to analyze what we need. (Unit 2)
+
+5. **Exploratory Data Analysis** will summarise all we have seen until this point and provide you a template guide on how to explore data and find useful insights. (Unit 2)
+
+6. **Reading**
+
+7. **Arrange**
+
+8. **Transformation**
+
+9. **Modelling**
+
+10. **Communication**

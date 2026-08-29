@@ -1,0 +1,226 @@
+# Data Frames {.unnumbered}
+
+A Data Frame is bi-dimensional object that combines attributes from latest seen objects. It is composed by two dimensions:
+
+-   **Columns** that work similarly vectors, containing values of the same type each one.
+-   **Rows** that work similarly as lists, containing the different possible values for each column.
+
+
+We can create a data frame specifying each column (each column behaves like a vector):
+
+```{r, echo=TRUE}
+df <- data.frame(
+  id = 1:4, 
+  company = c("Apple", "Google", "Microsoft", "Huawei"), 
+  share_dif = c(3.4, -2.5, 10.1, -0.05), 
+  consolidate = c("YES", "NO", "NO", "YES")
+)
+df
+```
+This data frame has five columns: id, company, share_idf and consolidate. And four rows containing the possible values for each column.
+
+As with lists, data frames are objects:
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+# Check the class
+class(df)
+
+# Summary the information
+str(df)
+```
+Remember the data frame will be accessible through *Environment* tab. Here you can check each column, their type and a sample of values. Like the output of the Summary we have obtained. 
+
+## Dimensions
+
+As we have said data frame are bi-dimensional structures. You can check the dimensions of a data frame using `dim` function. 
+
+```{r}
+#| code-line-numbers: false
+dim(df)
+```
+
+The first value is the number of rows, and the second the number of columns. You can explore them separately...
+
+```{r}
+#| code-line-numbers: false
+ncol(df) # number of columns
+nrow(df) # number of rows
+```
+
+And you can check the columns that the dataframe has...
+
+```{r}
+#| code-line-numbers: false
+names(df)
+```
+
+
+## Selecting elements
+
+For selecting elements in the dataframe we need to work with its bi-dimensional structure, so we need to provide information of the position...
+
+`dataframe_name[rows, columns]`
+
+We can retrieve a single row...
+
+```{r}
+#| code-line-numbers: false
+# First row
+df[1,]
+```
+
+We get a **dataframe** with the first row only
+
+We can retrieve a single column...
+
+```{r}
+#| code-line-numbers: false
+# Second column using position
+df[,2]
+
+# Second column using name of the column
+df$company
+```
+
+We get a **vector** with all the elements of the column.
+
+We can retrieve an specific register providing both elements. Using two possible syntax.
+
+```{r}
+#| code-line-numbers: false
+# First element of second column by position
+df[1,2]
+
+# First element of second column by name and position
+df$company[1]
+```
+
+### Advance selection
+
+You can make more complex selections...
+
+```{r}
+#| code-line-numbers: false
+# Multiple elements
+df[1:2, 2:3] # firs and second rows of columns 2 to 3
+
+# Negative numbers in the selection
+df[-c(1,2),1:3] # last two rows of columns 1 to 3
+```
+
+Using negative values makes the dataframe do reversed selection, all except the ones informed.
+
+```{r}
+#| code-line-numbers: false
+df[,-2] # All except second column (company)
+```
+
+And other examples...
+
+```{r}
+#| code-line-numbers: false
+# Using logical values
+df[1,c(TRUE, TRUE, FALSE)]
+
+# Selection with column names
+df[c(1,3), "consolidate"]
+```
+
+## Filtering
+
+You can select elements by filtering the data frame depending on conditions. For doing that you need to use conditional **logical** expressions on the row part of the selection.
+
+We want to select all companies with a positive share_dif:
+
+```{r}
+#| code-line-numbers: false
+df[df$share_dif > 0, ]
+```
+
+Rationale...
+
+We want registers with a positive share_dif, this means that all rows with a value on share_dif higher than 0 should be selected. If the type the condition:
+
+```{r}
+#| code-line-numbers: false
+df$share_dif > 0
+```
+
+We get a vector of logical values, if the provide this vector to the selection syntax of the data frame rows it will get all rows whose position is `TRUE`.
+
+```{r}
+filter <- df$share_dif > 0
+df[filter,]
+```
+
+
+::: callout-tip
+
+# Combining logical expressions
+
+Combining logical expressions with Boolean expressions can be done using special operators:
+
+* `&` for AND, both expressions must be successful to pass the condition. 
+* `|` for OR, if any of the expression is successful the whole condition will be met. 
+
+```{r, echo=TRUE}
+exp1 <- 5 > 3
+exp2 <- "A" != "A"
+exp3 <- 3 %in% c(1,2,3)
+# AND
+exp1 & exp2
+
+# OR
+exp1 | exp2
+
+```
+
+The order for this combinations matters, the most critical condition needs to be put on the left part of the whole structure to be evaluated first. 
+
+Also, you can express the opposite of a condition adding `!` operator at the left:
+
+```{r}
+#| code-line-numbers: false
+# Negation
+!exp1
+```
+
+:::
+
+::: callout-caution
+# Exercise: Using filters
+
+Filter the data frame `df` used in the examples to return all registers that have a negative share_dif and that consolidate (YES).
+:::
+
+## Modification
+
+You can add a new column to the data frame. 
+
+```{r, echo=TRUE}
+# Adding a new variable to the data frame
+df$in_stock <- c(1,1,1,0)
+df
+```
+
+We have defined a new column name and assign a vector containing the values for the column. 
+
+And you can drop a column following the `NULL` syntax.
+
+```{r}
+# Adding a new variable to the data frame
+df$consolidate <- NULL
+df
+```
+
+You can modify a single value, using the selection syntax seen before:
+
+```{r}
+# Modifying an specific value
+df[1, "share_dif"] <- df[1, "share_dif"] + 1.4
+df
+```
+
+
+

@@ -1,0 +1,142 @@
+---
+title: "2.3 Aesthetics"
+output: 
+  html_document:
+    toc: true
+---
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(gapminder)
+```
+
+We have already seen in the last chapter how aesthetics work to define the axis of our plots, but in the aesthetics we can define and work with more parameters to create our visualizations.
+
+Aesthetics are used for accessing data variables to be used in the plot for drawing the data.
+
+# Aesthetics for defining axis
+
+```{r}
+# Generating data to show
+gapminder67 <- gapminder[gapminder$year == 1967, ]
+
+# Base plot
+ggplot(data = gapminder67) +
+  geom_point(mapping = aes(y = lifeExp, x = gdpPercap)) +
+  scale_x_log10()
+```
+
+In the base plot, we defined inside the aesthetics the `x` and `y` axis to be used in the plot. Aesthetics
+
+But we have more arguments that can be used:
+
+-   **shape**
+-   **color** / **fill** (for borders or for full figure)
+-   **size**
+-   **alpha** (transparency)
+
+Depending on the geometry and type of data (continuous or discrete) we are using this parameters work differently and not all of them can be used in all aesthetics. Let's see some examples with our current base plot.
+
+## Coloring the figures: `color`
+
+In some cases we will want that the plot to be colored following the data or categories we have in the data set. In this case we can use `color` or `fill` parameter inside the aesthetics to add this information.
+
+```{r}
+ggplot(data = gapminder67) +
+  geom_point(mapping = aes(y = lifeExp, x = gdpPercap, color=continent)) +
+  scale_x_log10()
+```
+
+In this case we have added `color = continent` argument inside the `aes` function of the geometry, this way the different possible values of continent will be used for coloring the dots.
+
+> **Exercise:** Try now to do the same now using `pop` column instead of `continent`, what happens? Hint: `pop` is a continous variable so this may affect how the aesthetic work.
+
+```{r}
+# SOLUTION
+```
+
+## Inside and outside the aesthetics
+
+Some parameters can be defined outside of the aesthetics block, this depends if we want to use data from the data frame or if we want to use a constant value.
+
+-   **Inside aesthetics**: We want the figures to be colored following another data value or category.
+-   **Outside aesthetics**: We want to use an static value for the parameter.
+
+In the example of color we have colored our values following another data, but we can color all dots with the same color if we want to:
+
+```{r}
+ggplot(data = gapminder67) +
+  geom_point(mapping = aes(y = lifeExp, x = gdpPercap), color="red") +
+  scale_x_log10()
+```
+
+## Parameters `color` vs `fill`
+
+In some cases we have two possible options when coloring the plots, depending on the geometry both parameters work differently. For example, using the same histogram of the example:
+
+```{r}
+ggplot(data = gapminder) +
+  geom_histogram(mapping = aes(x = lifeExp), color = "red")
+```
+
+Using `color` with an histogram will only change the border of the bins or bars. If we want to color the full bin we need to use `fill`.
+
+```{r}
+ggplot(data = gapminder) +
+  geom_histogram(mapping = aes(x = lifeExp), fill = "red")
+```
+
+This behavior will change depending on the geometry we are using, for example, with the `geom_point` we can use color for the whole dot not using `fill`. You can know more about which aesthetics can be used reding the documentation of each geometry.
+
+## Shaping the figures: `shape`
+
+We can change the shape of the certain geometries depending on the data or category. We can do it using `shape`, each group or category will have a different shape.
+
+```{r}
+ggplot(data = gapminder67) +
+  geom_point(mapping = aes(y = lifeExp, x = gdpPercap, shape=continent)) +
+  scale_x_log10()
+```
+
+And you can define a single shape for every dot too, using the argument outside of the aesthetics...
+
+```{r}
+ggplot(data = gapminder67) +
+  geom_point(mapping = aes(y = lifeExp, x = gdpPercap),shape='triangle') +
+  scale_x_log10()
+```
+
+## Changing the size using `size`
+
+Another common resource is changin the size of the elements following certain data. This is useful for continuous variables, we can see this example.
+
+```{r}
+ggplot(data = gapminder67) +
+  geom_point(mapping = aes(y = lifeExp, x = gdpPercap, size=pop)) +
+  scale_x_log10()
+```
+
+You can define a unique size for all dots using the `size` argument outside aesthetics and providing a single number.
+
+## Adding transparency using `alpha`
+
+In some cases our visuals will show overlapping elements, difficulty the analysis and vision of the data. We can add some transparency using `alpha` to make elements more visible when they have another one overlapping it.
+
+Check this visual, we are using the full `gapminder` data and some dots are hiding another ones making difficult the analysis.
+
+```{r}
+ggplot(data = gapminder) +
+  geom_point(mapping = aes(y = lifeExp, x = gdpPercap, size=pop)) +
+  scale_x_log10()
+```
+
+For improving the visualization we can use `alpha`, it takes a value between 1 to 0, 1 no transparency and 0 full transparency.
+
+```{r}
+ggplot(data = gapminder) +
+  geom_point(mapping = aes(y = lifeExp, x = gdpPercap, size=pop),
+             alpha = 0.5) +
+  scale_x_log10()
+```
+
+Now we can see more clearly all dots including those that are below another one.

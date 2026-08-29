@@ -1,0 +1,30 @@
+project:
+  type: book
+  output-dir: _book
+  
+book:
+  title: "Data Analysis & Information Extraction"
+  reader-mode: true
+  favicon: cunef_logo.png
+  
+  page-footer:
+    left: |
+      Data Analysis & Information Extraction - <a href="https://cunef.edu/">CUNEF Universidad</a>
+    right: |
+      This book was built with <a href="https://quarto.org/">Quarto</a>.
+  chapters:
+    - index.qmd
+  
+    
+    - part: 01_introduction.qmd
+      chapters: 
+        - 01_01_r_software.qmd
+        - 01_02_rstudio.qmd
+        - 01_03_getting_started.qmd
+        
+  
+format:
+  html:
+    theme:
+      - cosmo
+    

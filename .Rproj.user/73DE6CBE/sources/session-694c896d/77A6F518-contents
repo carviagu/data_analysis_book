@@ -1,0 +1,80 @@
+# Other Features {.unnumbered}
+
+```{r, echo=F, message=F, warning=F}
+library(tidyverse)
+```
+
+
+## Coordinates
+
+By default ggplot uses Cartesian coordinates (x,y), but you can modify them easily using ```coord_XXXX()``` functions. 
+
+```{r, echo=T}
+ggplot(data = mpg, 
+       mapping = aes(x =class, y=hwy)) +
+  geom_boxplot()
+```
+
+
+```{r, echo=T}
+#| code-line-numbers: "4"
+ggplot(data = mpg, 
+       mapping = aes(x =class, y=hwy)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+
+## Maps
+
+You can use maps for your plots, and with `coord_quickmap()` it will compute the accurate ratio for the maps.
+
+```{r, echo=T}
+library(maps)
+nz <- map_data("nz")
+
+ggplot(nz, aes(long, lat, group = group)) +
+  geom_polygon(fill = "white", 
+               colour = "black")
+```
+
+
+```{r, echo=T}
+#| code-line-numbers: "4"
+ggplot(nz, aes(long, lat, group = group)) +
+  geom_polygon(fill = "white", 
+               colour = "black") +
+  coord_quickmap()
+```
+
+
+## Polar Plots
+
+We can change how to represent some data, using another visualization style. Imagine we have the following plot...
+
+```{r, echo=T}
+ggplot(diamonds) +
+  geom_bar(
+    aes(x = cut, fill=cut),
+    show.legend = F,
+    width = 1
+  ) +
+  theme(aspect.ratio = 1) +
+  labs(x=NULL, y=NULL) +
+  coord_flip()
+```
+
+We can change it to much more interesting style...
+
+```{r, echo=T}
+#| code-line-numbers: "9"
+ggplot(diamonds) +
+  geom_bar(
+    aes(x = cut, fill=cut),
+    show.legend = F,
+    width = 1
+  ) +
+  theme(aspect.ratio = 1) +
+  labs(x=NULL, y=NULL) +
+  coord_polar()
+```

@@ -1,0 +1,19 @@
+{
+  "hash": "6a6908492d21c9a351871dc721703551",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# Visualization {.unnumbered}\n\n## Exploratory Data Analysis (EDA)\n\nAn Exploratory Data Analysis or EDA consists on observe the data and analyze it to generate hypothesis and test them.\n\n**Objective**: Generate questions to analyze them more deeply.\n\n![](pictures/data-science-explore.png){fig-align=\"center\" width=\"402\"}\n\nEDAs include visualization and data manipulation. This process, combined with the curiosity and skepticism, try to find interesting questions and answers about the data.\n\nAt this part of the course we will focus on create and study visual representations with the data. Using **ggplot2** a package inside the *tidyverse* ecosystem to create visualizations.\n\n## Visualization: *ggplot2*\n\nThe visualization package of *tidyverse*. **G**rammar of **G**raphics comes from the work by Leland Wilkinson. It will help us describe the different components of the plot in a sequential way, with defining the different layers of the final visualization.\n\n![](pictures/grammar-of-graphics.png){style=\"width:500px; aling:center;\"}\n\nFor using **ggplot2** we need to load the library first, as it is part of tidyverse we will load the full package\n\n\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse) # Do library(ggplot2) for the package only\n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {
+      "knitr": [
+        "{\"type\":\"list\",\"attributes\":{},\"value\":[]}"
+      ]
+    },
+    "preserve": null,
+    "postProcess": false
+  }
+}
