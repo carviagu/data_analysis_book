@@ -107,7 +107,7 @@ ggplot(gapminder67, mapping = aes(x = gdpPercap)) +
 
 What if we combine everything in a single plot. This way we can see both the histogram and the density plot. For doing that we use a *key word* called `..density..` on the `y` axis when defining the plot.
 
-```{r, echo=TRUE, warning=FALSE}
+```{r, echo=TRUE, warning=FALSE, message=FALSE}
 ggplot(gapminder67, mapping = aes(x = gdpPercap, y =..density..)) + 
      geom_histogram(bins = 100, fill="grey") + 
      geom_density(color = "blue") + # density plot

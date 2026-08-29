@@ -29,7 +29,7 @@ ggplot(data = mpg,
 
 You can use maps for your plots, and with `coord_quickmap()` it will compute the accurate ratio for the maps.
 
-```{r, echo=T}
+```{r, echo=T, message=F}
 library(maps)
 nz <- map_data("nz")
 

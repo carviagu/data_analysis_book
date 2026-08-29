@@ -318,8 +318,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Exploratory Data Analysis</span></span>
+      <div class="sidebar-item-container"> 
+            <a href="./06_eda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exploratory Data Analysis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_01_variation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analyzing Data Variation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_02_covariance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analyzing Covariance</span></a>
+  </div>
+</li>
+      </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <span class="sidebar-item-text sidebar-link text-start">
@@ -433,21 +452,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="maps">Maps</h2>
 <p>You can use maps for your plots, and with <code>coord_quickmap()</code> it will compute the accurate ratio for the maps.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(maps)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'maps'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:purrr':
-
-    map</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>nz <span class="ot">&lt;-</span> <span class="fu">map_data</span>(<span class="st">"nz"</span>)</span>
-<span id="cb6-2"><a href="#cb6-2"></a></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="fu">ggplot</span>(nz, <span class="fu">aes</span>(long, lat, <span class="at">group =</span> group)) <span class="sc">+</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">geom_polygon</span>(<span class="at">fill =</span> <span class="st">"white"</span>, </span>
-<span id="cb6-5"><a href="#cb6-5"></a>               <span class="at">colour =</span> <span class="st">"black"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(maps)</span>
+<span id="cb3-2"><a href="#cb3-2"></a>nz <span class="ot">&lt;-</span> <span class="fu">map_data</span>(<span class="st">"nz"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="fu">ggplot</span>(nz, <span class="fu">aes</span>(long, lat, <span class="at">group =</span> group)) <span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>  <span class="fu">geom_polygon</span>(<span class="at">fill =</span> <span class="st">"white"</span>, </span>
+<span id="cb3-6"><a href="#cb3-6"></a>               <span class="at">colour =</span> <span class="st">"black"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -457,10 +467,10 @@ Attaching package: 'maps'</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">ggplot</span>(nz, <span class="fu">aes</span>(long, lat, <span class="at">group =</span> group)) <span class="sc">+</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">geom_polygon</span>(<span class="at">fill =</span> <span class="st">"white"</span>, </span>
-<span id="cb7-3"><a href="#cb7-3"></a>               <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">coord_quickmap</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">ggplot</span>(nz, <span class="fu">aes</span>(long, lat, <span class="at">group =</span> group)) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">geom_polygon</span>(<span class="at">fill =</span> <span class="st">"white"</span>, </span>
+<span id="cb4-3"><a href="#cb4-3"></a>               <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">coord_quickmap</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -474,15 +484,15 @@ Attaching package: 'maps'</code></pre>
 <h2 class="anchored" data-anchor-id="polar-plots">Polar Plots</h2>
 <p>We can change how to represent some data, using another visualization style. Imagine we have the following plot…</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">ggplot</span>(diamonds) <span class="sc">+</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">geom_bar</span>(</span>
-<span id="cb8-3"><a href="#cb8-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">fill=</span>cut),</span>
-<span id="cb8-4"><a href="#cb8-4"></a>    <span class="at">show.legend =</span> F,</span>
-<span id="cb8-5"><a href="#cb8-5"></a>    <span class="at">width =</span> <span class="dv">1</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a>  ) <span class="sc">+</span></span>
-<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">theme</span>(<span class="at">aspect.ratio =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb8-8"><a href="#cb8-8"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="cn">NULL</span>, <span class="at">y=</span><span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb8-9"><a href="#cb8-9"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">ggplot</span>(diamonds) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">geom_bar</span>(</span>
+<span id="cb5-3"><a href="#cb5-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">fill=</span>cut),</span>
+<span id="cb5-4"><a href="#cb5-4"></a>    <span class="at">show.legend =</span> F,</span>
+<span id="cb5-5"><a href="#cb5-5"></a>    <span class="at">width =</span> <span class="dv">1</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a>  <span class="fu">theme</span>(<span class="at">aspect.ratio =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="cn">NULL</span>, <span class="at">y=</span><span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -493,15 +503,15 @@ Attaching package: 'maps'</code></pre>
 </div>
 <p>We can change it to much more interesting style…</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">ggplot</span>(diamonds) <span class="sc">+</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">geom_bar</span>(</span>
-<span id="cb9-3"><a href="#cb9-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">fill=</span>cut),</span>
-<span id="cb9-4"><a href="#cb9-4"></a>    <span class="at">show.legend =</span> F,</span>
-<span id="cb9-5"><a href="#cb9-5"></a>    <span class="at">width =</span> <span class="dv">1</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a>  ) <span class="sc">+</span></span>
-<span id="cb9-7"><a href="#cb9-7"></a>  <span class="fu">theme</span>(<span class="at">aspect.ratio =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb9-8"><a href="#cb9-8"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="cn">NULL</span>, <span class="at">y=</span><span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb9-9"><a href="#cb9-9"></a>  <span class="fu">coord_polar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">ggplot</span>(diamonds) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">geom_bar</span>(</span>
+<span id="cb6-3"><a href="#cb6-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">fill=</span>cut),</span>
+<span id="cb6-4"><a href="#cb6-4"></a>    <span class="at">show.legend =</span> F,</span>
+<span id="cb6-5"><a href="#cb6-5"></a>    <span class="at">width =</span> <span class="dv">1</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">theme</span>(<span class="at">aspect.ratio =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="cn">NULL</span>, <span class="at">y=</span><span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a>  <span class="fu">coord_polar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">

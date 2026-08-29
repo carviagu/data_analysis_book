@@ -17,14 +17,14 @@ As we have seen, for analyzing covariance we will need to understand the type of
 
 We can use the `geom_freqpoly` geometry to see how the continuous variable relates with the each category. 
 
-```{r, echo=TRUE}
+```{r, echo=TRUE, message=FALSE}
 ggplot(data = diamonds, aes(x = price, color = cut)) +
   geom_freqpoly()
 ```
 
 Other option with density plots. `..density..` will paint the density in the y axis, that is the normalized count to make the area of each polygon 1.
 
-```{r, echo=TRUE}
+```{r, echo=TRUE, message=FALSE}
 ggplot(data = diamonds, 
        aes(x = price, y = ..density.., color = cut)) +
   geom_freqpoly()
@@ -102,7 +102,7 @@ ggplot(diamonds, aes(x = carat, y = price)) +
 
 Box plots work here too:
 
-```{r, echo=TRUE}
+```{r, echo=TRUE, message=FALSE}
 ggplot(diamonds, aes(x = carat, y = price)) +
   geom_boxplot(aes(group = cut_width(carat, 0.1)))
 ```
@@ -110,7 +110,7 @@ ggplot(diamonds, aes(x = carat, y = price)) +
 Same number of point for each bin:
 
 
-```{r, echo=TRUE}
+```{r, echo=TRUE, message=FALSE}
 ggplot(diamonds, aes(x = carat, y = price)) +
   geom_boxplot(aes(group = cut_number(carat, 20)))
 ```

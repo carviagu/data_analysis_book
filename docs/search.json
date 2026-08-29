@@ -234,7 +234,7 @@
     "href": "02_01_first_concepts.html#introduction-to-functions",
     "title": "First Concepts of R",
     "section": "Introduction to Functions",
-    "text": "Introduction to Functions\nFunctions are already created code programs we can use. They are pre-built and available on R and we can call them to perform quick operations, instead of creating the whole code. We have seen some examples in the variables section.\nThe have a defined name and normally are followed by parenthesis (), inside the parenthesis we can include additional arguments to the function (inputs) that are needed to perform the operation we want to do (not all functions have arguments). The function will return the result.\n&lt;function_name&gt;(&lt;arguments_1&gt;, &lt;arguments_2&gt;, ..., &lt;arguments_n&gt;)\nR has different pre-defined functions we can use…\n\n# compute the mean from number 1 to 10\nmean(1:10)\n\n[1] 5.5\n\n# we can combine functions\nround(mean(1:10))\n\n[1] 6\n\n\nIn the examples we have seen we have computed the mean of ten numbers, so the function mean() has one arguments we need to enter that is the numbers to use in the computation (we have provide with a range 1:10). In the second case we have use the output to round it removing decimal numbers with round() function whose input arguments is the value to round.\nAs we have seen functions can have multiple arguments, with a name each one. When providing arguments we can enter them by name or we can provide them without naming the arguments, in the second case we need to enter them on the same order they are expected to be included. We can check the order and the arguments in the function documentation.\n\n# sample a number between 1 to 10\nsample(x = 1:10, size = 1)\n\n[1] 7\n\n# we don't need to use the name if we follow the same order\nsample(1:10, 1)\n\n[1] 1\n\n\nYou can see the arguments of a function using args() function.\n\nargs(sample)\n\nfunction (x, size, replace = FALSE, prob = NULL) \nNULL\n\n\nSome arguments have a default value, so you don’t need to provide one always. See round() function for example.\n\nargs(round)\n\nfunction (x, digits = 0, ...) \nNULL\n\n\nIn the function digits have default value as 0, so if we do not provide a value for that argument the function will use the value 0.\nIf you have doubts of about any function, its arguments or how it works you can use ? command to see the official documentation.\n? round\nThis will show the documentation of the function in the Help tab of RStudio.\n\nHere you have a summary of frequently used functions in R:\n\n\n\nFunction\nUse\n\n\n\n\nlog()\ncomputes the logarithm\n\n\nexp()\ncomputes the exponential\n\n\nmin()\ncomputes the min number\n\n\nmax()\ncomputes the max number\n\n\nsum()\ncomputes the sum\n\n\nmean()\ncomputes the average\n\n\nmedian()\ncomputes the median\n\n\nvar()\ncomputes the variance\n\n\nsd()\ncomputes the standard deviation\n\n\nquantile()\ncomputes quantiles 0, 25, 50, 75, 100\n\n\ncor()\ncomputes de correlation",
+    "text": "Introduction to Functions\nFunctions are already created code programs we can use. They are pre-built and available on R and we can call them to perform quick operations, instead of creating the whole code. We have seen some examples in the variables section.\nThe have a defined name and normally are followed by parenthesis (), inside the parenthesis we can include additional arguments to the function (inputs) that are needed to perform the operation we want to do (not all functions have arguments). The function will return the result.\n&lt;function_name&gt;(&lt;arguments_1&gt;, &lt;arguments_2&gt;, ..., &lt;arguments_n&gt;)\nR has different pre-defined functions we can use…\n\n# compute the mean from number 1 to 10\nmean(1:10)\n\n[1] 5.5\n\n# we can combine functions\nround(mean(1:10))\n\n[1] 6\n\n\nIn the examples we have seen we have computed the mean of ten numbers, so the function mean() has one arguments we need to enter that is the numbers to use in the computation (we have provide with a range 1:10). In the second case we have use the output to round it removing decimal numbers with round() function whose input arguments is the value to round.\nAs we have seen functions can have multiple arguments, with a name each one. When providing arguments we can enter them by name or we can provide them without naming the arguments, in the second case we need to enter them on the same order they are expected to be included. We can check the order and the arguments in the function documentation.\n\n# sample a number between 1 to 10\nsample(x = 1:10, size = 1)\n\n[1] 9\n\n# we don't need to use the name if we follow the same order\nsample(1:10, 1)\n\n[1] 2\n\n\nYou can see the arguments of a function using args() function.\n\nargs(sample)\n\nfunction (x, size, replace = FALSE, prob = NULL) \nNULL\n\n\nSome arguments have a default value, so you don’t need to provide one always. See round() function for example.\n\nargs(round)\n\nfunction (x, digits = 0, ...) \nNULL\n\n\nIn the function digits have default value as 0, so if we do not provide a value for that argument the function will use the value 0.\nIf you have doubts of about any function, its arguments or how it works you can use ? command to see the official documentation.\n? round\nThis will show the documentation of the function in the Help tab of RStudio.\n\nHere you have a summary of frequently used functions in R:\n\n\n\nFunction\nUse\n\n\n\n\nlog()\ncomputes the logarithm\n\n\nexp()\ncomputes the exponential\n\n\nmin()\ncomputes the min number\n\n\nmax()\ncomputes the max number\n\n\nsum()\ncomputes the sum\n\n\nmean()\ncomputes the average\n\n\nmedian()\ncomputes the median\n\n\nvar()\ncomputes the variance\n\n\nsd()\ncomputes the standard deviation\n\n\nquantile()\ncomputes quantiles 0, 25, 50, 75, 100\n\n\ncor()\ncomputes de correlation",
     "crumbs": [
       "Programming with R",
       "First Concepts of R"
@@ -278,7 +278,7 @@
     "href": "02_02_objects.html#lists",
     "title": "Objects",
     "section": "Lists",
-    "text": "Lists\nAs we have seen vectors can only contain elements of the same data type, if we need to create a collection of elements of different types we should work with lists.\n\nmylist &lt;- list(c(\"A\", \"B\"), 1:10, Sys.time())\nmylist\n\n[[1]]\n[1] \"A\" \"B\"\n\n[[2]]\n [1]  1  2  3  4  5  6  7  8  9 10\n\n[[3]]\n[1] \"2026-08-29 19:15:53 CEST\"\n\n\nIn contrast with vectors, lists are considered a data type (object):\n\nclass(mylist)\n\n[1] \"list\"\n\n\n\nSelection of elements\nFor acceding the elements of a list we need to consider that each position of the list stores objects inside. So we have two ways of acceding the elements:\n\nAcceding the position (similar to vectors)\nAcceding the element inside that position\n\n\n# acceding at the second position of the list\nmylist[2]\n\n[[1]]\n [1]  1  2  3  4  5  6  7  8  9 10\n\n# acceding at the second element of the list\nmylist[[2]]\n\n [1]  1  2  3  4  5  6  7  8  9 10\n\n\nTo understand the difference look what happens when we ask for the types…\n\nclass(mylist[2])\n\n[1] \"list\"\n\nclass(mylist[[2]])\n\n[1] \"integer\"\n\n\nIn the first case we are obtaining a new list with the element selected. While on the second case we exactly obtaining the element, in this case a vector of characters.\nOne insteresting fact of lists, is that you can assign names to the each elements…\n\n# Now each element of mylist2 has an assigned name\nmylist2 &lt;- list(letters = c(\"A\", \"B\"), numbers = 1:10, time = Sys.time())\n\nmylist2\n\n$letters\n[1] \"A\" \"B\"\n\n$numbers\n [1]  1  2  3  4  5  6  7  8  9 10\n\n$time\n[1] \"2026-08-29 19:15:53 CEST\"\n\n\nThese names can be used for accessing each element too:\n\n# acceding at the first position by name\nmylist2[\"letters\"]\n\n$letters\n[1] \"A\" \"B\"\n\n# acceding at the first element by name\nmylist2[[\"letters\"]]\n\n[1] \"A\" \"B\"\n\n# Other option using $ syntax if the names have no spaces\nmylist2$letters\n\n[1] \"A\" \"B\"\n\n\nIf you are not sure if the list you are working with has names in their elements you can use the attributes function.\n\nattributes(mylist2)\n\n$names\n[1] \"letters\" \"numbers\" \"time\"   \n\n\nYou can see that this list contains some names defined. You can also use names function to see it.\n\nnames(mylist2)\n\n[1] \"letters\" \"numbers\" \"time\"",
+    "text": "Lists\nAs we have seen vectors can only contain elements of the same data type, if we need to create a collection of elements of different types we should work with lists.\n\nmylist &lt;- list(c(\"A\", \"B\"), 1:10, Sys.time())\nmylist\n\n[[1]]\n[1] \"A\" \"B\"\n\n[[2]]\n [1]  1  2  3  4  5  6  7  8  9 10\n\n[[3]]\n[1] \"2026-08-29 20:17:49 CEST\"\n\n\nIn contrast with vectors, lists are considered a data type (object):\n\nclass(mylist)\n\n[1] \"list\"\n\n\n\nSelection of elements\nFor acceding the elements of a list we need to consider that each position of the list stores objects inside. So we have two ways of acceding the elements:\n\nAcceding the position (similar to vectors)\nAcceding the element inside that position\n\n\n# acceding at the second position of the list\nmylist[2]\n\n[[1]]\n [1]  1  2  3  4  5  6  7  8  9 10\n\n# acceding at the second element of the list\nmylist[[2]]\n\n [1]  1  2  3  4  5  6  7  8  9 10\n\n\nTo understand the difference look what happens when we ask for the types…\n\nclass(mylist[2])\n\n[1] \"list\"\n\nclass(mylist[[2]])\n\n[1] \"integer\"\n\n\nIn the first case we are obtaining a new list with the element selected. While on the second case we exactly obtaining the element, in this case a vector of characters.\nOne insteresting fact of lists, is that you can assign names to the each elements…\n\n# Now each element of mylist2 has an assigned name\nmylist2 &lt;- list(letters = c(\"A\", \"B\"), numbers = 1:10, time = Sys.time())\n\nmylist2\n\n$letters\n[1] \"A\" \"B\"\n\n$numbers\n [1]  1  2  3  4  5  6  7  8  9 10\n\n$time\n[1] \"2026-08-29 20:17:49 CEST\"\n\n\nThese names can be used for accessing each element too:\n\n# acceding at the first position by name\nmylist2[\"letters\"]\n\n$letters\n[1] \"A\" \"B\"\n\n# acceding at the first element by name\nmylist2[[\"letters\"]]\n\n[1] \"A\" \"B\"\n\n# Other option using $ syntax if the names have no spaces\nmylist2$letters\n\n[1] \"A\" \"B\"\n\n\nIf you are not sure if the list you are working with has names in their elements you can use the attributes function.\n\nattributes(mylist2)\n\n$names\n[1] \"letters\" \"numbers\" \"time\"   \n\n\nYou can see that this list contains some names defined. You can also use names function to see it.\n\nnames(mylist2)\n\n[1] \"letters\" \"numbers\" \"time\"",
     "crumbs": [
       "Programming with R",
       "Objects"
@@ -311,7 +311,7 @@
     "href": "02_02_objects.html#datetime",
     "title": "Objects",
     "section": "Datetime",
-    "text": "Datetime\nWe can manage dates and time inside R…\n\nhour &lt;- Sys.time()\nhour\n\n[1] \"2026-08-29 19:15:53 CEST\"\n\ntypeof(hour)\n\n[1] \"double\"\n\nclass(hour)\n\n[1] \"POSIXct\" \"POSIXt\"",
+    "text": "Datetime\nWe can manage dates and time inside R…\n\nhour &lt;- Sys.time()\nhour\n\n[1] \"2026-08-29 20:17:49 CEST\"\n\ntypeof(hour)\n\n[1] \"double\"\n\nclass(hour)\n\n[1] \"POSIXct\" \"POSIXt\"",
     "crumbs": [
       "Programming with R",
       "Objects"
@@ -751,7 +751,7 @@
     "href": "04_05_customization.html#maps",
     "title": "Other Features",
     "section": "Maps",
-    "text": "Maps\nYou can use maps for your plots, and with coord_quickmap() it will compute the accurate ratio for the maps.\n\nlibrary(maps)\n\n\nAttaching package: 'maps'\n\n\nThe following object is masked from 'package:purrr':\n\n    map\n\nnz &lt;- map_data(\"nz\")\n\nggplot(nz, aes(long, lat, group = group)) +\n  geom_polygon(fill = \"white\", \n               colour = \"black\")\n\n\n\n\n\n\n\n\n\nggplot(nz, aes(long, lat, group = group)) +\n  geom_polygon(fill = \"white\", \n               colour = \"black\") +\n  coord_quickmap()",
+    "text": "Maps\nYou can use maps for your plots, and with coord_quickmap() it will compute the accurate ratio for the maps.\n\nlibrary(maps)\nnz &lt;- map_data(\"nz\")\n\nggplot(nz, aes(long, lat, group = group)) +\n  geom_polygon(fill = \"white\", \n               colour = \"black\")\n\n\n\n\n\n\n\n\n\nggplot(nz, aes(long, lat, group = group)) +\n  geom_polygon(fill = \"white\", \n               colour = \"black\") +\n  coord_quickmap()",
     "crumbs": [
       "Visualization",
       "Other Features"
@@ -854,6 +854,116 @@
     "crumbs": [
       "Transformation",
       "Aggregations"
+    ]
+  },
+  {
+    "objectID": "06_01_variation.html",
+    "href": "06_01_variation.html",
+    "title": "Analyzing Data Variation",
+    "section": "",
+    "text": "Variation in categorical variables\nRemember that we can visualize the distribution of a categorical variable as follows…\nlibrary(ggplot2)\n\n# Number of gears for mtcars data set\nggplot(mtcars, aes(x=gear)) +\n  geom_bar() +\n  labs(x = \"Number of gear\")\nEach bar of the last plot shows us the number of observations we can found for every value of the variable. We can obtain the number of observations with this simple code…\nlibrary(tidyverse)\n\nmtcars %&gt;% \n  group_by(gear) %&gt;% \n  summarise(observations = n())\n\n# A tibble: 3 × 2\n   gear observations\n  &lt;dbl&gt;        &lt;int&gt;\n1     3           15\n2     4           12\n3     5            5",
+    "crumbs": [
+      "Exploratory Data Analysis",
+      "Analyzing Data Variation"
+    ]
+  },
+  {
+    "objectID": "06_01_variation.html#variation-in-continuous-variables",
+    "href": "06_01_variation.html#variation-in-continuous-variables",
+    "title": "Analyzing Data Variation",
+    "section": "Variation in continuous variables",
+    "text": "Variation in continuous variables\nFor visualizing the distribution of continuous variables we can use the histogram…\n\nggplot(data = iris, aes(x = Petal.Length)) +\n  geom_histogram(bins = 20) +\n  labs(x = \"Petal Length (cm)\")",
+    "crumbs": [
+      "Exploratory Data Analysis",
+      "Analyzing Data Variation"
+    ]
+  },
+  {
+    "objectID": "06_01_variation.html#analyzing-variation",
+    "href": "06_01_variation.html#analyzing-variation",
+    "title": "Analyzing Data Variation",
+    "section": "Analyzing Variation",
+    "text": "Analyzing Variation\nWhen analyzing the plots that shows the data variation we need to focus in two things…\n\nNormal values\nAnomalies (outliers)\n\nQuestions like…\n\nMost common values?\nLest common values?\nStrange patterns in the data?\n\nWe can see it with an example: Petal Length Analysis\n\nggplot(data = iris, aes(x = Petal.Length)) +\n  geom_histogram(bins = 20) +\n  labs(x = \"Petal Length (cm)\")\n\n\n\n\n\n\n\n\nThe clusters of similar values makes us think there are subgroups in the data. For understanding it, we can ask…\n\nWhat have the observations of each group in common?\nWhat differences are between the observations of each group?\nHow can we explain each subgroup?\nThere are two groups… one with shorter petal length (&lt;2cm) and other large (&gt;2cm)\nSpecies variable can explain this separation?\n\nWe can analyze multiple histograms in the same plot, using colors for example.\n\nggplot(data = iris, \n       aes(x = Petal.Length, fill = Species)) +\n  geom_histogram(bins = 20) +\n  labs(x = \"Petal Length (cm)\")\n\n\n\n\n\n\n\n\nOther option, we can use ggplot geometric: geom_freqpoly() that works similar to the histogram but showing them with lines.\n\nggplot(data = iris, \n       aes(x = Petal.Length, color = Species)) +\n  geom_freqpoly() +\n  labs(x = \"Petal Length (cm)\")\n\n`stat_bin()` using `bins = 30`. Pick better value `binwidth`.",
+    "crumbs": [
+      "Exploratory Data Analysis",
+      "Analyzing Data Variation"
+    ]
+  },
+  {
+    "objectID": "06_01_variation.html#variation-outliers",
+    "href": "06_01_variation.html#variation-outliers",
+    "title": "Analyzing Data Variation",
+    "section": "Variation: Outliers",
+    "text": "Variation: Outliers\nFind and analyze outliers have the same importance as analyze the normal values we can found.\nWhy we can have outliers…\n\nSometimes… measuring error\nOthers, further analyze is needed.\n\nWe can see it with an example: Diamonds Width Analysis\nWe are going to analyze the distribution of the width of the diamonds in the data set diamonds inside R. Apparently all looks good right? (Hint: Look at x axis?)\n\nggplot(diamonds, aes(x = y)) + \n  geom_histogram(binwidth = 0.5)\n\n\n\n\n\n\n\n\nLooks that there is more space than the one we need to visualizing the data, or probably there is some data we are not able to see, a bit of zoom may help…\n\nggplot(diamonds, aes(x=y)) +\n  geom_histogram(binwidth = 0.5) +\n  coord_cartesian( ylim = c(0,50) )\n\n\n\n\n\n\n\n\nLooks there are some outliers near 0, 30 and 60. We can now go directly to the data and filter to extract them..\n\ndiamonds %&gt;% \n  filter( y &lt; 3 | y &gt; 20)\n\n# A tibble: 9 × 10\n  carat cut       color clarity depth table price     x     y     z\n  &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1  1    Very Good H     VS2      63.3    53  5139  0      0    0   \n2  1.14 Fair      G     VS1      57.5    67  6381  0      0    0   \n3  2    Premium   H     SI2      58.9    57 12210  8.09  58.9  8.06\n4  1.56 Ideal     G     VS2      62.2    54 12800  0      0    0   \n5  1.2  Premium   D     VVS1     62.1    59 15686  0      0    0   \n6  2.25 Premium   H     SI2      62.8    59 18034  0      0    0   \n7  0.51 Ideal     E     VS1      61.8    55  2075  5.15  31.8  5.12\n8  0.71 Good      F     SI2      64.1    60  2130  0      0    0   \n9  0.71 Good      F     SI2      64.1    60  2130  0      0    0   \n\n\nConclusions found after analysis\n\nLooks there are diamonds with width 0, maybe incorrect data…\nWe have detected diamonds with a very big size, but not too expensive…",
+    "crumbs": [
+      "Exploratory Data Analysis",
+      "Analyzing Data Variation"
+    ]
+  },
+  {
+    "objectID": "06_01_variation.html#actions-with-outliers",
+    "href": "06_01_variation.html#actions-with-outliers",
+    "title": "Analyzing Data Variation",
+    "section": "Actions with outliers",
+    "text": "Actions with outliers\n\nTry to do the analysis with and without outlers, this will help us identify the impact they have.\n\nDepending on the impact effect…\n\nMinimum effect and we don’t know the origin… replace them as NA values.\nOtherwise… eliminate them justifying the reason and document / inform their elimination from the analysis.\n\n\nDroping outliers\nWhen we need to drop some outliers from the data, we have two options…\n\nEliminate the whole row (big loss of information)\n\ndiamonds2 &lt;- diamonds %&gt;%\n  filter(y&gt;=3 & y&lt;=20)\n\nReplace them by NA (missing value)\n\n\ndiamonds2 &lt;- diamonds %&gt;%\n  mutate(y = if_else(y&lt;3 | y&gt;20, NA, y))\n\n\n\n\n\n\n\nif_else\n\n\n\nConditional function to use inside mutate, first argument the condition, then if TRUE otherwise FALSE in the last argument.",
+    "crumbs": [
+      "Exploratory Data Analysis",
+      "Analyzing Data Variation"
+    ]
+  },
+  {
+    "objectID": "06_01_variation.html#missing-values",
+    "href": "06_01_variation.html#missing-values",
+    "title": "Analyzing Data Variation",
+    "section": "Missing Values",
+    "text": "Missing Values\nWhen missing values are present in the data we will see a warning in the plot…\n\nggplot(data=diamonds2, \n       mapping = aes(x=x, y=y)) + \n  geom_point()\n\nWarning: Removed 9 rows containing missing values or values outside the scale range\n(`geom_point()`).\n\n\n\n\n\n\n\n\n\nWe can quickly eliminate them from the visualization using na.rm = T argument…\n\nggplot(data=diamonds2, \n       mapping = aes(x=x, y=y)) + \n  geom_point(na.rm = T)",
+    "crumbs": [
+      "Exploratory Data Analysis",
+      "Analyzing Data Variation"
+    ]
+  },
+  {
+    "objectID": "06_02_covariance.html",
+    "href": "06_02_covariance.html",
+    "title": "Analyzing Covariance",
+    "section": "",
+    "text": "Covariance: Categorical - Continuous\nWe can use the geom_freqpoly geometry to see how the continuous variable relates with the each category.\nggplot(data = diamonds, aes(x = price, color = cut)) +\n  geom_freqpoly()\nOther option with density plots. ..density.. will paint the density in the y axis, that is the normalized count to make the area of each polygon 1.\nggplot(data = diamonds, \n       aes(x = price, y = ..density.., color = cut)) +\n  geom_freqpoly()\n\nWarning: The dot-dot notation (`..density..`) was deprecated in ggplot2 3.4.0.\nℹ Please use `after_stat(density)` instead.\nUsing boxplots to analyze too…\nggplot(data = mpg, aes(x = class, y = hwy)) +\n  geom_boxplot()\nReorder it os is more clean…\nggplot(data = mpg, \n       aes(x = reorder(class, hwy, FUN = median),\n           y = hwy)) +\n  geom_boxplot()",
+    "crumbs": [
+      "Exploratory Data Analysis",
+      "Analyzing Covariance"
+    ]
+  },
+  {
+    "objectID": "06_02_covariance.html#covariance-categorical---categorical",
+    "href": "06_02_covariance.html#covariance-categorical---categorical",
+    "title": "Analyzing Covariance",
+    "section": "Covariance: Categorical - Categorical",
+    "text": "Covariance: Categorical - Categorical\nWe have seen bar plots, but more ways are possible…\n\nggplot(diamonds, aes(x=cut, y=color)) +\n  geom_count()\n\n\n\n\n\n\n\n\nLet’s do it with code using dplyr (two ways)\n\ndiamonds %&gt;% \n  group_by(color, cut) %&gt;% \n  summarise(n = n())\n\n`summarise()` has regrouped the output.\nℹ Summaries were computed grouped by color and cut.\nℹ Output is grouped by color.\nℹ Use `summarise(.groups = \"drop_last\")` to silence this message.\nℹ Use `summarise(.by = c(color, cut))` for per-operation grouping\n  (`?dplyr::dplyr_by`) instead.\n\n\n# A tibble: 35 × 3\n# Groups:   color [7]\n   color cut           n\n   &lt;ord&gt; &lt;ord&gt;     &lt;int&gt;\n 1 D     Fair        163\n 2 D     Good        662\n 3 D     Very Good  1513\n 4 D     Premium    1603\n 5 D     Ideal      2834\n 6 E     Fair        224\n 7 E     Good        933\n 8 E     Very Good  2400\n 9 E     Premium    2337\n10 E     Ideal      3903\n# ℹ 25 more rows\n\n\nMore visual approach, using color mapping…\n\ndiamonds %&gt;% \n  count(color, cut) %&gt;% \n  ggplot(aes(x = color, y = cut, fill = n)) +\n  geom_tile()",
+    "crumbs": [
+      "Exploratory Data Analysis",
+      "Analyzing Covariance"
+    ]
+  },
+  {
+    "objectID": "06_02_covariance.html#covariance-continuous---continuous",
+    "href": "06_02_covariance.html#covariance-continuous---continuous",
+    "title": "Analyzing Covariance",
+    "section": "Covariance: Continuous - Continuous",
+    "text": "Covariance: Continuous - Continuous\nNormally we will use an scatter plot with geom_point(), but we can find some problems when there are too many data points in big datasets, they will overalp each other.\nIn these cases we will need to use alpha aesthetic:\n\nggplot(diamonds, aes(x = carat, y = price)) + \n  geom_point(alpha = 0.01)\n\n\n\n\n\n\n\n\nAnother approach…\n\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_bin2d()\n\n`stat_bin2d()` using `bins = 30`. Pick better value `binwidth`.\n\n\n\n\n\n\n\n\n\nAnother approach… but better\n\n# install.packages(\"hexbin\")\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_hex()\n\n\n\n\n\n\n\n\nBox plots work here too:\n\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_boxplot(aes(group = cut_width(carat, 0.1)))\n\nWarning: Orientation is not uniquely specified when both the x and y aesthetics are\ncontinuous. Picking default orientation 'x'.\n\n\n\n\n\n\n\n\n\nSame number of point for each bin:\n\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_boxplot(aes(group = cut_number(carat, 20)))\n\nWarning: Orientation is not uniquely specified when both the x and y aesthetics are\ncontinuous. Picking default orientation 'x'.",
+    "crumbs": [
+      "Exploratory Data Analysis",
+      "Analyzing Covariance"
+    ]
+  },
+  {
+    "objectID": "06_02_covariance.html#patterns-and-models",
+    "href": "06_02_covariance.html#patterns-and-models",
+    "title": "Analyzing Covariance",
+    "section": "Patterns and models",
+    "text": "Patterns and models\nPatterns reveal hints regarding relations between variables. When we see one we must analyze…\n\nCan be random?\nHow we can describe the relation that shows?\nIs relevant?\nAre there any other variables affected by this relation?\nThis relation changes if we analyze subgroups of data?\n\nModels can be used for extract patterns of the data, like eliminating the effect of a variable and study the remaining effect.",
+    "crumbs": [
+      "Exploratory Data Analysis",
+      "Analyzing Covariance"
     ]
   },
   {
@@ -1138,6 +1248,26 @@
     ]
   },
   {
+    "objectID": "06_eda.html",
+    "href": "06_eda.html",
+    "title": "Exploratory Data Analysis",
+    "section": "",
+    "text": "First concepts",
+    "crumbs": [
+      "Exploratory Data Analysis"
+    ]
+  },
+  {
+    "objectID": "06_eda.html#first-concepts",
+    "href": "06_eda.html#first-concepts",
+    "title": "Exploratory Data Analysis",
+    "section": "",
+    "text": "Variable: is a quantity, quality, or property that you can measure.\nValue: is the state of a variable when you measure it. It may change for measurement to measurement.\nObservation: is a set of measurements made under similar conditions. Each observation can contain different values, each value related with their corresponding variable.\nTabular data: a set of values organized in different variables for each observation.",
+    "crumbs": [
+      "Exploratory Data Analysis"
+    ]
+  },
+  {
     "objectID": "10_modelling.html",
     "href": "10_modelling.html",
     "title": "Data Modelling",
@@ -1225,136 +1355,6 @@
     "text": "Basic dplyr rules\nAll verbs work similar:\n\nfirst argument is the data frame\nsecond and subsequent arguments are used to specify what to do with the data frame\neach verb will return a new data frame modified\n\nAll verbs can be concatenated using the pipe %&gt;%\nFor starting working with dplyr we will need to load it…\n\nlibrary(tidyverse)  # Do library(dplyr) for the package only",
     "crumbs": [
       "Transformation"
-    ]
-  },
-  {
-    "objectID": "06_01_variation.html",
-    "href": "06_01_variation.html",
-    "title": "Analyzing Data Variation",
-    "section": "",
-    "text": "Variation in categorical variables\nRemember that we can visualize the distribution of a categorical variable as follows…\nlibrary(ggplot2)\n\n# Number of gears for mtcars data set\nggplot(mtcars, aes(x=gear)) +\n  geom_bar() +\n  labs(x = \"Number of gear\")\nEach bar of the last plot shows us the number of observations we can found for every value of the variable. We can obtain the number of observations with this simple code…\nlibrary(tidyverse)\n\nmtcars %&gt;% \n  group_by(gear) %&gt;% \n  summarise(observations = n())\n\n# A tibble: 3 × 2\n   gear observations\n  &lt;dbl&gt;        &lt;int&gt;\n1     3           15\n2     4           12\n3     5            5",
-    "crumbs": [
-      "Exploratory Data Analysis",
-      "Analyzing Data Variation"
-    ]
-  },
-  {
-    "objectID": "06_01_variation.html#variation-in-continuous-variables",
-    "href": "06_01_variation.html#variation-in-continuous-variables",
-    "title": "Analyzing Data Variation",
-    "section": "Variation in continuous variables",
-    "text": "Variation in continuous variables\nFor visualizing the distribution of continuous variables we can use the histogram…\n\nggplot(data = iris, aes(x = Petal.Length)) +\n  geom_histogram(bins = 20) +\n  labs(x = \"Petal Length (cm)\")",
-    "crumbs": [
-      "Exploratory Data Analysis",
-      "Analyzing Data Variation"
-    ]
-  },
-  {
-    "objectID": "06_01_variation.html#analyzing-variation",
-    "href": "06_01_variation.html#analyzing-variation",
-    "title": "Analyzing Data Variation",
-    "section": "Analyzing Variation",
-    "text": "Analyzing Variation\nWhen analyzing the plots that shows the data variation we need to focus in two things…\n\nNormal values\nAnomalies (outliers)\n\nQuestions like…\n\nMost common values?\nLest common values?\nStrange patterns in the data?\n\nWe can see it with an example: Petal Length Analysis\n\nggplot(data = iris, aes(x = Petal.Length)) +\n  geom_histogram(bins = 20) +\n  labs(x = \"Petal Length (cm)\")\n\n\n\n\n\n\n\n\nThe clusters of similar values makes us think there are subgroups in the data. For understanding it, we can ask…\n\nWhat have the observations of each group in common?\nWhat differences are between the observations of each group?\nHow can we explain each subgroup?\nThere are two groups… one with shorter petal length (&lt;2cm) and other large (&gt;2cm)\nSpecies variable can explain this separation?\n\nWe can analyze multiple histograms in the same plot, using colors for example.\n\nggplot(data = iris, \n       aes(x = Petal.Length, fill = Species)) +\n  geom_histogram(bins = 20) +\n  labs(x = \"Petal Length (cm)\")\n\n\n\n\n\n\n\n\nOther option, we can use ggplot geometric: geom_freqpoly() that works similar to the histogram but showing them with lines.\n\nggplot(data = iris, \n       aes(x = Petal.Length, color = Species)) +\n  geom_freqpoly() +\n  labs(x = \"Petal Length (cm)\")\n\n`stat_bin()` using `bins = 30`. Pick better value `binwidth`.",
-    "crumbs": [
-      "Exploratory Data Analysis",
-      "Analyzing Data Variation"
-    ]
-  },
-  {
-    "objectID": "06_01_variation.html#variation-outliers",
-    "href": "06_01_variation.html#variation-outliers",
-    "title": "Analyzing Data Variation",
-    "section": "Variation: Outliers",
-    "text": "Variation: Outliers\nFind and analyze outliers have the same importance as analyze the normal values we can found.\nWhy we can have outliers…\n\nSometimes… measuring error\nOthers, further analyze is needed.\n\nWe can see it with an example: Diamonds Width Analysis\nWe are going to analyze the distribution of the width of the diamonds in the data set diamonds inside R. Apparently all looks good right? (Hint: Look at x axis?)\n\nggplot(diamonds, aes(x = y)) + \n  geom_histogram(binwidth = 0.5)\n\n\n\n\n\n\n\n\nLooks that there is more space than the one we need to visualizing the data, or probably there is some data we are not able to see, a bit of zoom may help…\n\nggplot(diamonds, aes(x=y)) +\n  geom_histogram(binwidth = 0.5) +\n  coord_cartesian( ylim = c(0,50) )\n\n\n\n\n\n\n\n\nLooks there are some outliers near 0, 30 and 60. We can now go directly to the data and filter to extract them..\n\ndiamonds %&gt;% \n  filter( y &lt; 3 | y &gt; 20)\n\n# A tibble: 9 × 10\n  carat cut       color clarity depth table price     x     y     z\n  &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1  1    Very Good H     VS2      63.3    53  5139  0      0    0   \n2  1.14 Fair      G     VS1      57.5    67  6381  0      0    0   \n3  2    Premium   H     SI2      58.9    57 12210  8.09  58.9  8.06\n4  1.56 Ideal     G     VS2      62.2    54 12800  0      0    0   \n5  1.2  Premium   D     VVS1     62.1    59 15686  0      0    0   \n6  2.25 Premium   H     SI2      62.8    59 18034  0      0    0   \n7  0.51 Ideal     E     VS1      61.8    55  2075  5.15  31.8  5.12\n8  0.71 Good      F     SI2      64.1    60  2130  0      0    0   \n9  0.71 Good      F     SI2      64.1    60  2130  0      0    0   \n\n\nConclusions found after analysis\n\nLooks there are diamonds with width 0, maybe incorrect data…\nWe have detected diamonds with a very big size, but not too expensive…",
-    "crumbs": [
-      "Exploratory Data Analysis",
-      "Analyzing Data Variation"
-    ]
-  },
-  {
-    "objectID": "06_eda.html",
-    "href": "06_eda.html",
-    "title": "Exploratory Data Analysis",
-    "section": "",
-    "text": "First concepts",
-    "crumbs": [
-      "Exploratory Data Analysis"
-    ]
-  },
-  {
-    "objectID": "06_eda.html#first-concepts",
-    "href": "06_eda.html#first-concepts",
-    "title": "Exploratory Data Analysis",
-    "section": "",
-    "text": "Variable: is a quantity, quality, or property that you can measure.\nValue: is the state of a variable when you measure it. It may change for measurement to measurement.\nObservation: is a set of measurements made under similar conditions. Each observation can contain different values, each value related with their corresponding variable.\nTabular data: a set of values organized in different variables for each observation.",
-    "crumbs": [
-      "Exploratory Data Analysis"
-    ]
-  },
-  {
-    "objectID": "06_01_variation.html#actions-with-outliers",
-    "href": "06_01_variation.html#actions-with-outliers",
-    "title": "Analyzing Data Variation",
-    "section": "Actions with outliers",
-    "text": "Actions with outliers\n\nTry to do the analysis with and without outlers, this will help us identify the impact they have.\n\nDepending on the impact effect…\n\nMinimum effect and we don’t know the origin… replace them as NA values.\nOtherwise… eliminate them justifying the reason and document / inform their elimination from the analysis.\n\n\nDroping outliers\nWhen we need to drop some outliers from the data, we have two options…\n\nEliminate the whole row (big loss of information)\n\ndiamonds2 &lt;- diamonds %&gt;%\n  filter(y&gt;=3 & y&lt;=20)\n\nReplace them by NA (missing value)\n\n\ndiamonds2 &lt;- diamonds %&gt;%\n  mutate(y = if_else(y&lt;3 | y&gt;20, NA, y))\n\n\n\n\n\n\n\nif_else\n\n\n\nConditional function to use inside mutate, first argument the condition, then if TRUE otherwise FALSE in the last argument.",
-    "crumbs": [
-      "Exploratory Data Analysis",
-      "Analyzing Data Variation"
-    ]
-  },
-  {
-    "objectID": "06_01_variation.html#missing-values",
-    "href": "06_01_variation.html#missing-values",
-    "title": "Analyzing Data Variation",
-    "section": "Missing Values",
-    "text": "Missing Values\nWhen missing values are present in the data we will see a warning in the plot…\n\nggplot(data=diamonds2, \n       mapping = aes(x=x, y=y)) + \n  geom_point()\n\nWarning: Removed 9 rows containing missing values or values outside the scale range\n(`geom_point()`).\n\n\n\n\n\n\n\n\n\nWe can quickly eliminate them from the visualization using na.rm = T argument…\n\nggplot(data=diamonds2, \n       mapping = aes(x=x, y=y)) + \n  geom_point(na.rm = T)",
-    "crumbs": [
-      "Exploratory Data Analysis",
-      "Analyzing Data Variation"
-    ]
-  },
-  {
-    "objectID": "06_02_covariance.html",
-    "href": "06_02_covariance.html",
-    "title": "Analyzing Covariance",
-    "section": "",
-    "text": "Covariance: Categorical - Continuous\nWe can use the geom_freqpoly geometry to see how the continuous variable relates with the each category.\nggplot(data = diamonds, aes(x = price, color = cut)) +\n  geom_freqpoly()\n\n`stat_bin()` using `bins = 30`. Pick better value `binwidth`.\nOther option with density plots. ..density.. will paint the density in the y axis, that is the normalized count to make the area of each polygon 1.\nggplot(data = diamonds, \n       aes(x = price, y = ..density.., color = cut)) +\n  geom_freqpoly()\n\nWarning: The dot-dot notation (`..density..`) was deprecated in ggplot2 3.4.0.\nℹ Please use `after_stat(density)` instead.\n\n\n`stat_bin()` using `bins = 30`. Pick better value `binwidth`.\nUsing boxplots to analyze too…\nggplot(data = mpg, aes(x = class, y = hwy)) +\n  geom_boxplot()\nReorder it os is more clean…\nggplot(data = mpg, \n       aes(x = reorder(class, hwy, FUN = median),\n           y = hwy)) +\n  geom_boxplot()",
-    "crumbs": [
-      "Exploratory Data Analysis",
-      "Analyzing Covariance"
-    ]
-  },
-  {
-    "objectID": "06_02_covariance.html#covariance-categorical---categorical",
-    "href": "06_02_covariance.html#covariance-categorical---categorical",
-    "title": "Analyzing Covariance",
-    "section": "Covariance: Categorical - Categorical",
-    "text": "Covariance: Categorical - Categorical\nWe have seen bar plots, but more ways are possible…\n\nggplot(diamonds, aes(x=cut, y=color)) +\n  geom_count()\n\n\n\n\n\n\n\n\nLet’s do it with code using dplyr (two ways)\n\ndiamonds %&gt;% \n  group_by(color, cut) %&gt;% \n  summarise(n = n())\n\n`summarise()` has regrouped the output.\nℹ Summaries were computed grouped by color and cut.\nℹ Output is grouped by color.\nℹ Use `summarise(.groups = \"drop_last\")` to silence this message.\nℹ Use `summarise(.by = c(color, cut))` for per-operation grouping\n  (`?dplyr::dplyr_by`) instead.\n\n\n# A tibble: 35 × 3\n# Groups:   color [7]\n   color cut           n\n   &lt;ord&gt; &lt;ord&gt;     &lt;int&gt;\n 1 D     Fair        163\n 2 D     Good        662\n 3 D     Very Good  1513\n 4 D     Premium    1603\n 5 D     Ideal      2834\n 6 E     Fair        224\n 7 E     Good        933\n 8 E     Very Good  2400\n 9 E     Premium    2337\n10 E     Ideal      3903\n# ℹ 25 more rows\n\n\nMore visual approach, using color mapping…\n\ndiamonds %&gt;% \n  count(color, cut) %&gt;% \n  ggplot(aes(x = color, y = cut, fill = n)) +\n  geom_tile()",
-    "crumbs": [
-      "Exploratory Data Analysis",
-      "Analyzing Covariance"
-    ]
-  },
-  {
-    "objectID": "06_02_covariance.html#covariance-continuous---continuous",
-    "href": "06_02_covariance.html#covariance-continuous---continuous",
-    "title": "Analyzing Covariance",
-    "section": "Covariance: Continuous - Continuous",
-    "text": "Covariance: Continuous - Continuous\nNormally we will use an scatter plot with geom_point(), but we can find some problems when there are too many data points in big datasets, they will overalp each other.\nIn these cases we will need to use alpha aesthetic:\n\nggplot(diamonds, aes(x = carat, y = price)) + \n  geom_point(alpha = 0.01)\n\n\n\n\n\n\n\n\nAnother approach…\n\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_bin2d()\n\n`stat_bin2d()` using `bins = 30`. Pick better value `binwidth`.\n\n\n\n\n\n\n\n\n\nAnother approach… but better\n\n# install.packages(\"hexbin\")\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_hex()\n\n\n\n\n\n\n\n\nBox plots work here too:\n\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_boxplot(aes(group = cut_width(carat, 0.1)))\n\nWarning: Orientation is not uniquely specified when both the x and y aesthetics are\ncontinuous. Picking default orientation 'x'.\n\n\n\n\n\n\n\n\n\nSame number of point for each bin:\n\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_boxplot(aes(group = cut_number(carat, 20)))\n\nWarning: Orientation is not uniquely specified when both the x and y aesthetics are\ncontinuous. Picking default orientation 'x'.",
-    "crumbs": [
-      "Exploratory Data Analysis",
-      "Analyzing Covariance"
-    ]
-  },
-  {
-    "objectID": "06_02_covariance.html#patterns-and-models",
-    "href": "06_02_covariance.html#patterns-and-models",
-    "title": "Analyzing Covariance",
-    "section": "Patterns and models",
-    "text": "Patterns and models\nPatterns reveal hints regarding relations between variables. When we see one we must analyze…\n\nCan be random?\nHow we can describe the relation that shows?\nIs relevant?\nAre there any other variables affected by this relation?\nThis relation changes if we analyze subgroups of data?\n\nModels can be used for extract patterns of the data, like eliminating the effect of a variable and study the remaining effect.",
-    "crumbs": [
-      "Exploratory Data Analysis",
-      "Analyzing Covariance"
     ]
   }
 ]
