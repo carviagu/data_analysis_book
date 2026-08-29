@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -395,8 +429,15 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#understanding-the-path-and-working-directory" id="toc-understanding-the-path-and-working-directory" class="nav-link active" data-scroll-target="#understanding-the-path-and-working-directory">Understanding the path and working directory</a></li>
+  <li><a href="#creating-a-path" id="toc-creating-a-path" class="nav-link" data-scroll-target="#creating-a-path">Creating a path</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -420,8 +461,77 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="understanding-the-path-and-working-directory" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-the-path-and-working-directory">Understanding the path and working directory</h2>
+<p>When working in our environments R will need a working directory, the place where it is located inside your computer.</p>
+<p>For managing it two functions are essential <code>getwd()</code> and <code>setwd()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Returns the currect working directory</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the working directory</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"./data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="creating-a-path" class="level2">
+<h2 class="anchored" data-anchor-id="creating-a-path">Creating a path</h2>
+<p>For navigating inside your computer you need to know how to build the paths… we can consider two types of paths when deciding how to tell our computer where we are…</p>
+<ul>
+<li><p><strong>Absolute Path</strong></p></li>
+<li><p><strong>Relative Path</strong></p></li>
+</ul>
+<p>Let’s understand the difference between each one with an example…</p>
+<p><strong>Homer works in the Nuclear Plant where it is?</strong> In this case we provide a full direction telling Homer where the place is.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pictures/simpsons_02.PNG" class="img-fluid quarto-figure quarto-figure-center figure-img" width="406"></p>
+</figure>
+</div>
+<p>This is what we call an <strong>Absolute Path</strong>, as we provide the exact position independent of the position.</p>
+<p><strong>Homer works in the Nuclear Plant how he can go?</strong> In this case we are trying to find the location considering an starting point and we need to provide a route to go from that point.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pictures/simpsons_04.PNG" class="img-fluid quarto-figure quarto-figure-center figure-img" width="410"></p>
+</figure>
+</div>
+<p>This is what we call a <strong>Relative Path</strong>, as we provide a route to the file considering the place we are in.</p>
+<p>Now that we have the explanation of each kind of path definition, this is how we write each one in our code:</p>
+<p>In the <strong>absolute</strong> one we define the position of the file starting from the <em>root folder</em> of our computer. Then we define each directory our computer needs to go to until finding the final destination.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ABSOLUTE</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Linux / MacOS</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"/home/carviagu/data"</span>) </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Windows </span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"C:/Users/carviagu/data"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you are not sure were your root folder is you can use <code>"~./"</code> as a placeholder.</p>
+<p>In the <strong>relative</strong> one we define the position of the file starting from the <em>current folder</em> we are in. Then we define each directory our computer needs to go to until finding the final destination.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># RELATIVE</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># from my current position</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"./data"</span>) </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a> <span class="co"># from main folder</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"/Users/carviagu/data"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># one level up</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"../peter"</span>) <span class="co"># one level up</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here you have a practical example of relative paths. Considering the following folder structure…</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pictures/realtive_path_example.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="422"></p>
+</figure>
+</div>
+<p>An that you are at the <code>session1</code> folder…</p>
+<ul>
+<li>You want to access <code>test_example.xlsx</code> file, your path could be <code>"test_example.xlsx"</code></li>
+<li>You want to access a file called <code>test2.csv</code> at <code>constanza</code> folder, your path could be <code>"constanza/test2.csv"</code></li>
+<li>You want to access a file called test3.csv located at sessions folder, your path could be <code>"../test3.csv"</code>. As your going a level up in the folder structure we need to use <code>../</code> syntax.</li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

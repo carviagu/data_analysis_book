@@ -18,7 +18,7 @@ We need to convert **raw data** into **processed data**
 - Each observational unit is a cell.
 - More complex data, interconnected tables.
 
-## Data Wrangling
+The process work as follows...
 
 1.  Importing the data
 2.  Organizing the data
@@ -33,6 +33,8 @@ We will learn how to import, download and read data in R. Mainly focused on **ta
 As we have seen we will continue using the **tidyverse** ecosystem, focused on the main packages available for importing data into our environments.
 
 ```{r, echo=TRUE}
+#| eval: false
+#| code-line-numbers: false
 library(tidyverse)
 ```
 

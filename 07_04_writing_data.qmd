@@ -1,3 +1,34 @@
 # Writing Data {.unnumbered}
 
+```{r, echo=FALSE, message=FALSE}
+#| code-line-numbers: false
+library(tidyverse)
+```
 
+The `readr` library include functions to write dat and store it in files outside R.
+
+Three main functions:
+
+* `write_csv()` to write csv files 
+* `write_tsv()` to write tsv files
+* `write_delim()` to write with different delimiters
+
+Using them:
+
+```{r}
+#| eval: false
+#| code-line-numbers: false
+write_csv(df, "df.csv")
+```
+
+## Improved writing
+
+Last writing functions are good, but don't save the column typification making necessary specifying each time when reading. But we can use `write_rds()`, `read_rds()` in readr. 
+
+This functions will keep the data in binary RDS format keeping metadata for helping reading it properly. 
+
+```{r, echo=TRUE, eval=FALSE}
+write_rds(iris, "data/iris.RDS")
+iris_tibble <- read_rds("data/iris.RDS")
+iris_tibble
+```

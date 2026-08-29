@@ -1474,7 +1474,7 @@
     "href": "07_reading.html#data-wrangling",
     "title": "Reading",
     "section": "",
-    "text": "Raw Data\n\nData as it appears on the source origin.\nAny manipulation has been done to them.\n\n\n\nProcessed Data\n\nEach variable in a column.\nEach observation in a raw.\nEach observational unit is a cell.\nMore complex data, interconnected tables.",
+    "text": "Raw Data\n\nData as it appears on the source origin.\nAny manipulation has been done to them.\n\n\n\nProcessed Data\n\nEach variable in a column.\nEach observation in a raw.\nEach observational unit is a cell.\nMore complex data, interconnected tables.\n\nThe process work as follows…\n\nImporting the data\nOrganizing the data\nTransforming the data",
     "crumbs": [
       "Reading"
     ]
@@ -1494,7 +1494,7 @@
     "href": "07_reading.html#importing-data",
     "title": "Reading",
     "section": "Importing data",
-    "text": "Importing data\nWe will learn how to import, download and read data in R. Mainly focused on tabular data.\nAs we have seen we will continue using the tidyverse ecosystem, focused on the main packages available for importing data into our environments.\n\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.2.1     ✔ readr     2.2.0\n✔ forcats   1.0.1     ✔ stringr   1.6.0\n✔ ggplot2   4.0.3     ✔ tibble    3.3.1\n✔ lubridate 1.9.5     ✔ tidyr     1.3.2\n✔ purrr     1.2.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\nWe will follow this schema…\n\nDownload data\nRead and Write data with tidyverse packages",
+    "text": "Importing data\nWe will learn how to import, download and read data in R. Mainly focused on tabular data.\nAs we have seen we will continue using the tidyverse ecosystem, focused on the main packages available for importing data into our environments.\n\nlibrary(tidyverse)\n\nWe will follow this schema…\n\nDownload data\nRead and Write data with tidyverse packages",
     "crumbs": [
       "Reading"
     ]
@@ -1527,6 +1527,299 @@
     "text": "Basic dplyr rules\nAll verbs work similar:\n\nfirst argument is the data frame\nsecond and subsequent arguments are used to specify what to do with the data frame\neach verb will return a new data frame modified\n\nAll verbs can be concatenated using the pipe %&gt;%\nFor starting working with dplyr we will need to load it…\n\nlibrary(tidyverse)  # Do library(dplyr) for the package only",
     "crumbs": [
       "Transformation"
+    ]
+  },
+  {
+    "objectID": "07_01_basic_concepts.html",
+    "href": "07_01_basic_concepts.html",
+    "title": "Basic Concepts",
+    "section": "",
+    "text": "Understanding the path and working directory\nWhen working in our environments R will need a working directory, the place where it is located inside your computer.\nFor managing it two functions are essential getwd() and setwd()\n# Returns the currect working directory\ngetwd()\n# Change the working directory\nsetwd(\"./data\")",
+    "crumbs": [
+      "Reading",
+      "Basic Concepts"
+    ]
+  },
+  {
+    "objectID": "07_01_basic_concepts.html#creating-a-path",
+    "href": "07_01_basic_concepts.html#creating-a-path",
+    "title": "Basic Concepts",
+    "section": "Creating a path",
+    "text": "Creating a path\nFor navigating inside your computer you need to know how to build the paths… we can consider two types of paths when deciding how to tell our computer where we are…\n\nAbsolute Path\nRelative Path\n\nLet’s understand the difference between each one with an example…\nHomer works in the Nuclear Plant where it is? In this case we provide a full direction telling Homer where the place is.\n\n\n\n\n\nThis is what we call an Absolute Path, as we provide the exact position independent of the position.\nHomer works in the Nuclear Plant how he can go? In this case we are trying to find the location considering an starting point and we need to provide a route to go from that point.\n\n\n\n\n\nThis is what we call a Relative Path, as we provide a route to the file considering the place we are in.\nNow that we have the explanation of each kind of path definition, this is how we write each one in our code:\nIn the absolute one we define the position of the file starting from the root folder of our computer. Then we define each directory our computer needs to go to until finding the final destination.\n\n# ABSOLUTE\n# Linux / MacOS\nsetwd(\"/home/carviagu/data\") \n\n# Windows \nsetwd(\"C:/Users/carviagu/data\") \n\nIf you are not sure were your root folder is you can use \"~./\" as a placeholder.\nIn the relative one we define the position of the file starting from the current folder we are in. Then we define each directory our computer needs to go to until finding the final destination.\n\n# RELATIVE\n# from my current position\nsetwd(\"./data\") \n # from main folder\nsetwd(\"/Users/carviagu/data\")\n# one level up\nsetwd(\"../peter\") # one level up\n\nHere you have a practical example of relative paths. Considering the following folder structure…\n\n\n\n\n\nAn that you are at the session1 folder…\n\nYou want to access test_example.xlsx file, your path could be \"test_example.xlsx\"\nYou want to access a file called test2.csv at constanza folder, your path could be \"constanza/test2.csv\"\nYou want to access a file called test3.csv located at sessions folder, your path could be \"../test3.csv\". As your going a level up in the folder structure we need to use ../ syntax.",
+    "crumbs": [
+      "Reading",
+      "Basic Concepts"
+    ]
+  },
+  {
+    "objectID": "07_02_reading_data.html",
+    "href": "07_02_reading_data.html",
+    "title": "Reading Data",
+    "section": "",
+    "text": "Downloading data\nWe are going to learn how to create a folder called data from R and download data inside it.\ndata_url &lt;- \"https://datos.comunidad.madrid/catalogo/dataset/929442fc-fef2-4f73-85a4-c4b02328531e/resource/4139576d-a11f-42be-a8de-48d37739f044/download/datos_electorales_elecciones_autonomicas_comunidad_de_madrid_2023.csv\"\ndownload.file(data_url, destfile=\"data/elections_data.csv\")\nlist.files(\"./data\")",
+    "crumbs": [
+      "Reading",
+      "Reading Data"
+    ]
+  },
+  {
+    "objectID": "07_02_reading_data.html#downloading-data",
+    "href": "07_02_reading_data.html#downloading-data",
+    "title": "Reading Data",
+    "section": "",
+    "text": "Check if the folder data already exists in the current directory, if not you can create it. Use the following functions…\n\n\nfile.exists()\ndir.create()\n\n\nDownload the data about elections participation on Madrid Community (Spain) from the following url:",
+    "crumbs": [
+      "Reading",
+      "Reading Data"
+    ]
+  },
+  {
+    "objectID": "07_02_reading_data.html#csv-files",
+    "href": "07_02_reading_data.html#csv-files",
+    "title": "Reading Data",
+    "section": "CSV files",
+    "text": "CSV files\nComma Separated files are designed to export and manage data in plain text, they are more interesting for storing tabular data. They use a delimiter like , for example to separate each value. The first row will be column names.\nLearn more about CSV file an their properties here",
+    "crumbs": [
+      "Reading",
+      "Reading Data"
+    ]
+  },
+  {
+    "objectID": "07_02_reading_data.html#importing-data-with-r-base-read.table",
+    "href": "07_02_reading_data.html#importing-data-with-r-base-read.table",
+    "title": "Reading Data",
+    "section": "Importing Data with R-base: read.table()",
+    "text": "Importing Data with R-base: read.table()\nIn R base we have read.table() functon to read data in simple way.\n\n# This is how we can read data with read.table\n# IMPORTANT: the file uses ; as separator\nelections_data &lt;- read.table(\"data/elections_data.csv\", \n                             header = T, sep = \";\")\nhead(elections_data, 5)\n\n\nelections_data &lt;- read.table(\"data/elections_data.csv\", \n                             header = T, sep = \";\")\nhead(elections_data, 5)\n\n  cod_muni  Municipio Distrito Seccion Mesa Censo Certif_alta Certif_correc.\n1        1 La Acebeda        1       1    U    64           0              0\n2        2    Ajalvir        1       1    A   859           0              0\n3        2    Ajalvir        1       1    B   863           0              0\n4        2    Ajalvir        1       2    A   766           0              0\n5        2    Ajalvir        1       2    B   871           0              0\n  Electores Votos_electores Votos_Interventores Votos_blancos Votos_nulos\n1      64,0              54                   0             0           1\n2     859,0             554                   1            11          11\n3     863,0             543                   1             6           3\n4     766,0             561                   1             2           9\n5     871,0             624                   2            14           5\n  Votos_total  PP PUM.J PSOE ULEG PH PCTE MM.VQ CS PACMA FE.DE.LAS.JONS VOX\n1          54  31     0    9    0  0    0     6  0     0              0   1\n2         555 285     0   62    1  0    1   105  9     0              0  57\n3         544 311     0   48    0  0    1    92  5     6              4  53\n4         562 271     0   81    0  0    0    98  9     5              3  71\n5         626 320     1   89    0  0    0   100  4     6              1  79\n  PODEMOS.IU.AV PFE\n1             6   0\n2            13   0\n3            13   2\n4            13   0\n5             7   0\n\n\nSome important parameters…\n\nheader: TRUE if the file contains the column names in its first row, FALSE otherwise.\nsep: type of separator being use in the data: (,,;,|, etc.)\nna.strings: choose which kind of character will represent the NA value.\nnrows: maximum number of rows to read\nskip: number of rows to skip from being read.\ncol.names: vector with the names to use as columns, if the file contains a first row with columns use header = F",
+    "crumbs": [
+      "Reading",
+      "Reading Data"
+    ]
+  },
+  {
+    "objectID": "07_02_reading_data.html#tidyverse-readr-package",
+    "href": "07_02_reading_data.html#tidyverse-readr-package",
+    "title": "Reading Data",
+    "section": "Tidyverse: readr package",
+    "text": "Tidyverse: readr package\nWith tidyverse we have the readr package for reading data…\n\nlibrary(tidyverse) # library(readr) for using single package\n\nAll readr function will do the data transformation and return a tibble. Some of the available functions…\n\nread_csv() - files using , as delimiter\nread_csv2() - files using ; as delimiter\nread_tsv() - files using tabulator as delimiter (|)\nread_delim() - files using another type of delimiter, we will need to provide it as an argument.\n\nBy default the function to read CSV files is read_csv.\n\niris_df &lt;- read_csv(\"data/iris.csv\")\n\nRows: 150 Columns: 5\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (1): Species\ndbl (4): Sepal.Length, Sepal.Width, Petal.Length, Petal.Width\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\niris_df\n\n# A tibble: 150 × 5\n   Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  \n 1          5.1         3.5          1.4         0.2 setosa \n 2          4.9         3            1.4         0.2 setosa \n 3          4.7         3.2          1.3         0.2 setosa \n 4          4.6         3.1          1.5         0.2 setosa \n 5          5           3.6          1.4         0.2 setosa \n 6          5.4         3.9          1.7         0.4 setosa \n 7          4.6         3.4          1.4         0.3 setosa \n 8          5           3.4          1.5         0.2 setosa \n 9          4.4         2.9          1.4         0.2 setosa \n10          4.9         3.1          1.5         0.1 setosa \n# ℹ 140 more rows\n\n\nread_csv has been designed to read files that use a comma (,) as delimiter.\nWe can find some cases where the delimiter is different. The most common case occurs when we are working with files coming from European countries.\nLook at the following file:\n\niris_df2 &lt;- read_csv(\"data/iris_esp.csv\")\n\nRows: 150 Columns: 1\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (1): Sepal.Length;Sepal.Width;Petal.Length;Petal.Width;Species\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\niris_df2\n\n# A tibble: 150 × 1\n   `Sepal.Length;Sepal.Width;Petal.Length;Petal.Width;Species`\n   &lt;chr&gt;                                                      \n 1 5.1;3.5;1.4;0.2;setosa                                     \n 2 4.9;3;1.4;0.2;setosa                                       \n 3 4.7;3.2;1.3;0.2;setosa                                     \n 4 4.6;3.1;1.5;0.2;setosa                                     \n 5 5;3.6;1.4;0.2;setosa                                       \n 6 5.4;3.9;1.7;0.4;setosa                                     \n 7 4.6;3.4;1.4;0.3;setosa                                     \n 8 5;3.4;1.5;0.2;setosa                                       \n 9 4.4;2.9;1.4;0.2;setosa                                     \n10 4.9;3.1;1.5;0.1;setosa                                     \n# ℹ 140 more rows\n\n\nLooks something is not correct when reading the file, the whole data is stored in a single columns not separating them correctly. If we see the file we will detect that the variables are separated using ; delimiter, we can try another function then: read_csv2\n\niris_df2 &lt;- read_csv2(\"data/iris_esp.csv\")\n\nℹ Using \"','\" as decimal and \"'.'\" as grouping mark. Use `read_delim()` for more control.\n\n\nRows: 150 Columns: 5\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \";\"\nchr (2): Petal.Width, Species\nnum (3): Sepal.Length, Sepal.Width, Petal.Length\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\niris_df2\n\n# A tibble: 150 × 5\n   Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;  \n 1           51          35           14 0.2         setosa \n 2           49           3           14 0.2         setosa \n 3           47          32           13 0.2         setosa \n 4           46          31           15 0.2         setosa \n 5            5          36           14 0.2         setosa \n 6           54          39           17 0.4         setosa \n 7           46          34           14 0.3         setosa \n 8            5          34           15 0.2         setosa \n 9           44          29           14 0.2         setosa \n10           49          31           15 0.1         setosa \n# ℹ 140 more rows\n\n\nNow the file has been red correctly. read_csv2 has been designed to import data using a ; delimiter that is very frequent on European countries and Hispanic cultures. While other countries trend to use , separator by default.\nIn addition we can find files using more specific delimiters different from the frequent ones. For much more specific cases we can use read_delim that has been designed for reading custom delimiters.\n\niris_df3 &lt;- read_delim(\"data/iris.txt\", delim = \"|\")\n\nRows: 150 Columns: 5\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \"|\"\nchr (1): Species\ndbl (4): Sepal.Length, Sepal.Width, Petal.Length, Petal.Width\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\niris_df3\n\n# A tibble: 150 × 5\n   Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  \n 1          5.1         3.5          1.4         0.2 setosa \n 2          4.9         3            1.4         0.2 setosa \n 3          4.7         3.2          1.3         0.2 setosa \n 4          4.6         3.1          1.5         0.2 setosa \n 5          5           3.6          1.4         0.2 setosa \n 6          5.4         3.9          1.7         0.4 setosa \n 7          4.6         3.4          1.4         0.3 setosa \n 8          5           3.4          1.5         0.2 setosa \n 9          4.4         2.9          1.4         0.2 setosa \n10          4.9         3.1          1.5         0.1 setosa \n# ℹ 140 more rows\n\n\nIn this case we define on the function the delimiter being used in the file so R can separate each variable accordingly.",
+    "crumbs": [
+      "Reading",
+      "Reading Data"
+    ]
+  },
+  {
+    "objectID": "07_02_reading_data.html#useful-parameters-for-reading-files",
+    "href": "07_02_reading_data.html#useful-parameters-for-reading-files",
+    "title": "Reading Data",
+    "section": "Useful parameters for reading files",
+    "text": "Useful parameters for reading files\nIn your reading functions you will found useful parameters you can define to adapt the reading depending on the file content.\n\nSkip lines of the file\nYou can skip lines of files when reading them using skip argument, this argument will start reading the file ignoring the first number of lines given\n\n# Use skip to avoid reading some lines\ndf &lt;- read_csv(\"Metadata line information\n                More information\n                a,b,c\n                1,2,3\n                4,5,6\", skip=2)\n\nWarning: The `file` argument of `read_csv()` should use `I()` for literal data as of\nreadr 2.2.0.\n  \n  # Bad (for example):\n  read_csv(\"x,y\\n1,2\")\n  \n  # Good:\n  read_csv(I(\"x,y\\n1,2\"))\n\n\nRows: 2 Columns: 3\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\ndbl (3): a, b, c\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\ndf\n\n# A tibble: 2 × 3\n      a     b     c\n  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1     1     2     3\n2     4     5     6\n\n\n\n\nManage column names\nYou can find files where column names are not given and the first line of the file is data you must have. By default first line will be always column names but you can override this behavior.\n\ndf &lt;- read_csv(\"7,8,9\n                1,2,3\n                4,5,6\", col_names=FALSE)\n\nRows: 3 Columns: 3\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\ndbl (3): X1, X2, X3\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\ndf\n\n# A tibble: 3 × 3\n     X1    X2    X3\n  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1     7     8     9\n2     1     2     3\n3     4     5     6\n\n\nOther option will be give specific column names, using the same parameter…\n\ndf &lt;- read_csv(\"7,8,9\n                1,2,3\n                4,5,6\", col_names=c(\"a\", \"b\", \"c\"))\n\nRows: 3 Columns: 3\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\ndbl (3): a, b, c\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\ndf\n\n# A tibble: 3 × 3\n      a     b     c\n  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1     7     8     9\n2     1     2     3\n3     4     5     6\n\n\n\n\nDefining NA variables\nSome data sets don’t use NA or blank in their data and could use an specific value. In this case we are using “nan” when data is not available. We can tell the read function how to interpert a NA in the data…\n\ndf &lt;- read_csv(\"a,b,c\n                1,nan,3\n                4,5,nan\", na = \"nan\")\n\nRows: 2 Columns: 3\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\ndbl (3): a, b, c\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\ndf\n\n# A tibble: 2 × 3\n      a     b     c\n  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1     1    NA     3\n2     4     5    NA",
+    "crumbs": [
+      "Reading",
+      "Reading Data"
+    ]
+  },
+  {
+    "objectID": "07_02_reading_data.html#properly-formatting-the-column-names",
+    "href": "07_02_reading_data.html#properly-formatting-the-column-names",
+    "title": "Reading Data",
+    "section": "Properly formatting the column names",
+    "text": "Properly formatting the column names\nFollowing conventions column names should follow some rules, we can make sure these rules are being applied with janitor package:\n\ndf &lt;- read_csv(\"Name Surname, Is Smoker, PATIENT_AGE \n                Juan Montero, YES, 35\n                Maria Chacón, NO, 64\") %&gt;% \n  janitor::clean_names()\n\nRows: 2 Columns: 3\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (2): Name Surname, Is Smoker\ndbl (1): PATIENT_AGE\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\ndf\n\n# A tibble: 2 × 3\n  name_surname is_smoker patient_age\n  &lt;chr&gt;        &lt;chr&gt;           &lt;dbl&gt;\n1 Juan Montero YES                35\n2 Maria Chacón NO                 64",
+    "crumbs": [
+      "Reading",
+      "Reading Data"
+    ]
+  },
+  {
+    "objectID": "07_02_reading_data.html#reading-excel-data-with-readxl",
+    "href": "07_02_reading_data.html#reading-excel-data-with-readxl",
+    "title": "Reading Data",
+    "section": "Reading excel data with readxl",
+    "text": "Reading excel data with readxl\nOne of the most common file formats you may found are excel files, for reading them there is an special library not found in readr, you need to work with readxl\n\nlibrary(readxl)\n\nYou can read an excel file using read_excel function…\n\niris_data &lt;- read_excel(\"data/iris.xlsx\",sheet = 1)\n\nhead(iris_data)\n\n# A tibble: 6 × 5\n  Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n         &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  \n1          5.1         3.5          1.4         0.2 setosa \n2          4.9         3            1.4         0.2 setosa \n3          4.7         3.2          1.3         0.2 setosa \n4          4.6         3.1          1.5         0.2 setosa \n5          5           3.6          1.4         0.2 setosa \n6          5.4         3.9          1.7         0.4 setosa \n\n\nConsider that we have provided the sheet number as an argument so the function knows which sheet to read. By default it will always read the first sheet (independently if it is hided or not).\nYou can also provide the name of sheet instead of the number.\n\niris_data &lt;- read_excel(\"data/iris.xlsx\",\nsheet = \"Sheet1\")\nhead(iris_data)\n\n# A tibble: 6 × 5\n  Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n         &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  \n1          5.1         3.5          1.4         0.2 setosa \n2          4.9         3            1.4         0.2 setosa \n3          4.7         3.2          1.3         0.2 setosa \n4          4.6         3.1          1.5         0.2 setosa \n5          5           3.6          1.4         0.2 setosa \n6          5.4         3.9          1.7         0.4 setosa \n\n\nFor excel you can work with the ranges available on the sheets, so you can be more specific regarding which part to read.\n\niris_data &lt;- read_excel(\"data/iris.xlsx\",\nsheet = 1, range = \"C1:E40\")\nhead(iris_data)\n\n# A tibble: 6 × 3\n  Petal.Length Petal.Width Species\n         &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  \n1          1.4         0.2 setosa \n2          1.4         0.2 setosa \n3          1.3         0.2 setosa \n4          1.5         0.2 setosa \n5          1.4         0.2 setosa \n6          1.7         0.4 setosa \n\n\nYou can use cell_cols() or cell_rows() with range argument to specify only one part of the range.",
+    "crumbs": [
+      "Reading",
+      "Reading Data"
+    ]
+  },
+  {
+    "objectID": "07_03_parsing.html",
+    "href": "07_03_parsing.html",
+    "title": "Parsing Data",
+    "section": "",
+    "text": "Parsing vectors\nFor understanding better who it is does that we need to understand parsing functions. This functions will transform a vector of characters into an speciallized data vector.\nstr(parse_logical(c(\"T\", \"F\", \"F\")))\n\n logi [1:3] TRUE FALSE FALSE\n\nstr(parse_integer(c(\"1\", \"4\")))\n\n int [1:2] 1 4\n\nstr(parse_date(c(\"2022-01-04\")))\n\n Date[1:1], format: \"2022-01-04\"\nAll parse functions are uniform: the first argument is the vector to parse and the na argument lend us decide with value treat as a missing value.\nparse_integer(c(\"1\", \"4\", \".\"), na=\".\")\n\n[1]  1  4 NA\nIf something goes wrong during the process a warning message will be displayed to inform us\nparse_integer(c(\"1\", \"4\", \"c\"))\n\nWarning: 1 parsing failure.\nrow col               expected actual\n  3  -- no trailing characters      c\n\n\n[1]  1  4 NA\nattr(,\"problems\")\n# A tibble: 1 × 4\n    row   col expected               actual\n  &lt;int&gt; &lt;int&gt; &lt;chr&gt;                  &lt;chr&gt; \n1     3    NA no trailing characters c",
+    "crumbs": [
+      "Reading",
+      "Parsing Data"
+    ]
+  },
+  {
+    "objectID": "07_03_parsing.html#kind-of-parsers",
+    "href": "07_03_parsing.html#kind-of-parsers",
+    "title": "Parsing Data",
+    "section": "Kind of parsers",
+    "text": "Kind of parsers\n\nparse_logical() and parse_integer() for logical and integer values.\nparse_double() and parse_number() for numbers (second one more flexible)\nparse_factor() for categorical values (factors)\nparse_datetime(), parse_date() and parse_time() for times and dates.",
+    "crumbs": [
+      "Reading",
+      "Parsing Data"
+    ]
+  },
+  {
+    "objectID": "07_03_parsing.html#parsing-numbers",
+    "href": "07_03_parsing.html#parsing-numbers",
+    "title": "Parsing Data",
+    "section": "Parsing numbers",
+    "text": "Parsing numbers\nNumbers are quite complex as they have three main problems:\n\nNumbers can be described differently depending on the culture/language: 1,46 or 1.45\n\n\nparse_double(\"1,45\", locale = locale(decimal_mark = \",\"))\n\n[1] 1.45\n\n\n\nSometimes we can find symbols in the numbers: 100%\n\n\nparse_number(\"100$\")\n\n[1] 100\n\nparse_number(\"39%\")\n\n[1] 39\n\nparse_number(\"Me costó 100 €\")\n\n[1] 100\n\n\n\nRelated with the first issue, representation can change on aggregation level: 1.000.000 or 1000000 or 1,000,000 or 1000K or 1M\n\n\nparse_number(\"%100,330\")\n\n[1] 100330\n\nparse_number(\"100.330€$\", locale = locale(grouping_mark = \".\"))\n\n[1] 100330",
+    "crumbs": [
+      "Reading",
+      "Parsing Data"
+    ]
+  },
+  {
+    "objectID": "07_03_parsing.html#parsing-strings",
+    "href": "07_03_parsing.html#parsing-strings",
+    "title": "Parsing Data",
+    "section": "Parsing Strings",
+    "text": "Parsing Strings\nComputers represent text using hexadecimal code (look for ASCII)\n\ncharToRaw(\"Hello\")\n\n[1] 48 65 6c 6c 6f\n\n\nThe mapping between hexadecimal values and characters are called encoding. By default readr uses UTF-8, general by default.\nSometimes in cal fail with old systems files:\n\nx1 &lt;- \"Nos vemos ma\\xf1ana\"\nparse_character(x1, locale = locale(encoding = \"ISO-8859-1\"))\n\n[1] \"Nos vemos mañana\"\n\n\nWe can avoid issues, analyzing the text prior to find the best encoding\n\nx1 &lt;- \"Nos vemos ma\\xf1ana\"\nguess_encoding(charToRaw(x1))\n\n# A tibble: 3 × 2\n  encoding   confidence\n  &lt;chr&gt;           &lt;dbl&gt;\n1 ISO-8859-1       0.52\n2 ISO-8859-2       0.35\n3 ISO-8859-9       0.35",
+    "crumbs": [
+      "Reading",
+      "Parsing Data"
+    ]
+  },
+  {
+    "objectID": "07_03_parsing.html#parsing-factors",
+    "href": "07_03_parsing.html#parsing-factors",
+    "title": "Parsing Data",
+    "section": "Parsing Factors",
+    "text": "Parsing Factors\nn this case we will need to provide parse_factor() a vector with the possible levels:\n\nparse_factor(\n  c(\"man\", \"woman\", \"woman\", \"unicorn\"),\n  levels = c(\"man\", \"woman\")\n)\n\nWarning: 1 parsing failure.\nrow col           expected  actual\n  4  -- value in level set unicorn\n\n\n[1] man   woman woman &lt;NA&gt; \nattr(,\"problems\")\n# A tibble: 1 × 4\n    row   col expected           actual \n  &lt;int&gt; &lt;int&gt; &lt;chr&gt;              &lt;chr&gt;  \n1     4    NA value in level set unicorn\nLevels: man woman",
+    "crumbs": [
+      "Reading",
+      "Parsing Data"
+    ]
+  },
+  {
+    "objectID": "07_03_parsing.html#parsing-dates-and-times",
+    "href": "07_03_parsing.html#parsing-dates-and-times",
+    "title": "Parsing Data",
+    "section": "Parsing Dates and Times",
+    "text": "Parsing Dates and Times\nparse_datetime() for dates with hour. In the following order: year, month, day, hour, minute and second\n\nparse_datetime(\"2024-01-01T1015\")\n\n[1] \"2024-01-01 10:15:00 UTC\"\n\n\nparse_date() for dates. In the following order: year, month, day using - or / as separator\n\nparse_date(\"2024/01/01\")\n\n[1] \"2024-01-01\"\n\n\nparse_time() for time. In the following order: hour, minute, seconds using : as separator. am or pm are optional.\n\nparse_time(\"10:15 am\")\n\n10:15:00\n\n\nYou can define a format of the input to help the parsing…\n\nparse_date(\"01/04/2023\", \"%d/%m/%y\")\n\nWarning: 1 parsing failure.\nrow col           expected     actual\n  1  -- date like %d/%m/%y 01/04/2023\n\n\n[1] NA\n\n\n\n\n\n\n\n\nYear\n\n%Y 4 digits\n%y 2 digits*\n\n\n\nMonth\n\n%m 2 digits\n%b “jan”\n%B “january”\n\n\n\nDay\n\n%d 2 digits\n%e space\n\n\n\n\n*00-69 -&gt; 2000-2069, 70-99 -&gt; 1970-1999\nYou can define a format of the input to help the parsing…\n\nparse_time(\"10-30\", \"%H-%M\")\n\n10:30:00\n\n\n\n\n\n\n\n\nTime\n\n%H 0-23 hours (24)\n%p 0-12 hours (12), use with %p\n%p AM/PM\n%M minutes\n\n\n\n__\n\n%s seconds (integer)\n%OS real seconds\n%Z time zone (e.g. America/Chicago)\n%z UTC offset (e.g. +0800)\n\n\n\n\nDiscover more about formatting dates here",
+    "crumbs": [
+      "Reading",
+      "Parsing Data"
+    ]
+  },
+  {
+    "objectID": "07_03_parsing.html#parsing-a-file",
+    "href": "07_03_parsing.html#parsing-a-file",
+    "title": "Parsing Data",
+    "section": "Parsing a file",
+    "text": "Parsing a file\n\nHow readr parse correctly the data?\nreadr will guess the correct the type of each column as follows:\n\nRead the first 1000 rows\nGuess the type using a determined heuristic\n\n\nguess_parser(\"2022-01-01\")\n\n[1] \"date\"\n\nstr(parse_guess(\"2022-01-01\"))\n\n Date[1:1], format: \"2022-01-01\"\n\n\nSometimes it can fail…\n\nIt is possible that the first 1000 rows have special cases (e.g. 1000 integer values in a double variable)\nMissing values can appear at the column.\n\nIt is suggested to try to inform the type of each column when it is possible.\n\n# Not specifying the types\nread_csv(\"data/df-na.csv\")\n\nWe can force it two ways…\n\n# Specifying the types\nread_csv(\"data/df-na.csv\",\n         col_types = list(col_double(),\n                          col_character(),\n                          col_character()))\n\n\n# Other alternative\nread_csv(\"data/df-na.csv\", col_types=\"ncc\")",
+    "crumbs": [
+      "Reading",
+      "Parsing Data"
+    ]
+  },
+  {
+    "objectID": "07_04_writing_data.html",
+    "href": "07_04_writing_data.html",
+    "title": "Writing Data",
+    "section": "",
+    "text": "Improved writing\nLast writing functions are good, but don’t save the column typification making necessary specifying each time when reading. But we can use write_rds(), read_rds() in readr.\nThis functions will keep the data in binary RDS format keeping metadata for helping reading it properly.\nwrite_rds(iris, \"data/iris.RDS\")\niris_tibble &lt;- read_rds(\"data/iris.RDS\")\niris_tibble",
+    "crumbs": [
+      "Reading",
+      "Writing Data"
+    ]
+  },
+  {
+    "objectID": "07_05_others.html",
+    "href": "07_05_others.html",
+    "title": "Other Files",
+    "section": "",
+    "text": "Reading JSON data",
+    "crumbs": [
+      "Reading",
+      "Other Files"
+    ]
+  },
+  {
+    "objectID": "07_05_others.html#reading-json-data",
+    "href": "07_05_others.html#reading-json-data",
+    "title": "Other Files",
+    "section": "",
+    "text": "What is JSON?\n\nJSON are the letters of Javascript Object Notation, is a lighter storing data format.\nIt is very frequently used for APIs, data is stored using objects pair key-value.\n\n\nFor working with JSON in R we need to use jsonlite library.\n\nlibrary(jsonlite)\n\n# Reading JSON\niris_df &lt;- read_json(\"data/iris.json\", simplifyVector = TRUE)\n\nhead(iris_df)",
+    "crumbs": [
+      "Reading",
+      "Other Files"
+    ]
+  },
+  {
+    "objectID": "07_05_others.html#reading-from-apis",
+    "href": "07_05_others.html#reading-from-apis",
+    "title": "Other Files",
+    "section": "Reading from APIs",
+    "text": "Reading from APIs\n\nWhat is an API\nAn application programming interface (API) is a set of defined rules that explain how computers or applications communicate with one another. In this section will learn how to use these tools for requesting data from a web server (get method).\nThey can also be used for submitting forms (post method) or any interaction that the user can be allowed to —delete, put, etc.\n\n\nHow it works\n\n\n\n\n\n\nUser or computer asks to the API following a pre-defined syntax. Normally this petitions are done with an URL following a defined structure.\nThe API receives and verifies the petition and translates this petition to the corresponding system or database to retrieve and send the answer to the user.\nUser receives the answer.\n\nThis way the system or database is protected and the access is controlled via the API, that verifies and manages petitions.\n\n\nUsing APIs with R: httr2\nIn R we are going to use tidyverse library called httr2 that will help us using APIs.\n\nlibrary(httr2)",
+    "crumbs": [
+      "Reading",
+      "Other Files"
+    ]
+  },
+  {
+    "objectID": "07_05_others.html#api-example",
+    "href": "07_05_others.html#api-example",
+    "title": "Other Files",
+    "section": "API Example",
+    "text": "API Example\nWe are goint to work with the Instituto Nacional de Estadística (INE) API for retrieving information.\nThe portal has an API where we can obtain data here.\nA normal URL for making request to the API has the following format…\nhttps://servicios.ine.es/wstempus/js/{idioma}/{función}/{input}[?parámetros]\n\nObtaining data from PCI-IPC\nWe want to obtain information regarding Consumer Prices Index (PCI-IPC) evolution in Spain for different groups.\nFor these we will need to manage how to implement the URL and make the request. You can use in these case an URL generator here\n\n# Create basic request (by default is a GET, we can change it)\nreq &lt;- request(\"https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/50903?date=20240101:20240630\")\nreq\n\n&lt;httr2_request&gt;\nGET https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/50903?date=20240101:20240630\nBody: empty\n\n\n\n\nPerfoming requests\nOnce we have configured the request, we can perform it…\n\nresp &lt;- req_perform(req)\nresp\n\n&lt;httr2_response&gt;\nGET https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/50903?date=20240101:20240630\nStatus: 200 OK\nContent-Type: application/json\nBody: In memory (126715 bytes)\n\n\n\n\nResponses Components: Status\nIf all goes correct we will receive a 200 response code (OK)\n\nresp_status(resp)\n\n[1] 200\n\nresp_status_desc(resp)\n\n[1] \"OK\"\n\n\nBut something can go wrong… in that cases…\n\n404 - File not found\n403 - Permission denied.\n500 - Generic failure.\n\n\n\nResponses Components: Headers\n\nresp_headers(resp)\n\n&lt;httr2_headers&gt;\nDate: Sat, 29 Aug 2026 23:09:51 GMT\nX-OneAgent-JS-Injection: true\nServer-Timing: dtTrId;desc=\"8492cc339e5562c711c52627b5fbed1f\", dtSInfo;desc=\"0\"\nServer-Timing: dtRpid;desc=\"-667437549\"\nAccess-Control-Allow-Origin: *\nAccess-Control-Allow-Headers: Content-Type\nX-Frame-options: DENY\nCache-Control: public\nExpires: Thu, 1 Jan 1970 00:00:00 GMT\nETag: \"1788044991:dtagent103432607151238112TlV\"\nLast-Modified: Sat, 29 Aug 2026 23:09:50 GMT\nContent-Type: application/json;charset=UTF-8\nContent-Language: es\nSet-Cookie: dtCookiec132n50s=v_4_srv_5_sn_DA107CFF4322E3154CA64C5A5B1B0A73_perc_100000_ol_0_mul_1_app-3A50b3efb0f7e34fcb_0; Path=/; Domain=.ine.es\nSet-Cookie: INE_WEB_COOKIE=es;Max-Age=31536000;Path=/\nTransfer-Encoding: chunked\nSet-Cookie: BIGipServerwstempus.ine.es_pool=2528197386.20480.0000; path=/; Httponly; Secure\nPragma: public\n\n\n\n\nResponses Components: Body\nYour requested data will be in the response body, we will obtain this information using JSON format…\n\nbody_resp &lt;- resp_body_json(resp)\n\nresult_data &lt;- body_resp[[1]]$Data\nresult_data[[1]]\n\n$Fecha\n[1] 1.717193e+12\n\n$FK_TipoDato\n[1] 1\n\n$FK_Periodo\n[1] 6\n\n$Anyo\n[1] 2024\n\n$Valor\n[1] 116.212\n\n$Secreto\n[1] FALSE\n\n\n\n\nObtaining the data\nWe can extract and prepare the data…\n\nipc_data &lt;- as_tibble(\n  list(\n    \"year\" = c(2024),\n    \"month\" = c(0),\n    \"value\" = c(0)\n  )\n) %&gt;% filter(month != 0)\n\nfor (res in result_data){\n  temp_data &lt;- as_tibble(\n    list(\n      \"year\" = c(res$Anyo[1]),\n      \"month\" = c(res$FK_Period[1]),\n      \"value\" = c(res$Valor[1])\n    )\n  )\n  ipc_data &lt;- rbind(ipc_data,temp_data)\n}\n\nipc_data\n\n# A tibble: 6 × 3\n   year month value\n  &lt;int&gt; &lt;int&gt; &lt;dbl&gt;\n1  2024     6  116.\n2  2024     5  116.\n3  2024     4  115.\n4  2024     3  115.\n5  2024     2  114.\n6  2024     1  113.",
+    "crumbs": [
+      "Reading",
+      "Other Files"
+    ]
+  },
+  {
+    "objectID": "07_05_others.html#other-cool-apis-you-can-try",
+    "href": "07_05_others.html#other-cool-apis-you-can-try",
+    "title": "Other Files",
+    "section": "Other cool APIs you can try!!",
+    "text": "Other cool APIs you can try!!\n\nhttps://medium.com/@diego.coder/las-mejores-apis-públicas-para-practicar-programación-a7419ecc968e\nhttps://www.thecocktaildb.com\nTransport of London API. You can read and try the TFL_Api_Example.R file and see how it works.",
+    "crumbs": [
+      "Reading",
+      "Other Files"
+    ]
+  },
+  {
+    "objectID": "08_arrange.html",
+    "href": "08_arrange.html",
+    "title": "Arrange Data",
+    "section": "",
+    "text": "Data Wrangling\nObjective: Make data ready for their future exploration and modelling\nWe need to convert raw data into processed data",
+    "crumbs": [
+      "Arrange Data"
+    ]
+  },
+  {
+    "objectID": "08_arrange.html#data-wrangling",
+    "href": "08_arrange.html#data-wrangling",
+    "title": "Arrange Data",
+    "section": "",
+    "text": "Raw Data\n\nData as it appears on the source origin.\nAny manipulation has been done to them.\n\n\n\nProcessed Data\n\nEach variable in a column.\nEach observation in a raw.\nEach observational unit is a cell.\nMore complex data, interconnected tables.\n\nThe process work as follows…\n\nImporting the data\nOrganizing the data\nTransforming the data",
+    "crumbs": [
+      "Arrange Data"
+    ]
+  },
+  {
+    "objectID": "08_arrange.html#organizing-data-with-tidyr",
+    "href": "08_arrange.html#organizing-data-with-tidyr",
+    "title": "Arrange Data",
+    "section": "Organizing Data with tidyr",
+    "text": "Organizing Data with tidyr\nWe will learn how to organize data in R. Mainly focused on tabular data.\nAs we have seen we will continue using the tidyverse ecosystem, in this case we will introduce tidyr a package designed for organizing data structure as desired.\n\nlibrary(tidyverse) # Use library(tidyr) for this package only",
+    "crumbs": [
+      "Arrange Data"
+    ]
+  },
+  {
+    "objectID": "08_arrange.html#multiple-structures-for-the-same-data",
+    "href": "08_arrange.html#multiple-structures-for-the-same-data",
+    "title": "Arrange Data",
+    "section": "Multiple structures for the same data",
+    "text": "Multiple structures for the same data\nThe same data can be represented in different ways. Here are 4 ways of representing information regarding: country, year, population, cases\n\n1 Table with all in columns\n\ntable1\n\n# A tibble: 6 × 4\n  country      year  cases population\n  &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;\n1 Afghanistan  1999    745   19987071\n2 Afghanistan  2000   2666   20595360\n3 Brazil       1999  37737  172006362\n4 Brazil       2000  80488  174504898\n5 China        1999 212258 1272915272\n6 China        2000 213766 1280428583\n\n\n\n\n1 Table with duplicates per concept\n\ntable2\n\n# A tibble: 12 × 4\n   country      year type            count\n   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;\n 1 Afghanistan  1999 cases             745\n 2 Afghanistan  1999 population   19987071\n 3 Afghanistan  2000 cases            2666\n 4 Afghanistan  2000 population   20595360\n 5 Brazil       1999 cases           37737\n 6 Brazil       1999 population  172006362\n 7 Brazil       2000 cases           80488\n 8 Brazil       2000 population  174504898\n 9 China        1999 cases          212258\n10 China        1999 population 1272915272\n11 China        2000 cases          213766\n12 China        2000 population 1280428583\n\n\n\n\n1 Table with a combined column\n\ntable3\n\n# A tibble: 6 × 3\n  country      year rate             \n  &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;            \n1 Afghanistan  1999 745/19987071     \n2 Afghanistan  2000 2666/20595360    \n3 Brazil       1999 37737/172006362  \n4 Brazil       2000 80488/174504898  \n5 China        1999 212258/1272915272\n6 China        2000 213766/1280428583\n\n\n\n\n2 Tables for each concept\n\ntable4a\n\n# A tibble: 3 × 3\n  country     `1999` `2000`\n  &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;\n1 Afghanistan    745   2666\n2 Brazil       37737  80488\n3 China       212258 213766\n\ntable4b\n\n# A tibble: 3 × 3\n  country         `1999`     `2000`\n  &lt;chr&gt;            &lt;dbl&gt;      &lt;dbl&gt;\n1 Afghanistan   19987071   20595360\n2 Brazil       172006362  174504898\n3 China       1272915272 1280428583\n\n\nOnly one is fully organized as desired following conventions.\nAn organized data set will be the one that:\n\nEach variable belongs to one single column\nEach row is an observation\nEach cell has a single value.\n\nFollowing this definition, the first example is the organized one.",
+    "crumbs": [
+      "Arrange Data"
     ]
   }
 ]

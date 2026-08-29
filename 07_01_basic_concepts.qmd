@@ -1,1 +1,84 @@
 # Basic Concepts {.unnumbered}
+
+## Understanding the path and working directory
+
+When working in our environments R will need a working directory, the place where it is located inside your computer.
+
+For managing it two functions are essential `getwd()` and `setwd()`
+
+```{r}
+#| eval: false
+#| code-line-numbers: false
+# Returns the currect working directory
+getwd()
+```
+
+```{r}
+#| eval: false
+#| code-line-numbers: false
+# Change the working directory
+setwd("./data")
+```
+
+## Creating a path
+
+For navigating inside your computer you need to know how to build the paths... we can consider two types of paths when deciding how to tell our computer where we are...
+
+- **Absolute Path**
+
+- **Relative Path**
+
+Let's understand the difference between each one with an example...
+
+**Homer works in the Nuclear Plant where it is?** In this case we provide a full direction telling Homer where the place is.
+
+![](pictures/simpsons_02.PNG){fig-align="center" width="406"}
+
+This is what we call an **Absolute Path**, as we provide the exact position independent of the position.
+
+**Homer works in the Nuclear Plant how he can go?** In this case we are trying to find the location considering an starting point and we need to provide a route to go from that point.
+
+![](pictures/simpsons_04.PNG){fig-align="center" width="410"}
+
+This is what we call a **Relative Path**, as we provide a route to the file considering the place we are in.
+
+Now that we have the explanation of each kind of path definition, this is how we write each one in our code:
+
+In the **absolute** one we define the position of the file starting from the *root folder* of our computer. Then we define each directory our computer needs to go to until finding the final destination.
+
+```{r}
+#| eval: false
+#| code-line-numbers: false
+# ABSOLUTE
+# Linux / MacOS
+setwd("/home/carviagu/data") 
+
+# Windows 
+setwd("C:/Users/carviagu/data") 
+```
+
+If you are not sure were your root folder is you can use `"~./"` as a placeholder.
+
+In the **relative** one we define the position of the file starting from the *current folder* we are in. Then we define each directory our computer needs to go to until finding the final destination.
+
+```{r}
+#| eval: false
+#| code-line-numbers: false
+# RELATIVE
+# from my current position
+setwd("./data") 
+ # from main folder
+setwd("/Users/carviagu/data")
+# one level up
+setwd("../peter") # one level up
+```
+
+Here you have a practical example of relative paths. Considering the following folder structure...
+
+![](pictures/realtive_path_example.png){fig-align="center" width="422"}
+
+An that you are at the `session1` folder...
+
+- You want to access `test_example.xlsx` file, your path could be `"test_example.xlsx"`
+- You want to access a file called `test2.csv` at `constanza` folder, your path could be `"constanza/test2.csv"`
+- You want to access a file called test3.csv located at sessions folder, your path could be `"../test3.csv"`. As your going a level up in the folder structure we need to use `../` syntax.

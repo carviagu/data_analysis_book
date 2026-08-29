@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -395,8 +429,25 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#downloading-data" id="toc-downloading-data" class="nav-link active" data-scroll-target="#downloading-data">Downloading data</a></li>
+  <li><a href="#csv-files" id="toc-csv-files" class="nav-link" data-scroll-target="#csv-files">CSV files</a></li>
+  <li><a href="#importing-data-with-r-base-read.table" id="toc-importing-data-with-r-base-read.table" class="nav-link" data-scroll-target="#importing-data-with-r-base-read.table">Importing Data with R-base: <code>read.table()</code></a></li>
+  <li><a href="#tidyverse-readr-package" id="toc-tidyverse-readr-package" class="nav-link" data-scroll-target="#tidyverse-readr-package">Tidyverse: <code>readr</code> package</a></li>
+  <li><a href="#useful-parameters-for-reading-files" id="toc-useful-parameters-for-reading-files" class="nav-link" data-scroll-target="#useful-parameters-for-reading-files">Useful parameters for reading files</a>
+  <ul class="collapse">
+  <li><a href="#skip-lines-of-the-file" id="toc-skip-lines-of-the-file" class="nav-link" data-scroll-target="#skip-lines-of-the-file">Skip lines of the file</a></li>
+  <li><a href="#manage-column-names" id="toc-manage-column-names" class="nav-link" data-scroll-target="#manage-column-names">Manage column names</a></li>
+  <li><a href="#defining-na-variables" id="toc-defining-na-variables" class="nav-link" data-scroll-target="#defining-na-variables">Defining NA variables</a></li>
+  </ul></li>
+  <li><a href="#properly-formatting-the-column-names" id="toc-properly-formatting-the-column-names" class="nav-link" data-scroll-target="#properly-formatting-the-column-names">Properly formatting the column names</a></li>
+  <li><a href="#reading-excel-data-with-readxl" id="toc-reading-excel-data-with-readxl" class="nav-link" data-scroll-target="#reading-excel-data-with-readxl">Reading excel data with <code>readxl</code></a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -420,8 +471,435 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="downloading-data" class="level2">
+<h2 class="anchored" data-anchor-id="downloading-data">Downloading data</h2>
+<p>We are going to learn how to create a folder called <strong>data</strong> from R and download data inside it.</p>
+<ol type="1">
+<li>Check if the folder <strong>data</strong> already exists in the current directory, if not you can create it. Use the following functions…</li>
+</ol>
+<ul>
+<li><code>file.exists()</code></li>
+<li><code>dir.create()</code></li>
+</ul>
+<ol start="2" type="1">
+<li>Download the data about elections participation on Madrid Community (Spain) from the <a href="https://datos.comunidad.madrid/catalogo/dataset/929442fc-fef2-4f73-85a4-c4b02328531e/resource/4139576d-a11f-42be-a8de-48d37739f044/download/datos_electorales_elecciones_autonomicas_comunidad_de_madrid_2023.csv">following url</a>:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>data_url <span class="ot">&lt;-</span> <span class="st">"https://datos.comunidad.madrid/catalogo/dataset/929442fc-fef2-4f73-85a4-c4b02328531e/resource/4139576d-a11f-42be-a8de-48d37739f044/download/datos_electorales_elecciones_autonomicas_comunidad_de_madrid_2023.csv"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(data_url, <span class="at">destfile=</span><span class="st">"data/elections_data.csv"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="st">"./data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="csv-files" class="level2">
+<h2 class="anchored" data-anchor-id="csv-files">CSV files</h2>
+<p>Comma Separated files are designed to export and manage data in plain text, they are more interesting for storing tabular data. They use a delimiter like <code>,</code> for example to separate each value. The first row will be column names.</p>
+<p>Learn more about CSV file an their properties <a href="https://www.howtogeek.com/348960/what-is-a-csv-file-and-how-do-i-open-it/">here</a></p>
+</section>
+<section id="importing-data-with-r-base-read.table" class="level2">
+<h2 class="anchored" data-anchor-id="importing-data-with-r-base-read.table">Importing Data with R-base: <code>read.table()</code></h2>
+<p>In R base we have <code>read.table()</code> functon to read data in simple way.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># This is how we can read data with read.table</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="co"># IMPORTANT: the file uses ; as separator</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>elections_data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/elections_data.csv"</span>, </span>
+<span id="cb2-4"><a href="#cb2-4"></a>                             <span class="at">header =</span> T, <span class="at">sep =</span> <span class="st">";"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="fu">head</span>(elections_data, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>elections_data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/elections_data.csv"</span>, </span>
+<span id="cb3-2"><a href="#cb3-2"></a>                             <span class="at">header =</span> T, <span class="at">sep =</span> <span class="st">";"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="fu">head</span>(elections_data, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  cod_muni  Municipio Distrito Seccion Mesa Censo Certif_alta Certif_correc.
+1        1 La Acebeda        1       1    U    64           0              0
+2        2    Ajalvir        1       1    A   859           0              0
+3        2    Ajalvir        1       1    B   863           0              0
+4        2    Ajalvir        1       2    A   766           0              0
+5        2    Ajalvir        1       2    B   871           0              0
+  Electores Votos_electores Votos_Interventores Votos_blancos Votos_nulos
+1      64,0              54                   0             0           1
+2     859,0             554                   1            11          11
+3     863,0             543                   1             6           3
+4     766,0             561                   1             2           9
+5     871,0             624                   2            14           5
+  Votos_total  PP PUM.J PSOE ULEG PH PCTE MM.VQ CS PACMA FE.DE.LAS.JONS VOX
+1          54  31     0    9    0  0    0     6  0     0              0   1
+2         555 285     0   62    1  0    1   105  9     0              0  57
+3         544 311     0   48    0  0    1    92  5     6              4  53
+4         562 271     0   81    0  0    0    98  9     5              3  71
+5         626 320     1   89    0  0    0   100  4     6              1  79
+  PODEMOS.IU.AV PFE
+1             6   0
+2            13   0
+3            13   2
+4            13   0
+5             7   0</code></pre>
+</div>
+</div>
+<p>Some important parameters…</p>
+<ul>
+<li><strong>header</strong>: TRUE if the file contains the column names in its first row, FALSE otherwise.</li>
+<li><strong>sep</strong>: type of separator being use in the data: (<code>,</code>,<code>;</code>,<code>|</code>, etc.)</li>
+<li><strong>na.strings</strong>: choose which kind of character will represent the <code>NA</code> value.</li>
+<li><strong>nrows</strong>: maximum number of rows to read</li>
+<li><strong>skip</strong>: number of rows to skip from being read.</li>
+<li><strong>col.names</strong>: vector with the names to use as columns, if the file contains a first row with columns use <code>header = F</code></li>
+</ul>
+</section>
+<section id="tidyverse-readr-package" class="level2">
+<h2 class="anchored" data-anchor-id="tidyverse-readr-package">Tidyverse: <code>readr</code> package</h2>
+<p>With <strong>tidyverse</strong> we have the <strong>readr</strong> package for reading data…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># library(readr) for using single package</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>All <code>readr</code> function will do the data transformation and return a <em>tibble</em>. Some of the available functions…</p>
+<ul>
+<li><code>read_csv()</code> - files using <code>,</code> as delimiter</li>
+<li><code>read_csv2()</code> - files using <code>;</code> as delimiter</li>
+<li><code>read_tsv()</code> - files using tabulator as delimiter (<code>|</code>)</li>
+<li><code>read_delim()</code> - files using another type of delimiter, we will need to provide it as an argument.</li>
+</ul>
+<p>By default the function to read CSV files is <code>read_csv</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>iris_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/iris.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 150 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (1): Species
+dbl (4): Sepal.Length, Sepal.Width, Petal.Length, Petal.Width
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>iris_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 150 × 5
+   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  
+ 1          5.1         3.5          1.4         0.2 setosa 
+ 2          4.9         3            1.4         0.2 setosa 
+ 3          4.7         3.2          1.3         0.2 setosa 
+ 4          4.6         3.1          1.5         0.2 setosa 
+ 5          5           3.6          1.4         0.2 setosa 
+ 6          5.4         3.9          1.7         0.4 setosa 
+ 7          4.6         3.4          1.4         0.3 setosa 
+ 8          5           3.4          1.5         0.2 setosa 
+ 9          4.4         2.9          1.4         0.2 setosa 
+10          4.9         3.1          1.5         0.1 setosa 
+# ℹ 140 more rows</code></pre>
+</div>
+</div>
+<p><code>read_csv</code> has been designed to read files that use a comma (<code>,</code>) as delimiter.</p>
+<p>We can find some cases where the delimiter is different. The most common case occurs when we are working with files coming from <em>European</em> countries.</p>
+<p>Look at the following file:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>iris_df2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/iris_esp.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 150 Columns: 1
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (1): Sepal.Length;Sepal.Width;Petal.Length;Petal.Width;Species
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>iris_df2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 150 × 1
+   `Sepal.Length;Sepal.Width;Petal.Length;Petal.Width;Species`
+   &lt;chr&gt;                                                      
+ 1 5.1;3.5;1.4;0.2;setosa                                     
+ 2 4.9;3;1.4;0.2;setosa                                       
+ 3 4.7;3.2;1.3;0.2;setosa                                     
+ 4 4.6;3.1;1.5;0.2;setosa                                     
+ 5 5;3.6;1.4;0.2;setosa                                       
+ 6 5.4;3.9;1.7;0.4;setosa                                     
+ 7 4.6;3.4;1.4;0.3;setosa                                     
+ 8 5;3.4;1.5;0.2;setosa                                       
+ 9 4.4;2.9;1.4;0.2;setosa                                     
+10 4.9;3.1;1.5;0.1;setosa                                     
+# ℹ 140 more rows</code></pre>
+</div>
+</div>
+<p>Looks something is not correct when reading the file, the whole data is stored in a single columns not separating them correctly. If we see the file we will detect that the variables are separated using <code>;</code> delimiter, we can try another function then: <code>read_csv2</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>iris_df2 <span class="ot">&lt;-</span> <span class="fu">read_csv2</span>(<span class="st">"data/iris_esp.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 150 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr (2): Petal.Width, Species
+num (3): Sepal.Length, Sepal.Width, Petal.Length
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>iris_df2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 150 × 5
+   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;  
+ 1           51          35           14 0.2         setosa 
+ 2           49           3           14 0.2         setosa 
+ 3           47          32           13 0.2         setosa 
+ 4           46          31           15 0.2         setosa 
+ 5            5          36           14 0.2         setosa 
+ 6           54          39           17 0.4         setosa 
+ 7           46          34           14 0.3         setosa 
+ 8            5          34           15 0.2         setosa 
+ 9           44          29           14 0.2         setosa 
+10           49          31           15 0.1         setosa 
+# ℹ 140 more rows</code></pre>
+</div>
+</div>
+<p>Now the file has been red correctly. <code>read_csv2</code> has been designed to import data using a <code>;</code> delimiter that is very frequent on <em>European</em> countries and <em>Hispanic</em> cultures. While other countries trend to use <code>,</code> separator by default.</p>
+<p>In addition we can find files using more specific delimiters different from the frequent ones. For much more specific cases we can use <code>read_delim</code> that has been designed for reading custom delimiters.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>iris_df3 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"data/iris.txt"</span>, <span class="at">delim =</span> <span class="st">"|"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 150 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: "|"
+chr (1): Species
+dbl (4): Sepal.Length, Sepal.Width, Petal.Length, Petal.Width
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>iris_df3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 150 × 5
+   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  
+ 1          5.1         3.5          1.4         0.2 setosa 
+ 2          4.9         3            1.4         0.2 setosa 
+ 3          4.7         3.2          1.3         0.2 setosa 
+ 4          4.6         3.1          1.5         0.2 setosa 
+ 5          5           3.6          1.4         0.2 setosa 
+ 6          5.4         3.9          1.7         0.4 setosa 
+ 7          4.6         3.4          1.4         0.3 setosa 
+ 8          5           3.4          1.5         0.2 setosa 
+ 9          4.4         2.9          1.4         0.2 setosa 
+10          4.9         3.1          1.5         0.1 setosa 
+# ℹ 140 more rows</code></pre>
+</div>
+</div>
+<p>In this case we define on the function the delimiter being used in the file so R can separate each variable accordingly.</p>
+</section>
+<section id="useful-parameters-for-reading-files" class="level2">
+<h2 class="anchored" data-anchor-id="useful-parameters-for-reading-files">Useful parameters for reading files</h2>
+<p>In your reading functions you will found useful parameters you can define to adapt the reading depending on the file content.</p>
+<section id="skip-lines-of-the-file" class="level3">
+<h3 class="anchored" data-anchor-id="skip-lines-of-the-file">Skip lines of the file</h3>
+<p>You can skip lines of files when reading them using <code>skip</code> argument, this argument will start reading the file ignoring the first number of lines given</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># Use skip to avoid reading some lines</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Metadata line information</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="st">                More information</span></span>
+<span id="cb23-4"><a href="#cb23-4"></a><span class="st">                a,b,c</span></span>
+<span id="cb23-5"><a href="#cb23-5"></a><span class="st">                1,2,3</span></span>
+<span id="cb23-6"><a href="#cb23-6"></a><span class="st">                4,5,6"</span>, <span class="at">skip=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: The `file` argument of `read_csv()` should use `I()` for literal data as of
+readr 2.2.0.
+  
+  # Bad (for example):
+  read_csv("x,y\n1,2")
+  
+  # Good:
+  read_csv(I("x,y\n1,2"))</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 2 Columns: 3
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+dbl (3): a, b, c
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+      a     b     c
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     1     2     3
+2     4     5     6</code></pre>
+</div>
+</div>
+</section>
+<section id="manage-column-names" class="level3">
+<h3 class="anchored" data-anchor-id="manage-column-names">Manage column names</h3>
+<p>You can find files where column names are not given and the first line of the file is data you must have. By default first line will be always column names but you can override this behavior.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"7,8,9</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="st">                1,2,3</span></span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="st">                4,5,6"</span>, <span class="at">col_names=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 3 Columns: 3
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+dbl (3): X1, X2, X3
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+     X1    X2    X3
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     7     8     9
+2     1     2     3
+3     4     5     6</code></pre>
+</div>
+</div>
+<p>Other option will be give specific column names, using the same parameter…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"7,8,9</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a><span class="st">                1,2,3</span></span>
+<span id="cb32-3"><a href="#cb32-3"></a><span class="st">                4,5,6"</span>, <span class="at">col_names=</span><span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 3 Columns: 3
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+dbl (3): a, b, c
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+      a     b     c
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     7     8     9
+2     1     2     3
+3     4     5     6</code></pre>
+</div>
+</div>
+</section>
+<section id="defining-na-variables" class="level3">
+<h3 class="anchored" data-anchor-id="defining-na-variables">Defining NA variables</h3>
+<p>Some data sets don’t use NA or blank in their data and could use an specific value. In this case we are using “nan” when data is not available. We can tell the read function how to interpert a NA in the data…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"a,b,c</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a><span class="st">                1,nan,3</span></span>
+<span id="cb36-3"><a href="#cb36-3"></a><span class="st">                4,5,nan"</span>, <span class="at">na =</span> <span class="st">"nan"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 2 Columns: 3
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+dbl (3): a, b, c
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+      a     b     c
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     1    NA     3
+2     4     5    NA</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="properly-formatting-the-column-names" class="level2">
+<h2 class="anchored" data-anchor-id="properly-formatting-the-column-names">Properly formatting the column names</h2>
+<p>Following conventions column names should follow some rules, we can make sure these rules are being applied with <code>janitor</code> package:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Name Surname, Is Smoker, PATIENT_AGE </span></span>
+<span id="cb40-2"><a href="#cb40-2"></a><span class="st">                Juan Montero, YES, 35</span></span>
+<span id="cb40-3"><a href="#cb40-3"></a><span class="st">                Maria Chacón, NO, 64"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-4"><a href="#cb40-4"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 2 Columns: 3
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): Name Surname, Is Smoker
+dbl (1): PATIENT_AGE
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  name_surname is_smoker patient_age
+  &lt;chr&gt;        &lt;chr&gt;           &lt;dbl&gt;
+1 Juan Montero YES                35
+2 Maria Chacón NO                 64</code></pre>
+</div>
+</div>
+</section>
+<section id="reading-excel-data-with-readxl" class="level2">
+<h2 class="anchored" data-anchor-id="reading-excel-data-with-readxl">Reading excel data with <code>readxl</code></h2>
+<p>One of the most common file formats you may found are excel files, for reading them there is an special library not found in <code>readr</code>, you need to work with <code>readxl</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="fu">library</span>(readxl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can read an excel file using <code>read_excel</code> function…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>iris_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/iris.xlsx"</span>,<span class="at">sheet =</span> <span class="dv">1</span>)</span>
+<span id="cb45-2"><a href="#cb45-2"></a></span>
+<span id="cb45-3"><a href="#cb45-3"></a><span class="fu">head</span>(iris_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 5
+  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+         &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  
+1          5.1         3.5          1.4         0.2 setosa 
+2          4.9         3            1.4         0.2 setosa 
+3          4.7         3.2          1.3         0.2 setosa 
+4          4.6         3.1          1.5         0.2 setosa 
+5          5           3.6          1.4         0.2 setosa 
+6          5.4         3.9          1.7         0.4 setosa </code></pre>
+</div>
+</div>
+<p>Consider that we have provided the sheet number as an argument so the function knows which sheet to read. By default it will always read the first sheet (independently if it is hided or not).</p>
+<p>You can also provide the name of sheet instead of the number.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>iris_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/iris.xlsx"</span>,</span>
+<span id="cb47-2"><a href="#cb47-2"></a><span class="at">sheet =</span> <span class="st">"Sheet1"</span>)</span>
+<span id="cb47-3"><a href="#cb47-3"></a><span class="fu">head</span>(iris_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 5
+  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+         &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  
+1          5.1         3.5          1.4         0.2 setosa 
+2          4.9         3            1.4         0.2 setosa 
+3          4.7         3.2          1.3         0.2 setosa 
+4          4.6         3.1          1.5         0.2 setosa 
+5          5           3.6          1.4         0.2 setosa 
+6          5.4         3.9          1.7         0.4 setosa </code></pre>
+</div>
+</div>
+<p>For excel you can work with the ranges available on the sheets, so you can be more specific regarding which part to read.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>iris_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/iris.xlsx"</span>,</span>
+<span id="cb49-2"><a href="#cb49-2"></a><span class="at">sheet =</span> <span class="dv">1</span>, <span class="at">range =</span> <span class="st">"C1:E40"</span>)</span>
+<span id="cb49-3"><a href="#cb49-3"></a><span class="fu">head</span>(iris_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  Petal.Length Petal.Width Species
+         &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  
+1          1.4         0.2 setosa 
+2          1.4         0.2 setosa 
+3          1.3         0.2 setosa 
+4          1.5         0.2 setosa 
+5          1.4         0.2 setosa 
+6          1.7         0.4 setosa </code></pre>
+</div>
+</div>
+<p>You can use <code>cell_cols()</code> or <code>cell_rows()</code> with range argument to specify only one part of the range.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

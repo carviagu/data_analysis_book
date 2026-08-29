@@ -1,2 +1,77 @@
 # Arrange Data {.unnumbered}
 
+## Data Wrangling
+
+**Objective**: Make data ready for their future **exploration** and **modelling**
+
+We need to convert **raw data** into **processed data**
+
+### Raw Data
+* Data as it appears on the source origin. 
+* Any manipulation has been done to them.
+
+### Processed Data
+* Each variable in a column.
+* Each observation in a raw.
+* Each observational unit is a cell.
+* More complex data, interconnected tables. 
+
+The process work as follows...
+
+1.  Importing the data
+2.  Organizing the data
+3.  Transforming the data
+
+![](pictures/data-science-wrangle.png){fig-align="center" width="426"}
+
+
+## Organizing Data with **tidyr**
+
+We will learn how to organize data in R. Mainly focused on **tabular** data. 
+
+As we have seen we will continue using the **tidyverse** ecosystem, in this case we will introduce `tidyr` a package designed for organizing data structure as desired.
+
+```{r, echo=TRUE, message=FALSE}
+#| code-line-numbers: false
+library(tidyverse) # Use library(tidyr) for this package only
+```
+
+## Multiple structures for the same data
+
+The same data can be represented in different ways. Here are 4 ways of representing information regarding: *country, year, population, cases*
+
+
+#### 1 Table with all in columns
+```{r}
+#| code-line-numbers: false
+table1
+```
+
+#### 1 Table with duplicates per concept
+```{r}
+#| code-line-numbers: false
+table2
+```
+
+#### 1 Table with a combined column
+```{r}
+#| code-line-numbers: false
+table3
+```
+
+#### 2 Tables for each concept
+```{r}
+#| code-line-numbers: false
+table4a
+table4b
+```
+
+Only one is fully organized as desired following conventions. 
+
+An organized data set will be the one that:
+
+* Each variable belongs to one single column
+* Each row is an observation
+* Each cell has a single value. 
+
+Following this definition, the first example is the organized one. 

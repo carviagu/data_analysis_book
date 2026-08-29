@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -395,8 +429,33 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#reading-json-data" id="toc-reading-json-data" class="nav-link active" data-scroll-target="#reading-json-data">Reading JSON data</a>
+  <ul class="collapse">
+  <li><a href="#what-is-json" id="toc-what-is-json" class="nav-link" data-scroll-target="#what-is-json">What is JSON?</a></li>
+  </ul></li>
+  <li><a href="#reading-from-apis" id="toc-reading-from-apis" class="nav-link" data-scroll-target="#reading-from-apis">Reading from APIs</a>
+  <ul class="collapse">
+  <li><a href="#what-is-an-api" id="toc-what-is-an-api" class="nav-link" data-scroll-target="#what-is-an-api">What is an API</a></li>
+  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works">How it works</a></li>
+  <li><a href="#using-apis-with-r-httr2" id="toc-using-apis-with-r-httr2" class="nav-link" data-scroll-target="#using-apis-with-r-httr2">Using APIs with R: <code>httr2</code></a></li>
+  </ul></li>
+  <li><a href="#api-example" id="toc-api-example" class="nav-link" data-scroll-target="#api-example">API Example</a>
+  <ul class="collapse">
+  <li><a href="#obtaining-data-from-pci-ipc" id="toc-obtaining-data-from-pci-ipc" class="nav-link" data-scroll-target="#obtaining-data-from-pci-ipc">Obtaining data from PCI-IPC</a></li>
+  <li><a href="#perfoming-requests" id="toc-perfoming-requests" class="nav-link" data-scroll-target="#perfoming-requests">Perfoming requests</a></li>
+  <li><a href="#responses-components-status" id="toc-responses-components-status" class="nav-link" data-scroll-target="#responses-components-status">Responses Components: Status</a></li>
+  <li><a href="#responses-components-headers" id="toc-responses-components-headers" class="nav-link" data-scroll-target="#responses-components-headers">Responses Components: Headers</a></li>
+  <li><a href="#responses-components-body" id="toc-responses-components-body" class="nav-link" data-scroll-target="#responses-components-body">Responses Components: Body</a></li>
+  <li><a href="#obtaining-the-data" id="toc-obtaining-the-data" class="nav-link" data-scroll-target="#obtaining-the-data">Obtaining the data</a></li>
+  </ul></li>
+  <li><a href="#other-cool-apis-you-can-try" id="toc-other-cool-apis-you-can-try" class="nav-link" data-scroll-target="#other-cool-apis-you-can-try">Other cool APIs you can try!!</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -420,8 +479,227 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>There are plenty of libraries useful for reading/writing from different kind of sources in R:</p>
+<ul>
+<li><strong>haven</strong> for SPSS, Stata, SAS</li>
+<li><strong>readxl</strong> and <strong>writexl</strong> for reading and writing excel files</li>
+<li><strong>DBI</strong> together with <strong>RMySQL</strong> or <strong>RSQLite</strong> for launching SQL queries to databases.</li>
+<li><strong>jsonlite</strong> for JSON</li>
+</ul>
+<section id="reading-json-data" class="level2">
+<h2 class="anchored" data-anchor-id="reading-json-data">Reading JSON data</h2>
+<section id="what-is-json" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-json">What is JSON?</h3>
+<ul>
+<li><p>JSON are the letters of Javascript Object Notation, is a lighter storing data format.</p></li>
+<li><p>It is very frequently used for APIs, data is stored using objects pair key-value.</p></li>
+</ul>
+<p><img src="pictures/json_example.png" class="img-fluid" width="292"></p>
+<p>For working with JSON in R we need to use <code>jsonlite</code> library.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># Reading JSON</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>iris_df <span class="ot">&lt;-</span> <span class="fu">read_json</span>(<span class="st">"data/iris.json"</span>, <span class="at">simplifyVector =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">head</span>(iris_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="reading-from-apis" class="level2">
+<h2 class="anchored" data-anchor-id="reading-from-apis">Reading from APIs</h2>
+<section id="what-is-an-api" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-an-api">What is an API</h3>
+<p>An application programming interface (API) is a set of defined rules that explain how computers or applications communicate with one another. In this section will learn how to use these tools for requesting data from a web server (get method).</p>
+<p>They can also be used for submitting forms (post method) or any interaction that the user can be allowed to —delete, put, etc.</p>
+</section>
+<section id="how-it-works" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-works">How it works</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pictures/api.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<ol type="1">
+<li><p>User or computer asks to the API following a pre-defined syntax. Normally this petitions are done with an URL following a defined structure.</p></li>
+<li><p>The API receives and verifies the petition and translates this petition to the corresponding system or database to retrieve and send the answer to the user.</p></li>
+<li><p>User receives the answer.</p></li>
+</ol>
+<p>This way the system or database is protected and the access is controlled via the API, that verifies and manages petitions.</p>
+</section>
+<section id="using-apis-with-r-httr2" class="level3">
+<h3 class="anchored" data-anchor-id="using-apis-with-r-httr2">Using APIs with R: <code>httr2</code></h3>
+<p>In R we are going to use <code>tidyverse</code> library called <code>httr2</code> that will help us using APIs.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="pictures/httr2.png" class="quarto-figure quarto-figure-left figure-img" width="92" height="88"></p>
+</figure>
+</div>
+</section>
+</section>
+<section id="api-example" class="level2">
+<h2 class="anchored" data-anchor-id="api-example">API Example</h2>
+<p>We are goint to work with the Instituto Nacional de Estadística (INE) API for retrieving information.</p>
+<p>The portal has an API where we can obtain data <a href="https://www.ine.es/dyngs/DataLab/es/manual.html?cid=45">here</a>.</p>
+<p>A normal URL for making request to the API has the following format…</p>
+<p><em>https://servicios.ine.es/wstempus/js/{idioma}/{función}/{input}[?parámetros]</em></p>
+<section id="obtaining-data-from-pci-ipc" class="level3">
+<h3 class="anchored" data-anchor-id="obtaining-data-from-pci-ipc">Obtaining data from PCI-IPC</h3>
+<p>We want to obtain information regarding Consumer Prices Index (PCI-IPC) evolution in Spain for different groups.</p>
+<p>For these we will need to manage how to implement the URL and make the request. You can use in these case an URL generator <a href="https://www.ine.es/dyngs/DataLab/manual.html?cid=66">here</a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Create basic request (by default is a GET, we can change it)</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/50903?date=20240101:20240630"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3"></a>req</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;httr2_request&gt;
+GET https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/50903?date=20240101:20240630
+Body: empty</code></pre>
+</div>
+</div>
+</section>
+<section id="perfoming-requests" class="level3">
+<h3 class="anchored" data-anchor-id="perfoming-requests">Perfoming requests</h3>
+<p>Once we have configured the request, we can perform it…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req)</span>
+<span id="cb5-2"><a href="#cb5-2"></a>resp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;httr2_response&gt;
+GET https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/50903?date=20240101:20240630
+Status: 200 OK
+Content-Type: application/json
+Body: In memory (126715 bytes)</code></pre>
+</div>
+</div>
+</section>
+<section id="responses-components-status" class="level3">
+<h3 class="anchored" data-anchor-id="responses-components-status">Responses Components: Status</h3>
+<p>If all goes correct we will receive a 200 response code (OK)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">resp_status</span>(resp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 200</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">resp_status_desc</span>(resp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "OK"</code></pre>
+</div>
+</div>
+<p>But something can go wrong… in that cases…</p>
+<ul>
+<li><p>404 - File not found</p></li>
+<li><p>403 - Permission denied.</p></li>
+<li><p>500 - Generic failure.</p></li>
+</ul>
+</section>
+<section id="responses-components-headers" class="level3">
+<h3 class="anchored" data-anchor-id="responses-components-headers">Responses Components: Headers</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resp_headers</span>(resp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;httr2_headers&gt;
+Date: Sat, 29 Aug 2026 23:09:51 GMT
+X-OneAgent-JS-Injection: true
+Server-Timing: dtTrId;desc="8492cc339e5562c711c52627b5fbed1f", dtSInfo;desc="0"
+Server-Timing: dtRpid;desc="-667437549"
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Content-Type
+X-Frame-options: DENY
+Cache-Control: public
+Expires: Thu, 1 Jan 1970 00:00:00 GMT
+ETag: "1788044991:dtagent103432607151238112TlV"
+Last-Modified: Sat, 29 Aug 2026 23:09:50 GMT
+Content-Type: application/json;charset=UTF-8
+Content-Language: es
+Set-Cookie: dtCookiec132n50s=v_4_srv_5_sn_DA107CFF4322E3154CA64C5A5B1B0A73_perc_100000_ol_0_mul_1_app-3A50b3efb0f7e34fcb_0; Path=/; Domain=.ine.es
+Set-Cookie: INE_WEB_COOKIE=es;Max-Age=31536000;Path=/
+Transfer-Encoding: chunked
+Set-Cookie: BIGipServerwstempus.ine.es_pool=2528197386.20480.0000; path=/; Httponly; Secure
+Pragma: public</code></pre>
+</div>
+</div>
+</section>
+<section id="responses-components-body" class="level3">
+<h3 class="anchored" data-anchor-id="responses-components-body">Responses Components: Body</h3>
+<p>Your requested data will be in the response body, we will obtain this information using JSON format…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>body_resp <span class="ot">&lt;-</span> <span class="fu">resp_body_json</span>(resp)</span>
+<span id="cb13-2"><a href="#cb13-2"></a></span>
+<span id="cb13-3"><a href="#cb13-3"></a>result_data <span class="ot">&lt;-</span> body_resp[[<span class="dv">1</span>]]<span class="sc">$</span>Data</span>
+<span id="cb13-4"><a href="#cb13-4"></a>result_data[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$Fecha
+[1] 1.717193e+12
+
+$FK_TipoDato
+[1] 1
+
+$FK_Periodo
+[1] 6
+
+$Anyo
+[1] 2024
+
+$Valor
+[1] 116.212
+
+$Secreto
+[1] FALSE</code></pre>
+</div>
+</div>
+</section>
+<section id="obtaining-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="obtaining-the-data">Obtaining the data</h3>
+<p>We can extract and prepare the data…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>ipc_data <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(</span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">list</span>(</span>
+<span id="cb15-3"><a href="#cb15-3"></a>    <span class="st">"year"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">2024</span>),</span>
+<span id="cb15-4"><a href="#cb15-4"></a>    <span class="st">"month"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>),</span>
+<span id="cb15-5"><a href="#cb15-5"></a>    <span class="st">"value"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>)</span>
+<span id="cb15-6"><a href="#cb15-6"></a>  )</span>
+<span id="cb15-7"><a href="#cb15-7"></a>) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(month <span class="sc">!=</span> <span class="dv">0</span>)</span>
+<span id="cb15-8"><a href="#cb15-8"></a></span>
+<span id="cb15-9"><a href="#cb15-9"></a><span class="cf">for</span> (res <span class="cf">in</span> result_data){</span>
+<span id="cb15-10"><a href="#cb15-10"></a>  temp_data <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(</span>
+<span id="cb15-11"><a href="#cb15-11"></a>    <span class="fu">list</span>(</span>
+<span id="cb15-12"><a href="#cb15-12"></a>      <span class="st">"year"</span> <span class="ot">=</span> <span class="fu">c</span>(res<span class="sc">$</span>Anyo[<span class="dv">1</span>]),</span>
+<span id="cb15-13"><a href="#cb15-13"></a>      <span class="st">"month"</span> <span class="ot">=</span> <span class="fu">c</span>(res<span class="sc">$</span>FK_Period[<span class="dv">1</span>]),</span>
+<span id="cb15-14"><a href="#cb15-14"></a>      <span class="st">"value"</span> <span class="ot">=</span> <span class="fu">c</span>(res<span class="sc">$</span>Valor[<span class="dv">1</span>])</span>
+<span id="cb15-15"><a href="#cb15-15"></a>    )</span>
+<span id="cb15-16"><a href="#cb15-16"></a>  )</span>
+<span id="cb15-17"><a href="#cb15-17"></a>  ipc_data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(ipc_data,temp_data)</span>
+<span id="cb15-18"><a href="#cb15-18"></a>}</span>
+<span id="cb15-19"><a href="#cb15-19"></a></span>
+<span id="cb15-20"><a href="#cb15-20"></a>ipc_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+   year month value
+  &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
+1  2024     6  116.
+2  2024     5  116.
+3  2024     4  115.
+4  2024     3  115.
+5  2024     2  114.
+6  2024     1  113.</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="other-cool-apis-you-can-try" class="level2">
+<h2 class="anchored" data-anchor-id="other-cool-apis-you-can-try">Other cool APIs you can try!!</h2>
+<ul>
+<li><p>https://medium.com/<span class="citation" data-cites="diego.coder/las-mejores-apis-públicas-para-practicar-programación-a7419ecc968e">@diego.coder/las-mejores-apis-públicas-para-practicar-programación-a7419ecc968e</span></p></li>
+<li><p>https://www.thecocktaildb.com</p></li>
+<li><p>Transport of London API. You can read and try the TFL_Api_Example.R file and see how it works.</p></li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

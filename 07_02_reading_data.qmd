@@ -1,2 +1,210 @@
 # Reading Data {.unnumbered}
 
+## Downloading data
+
+We are going to learn how to create a folder called **data** from R and download data inside it.
+
+1. Check if the folder **data** already exists in the current directory, if not you can create it.
+Use the following functions...
+
+* `file.exists()`
+* `dir.create()`
+
+2. Download the data about elections participation on Madrid Community (Spain) from the [following url](https://datos.comunidad.madrid/catalogo/dataset/929442fc-fef2-4f73-85a4-c4b02328531e/resource/4139576d-a11f-42be-a8de-48d37739f044/download/datos_electorales_elecciones_autonomicas_comunidad_de_madrid_2023.csv): 
+
+```{r}
+#| eval: false
+#| code-line-numbers: false
+data_url <- "https://datos.comunidad.madrid/catalogo/dataset/929442fc-fef2-4f73-85a4-c4b02328531e/resource/4139576d-a11f-42be-a8de-48d37739f044/download/datos_electorales_elecciones_autonomicas_comunidad_de_madrid_2023.csv"
+download.file(data_url, destfile="data/elections_data.csv")
+list.files("./data")
+```
+
+## CSV files
+
+Comma Separated files are designed to export and manage data in plain text, they are more interesting for storing tabular data. They use a delimiter like `,` for example to separate each value. The first row will be column names. 
+
+Learn more about CSV file an their properties [here](https://www.howtogeek.com/348960/what-is-a-csv-file-and-how-do-i-open-it/)
+
+## Importing Data with R-base: `read.table()`
+
+In R base we have `read.table()` functon to read data in simple way.
+
+```{r, echo=TRUE, eval=FALSE}
+# This is how we can read data with read.table
+# IMPORTANT: the file uses ; as separator
+elections_data <- read.table("data/elections_data.csv", 
+                             header = T, sep = ";")
+head(elections_data, 5)
+```
+
+```{r}
+elections_data <- read.table("data/elections_data.csv", 
+                             header = T, sep = ";")
+head(elections_data, 5)
+```
+
+Some important parameters...
+
+* **header**: TRUE if the file contains the column names in its first row, FALSE otherwise. 
+* **sep**: type of separator being use in the data: (`,`,`;`,`|`, etc.)
+* **na.strings**: choose which kind of character will represent the `NA` value. 
+* **nrows**: maximum number of rows to read
+* **skip**: number of rows to skip from being read.
+* **col.names**: vector with the names to use as columns, if the file contains a first row with columns use `header = F`
+
+
+## Tidyverse: `readr` package
+
+With **tidyverse** we have the **readr** package for reading data...
+
+```{r,echo=TRUE, message=F}
+library(tidyverse) # library(readr) for using single package
+```
+
+All `readr` function will do the data transformation and return a *tibble*. Some of the available functions...
+
+* `read_csv()` - files using `,` as delimiter
+* `read_csv2()` - files using `;` as delimiter
+* `read_tsv()` - files using tabulator as delimiter (`|`)
+* `read_delim()` - files using another type of delimiter, we will need to provide it as an argument. 
+
+By default the function to read CSV files is `read_csv`. 
+
+```{r}
+iris_df <- read_csv("data/iris.csv")
+iris_df
+```
+
+`read_csv` has been designed to read files that use a comma (`,`) as delimiter. 
+
+
+We can find some cases where the delimiter is different. The most common case occurs when we are working with files coming from *European* countries. 
+
+Look at the following file:
+
+```{r}
+iris_df2 <- read_csv("data/iris_esp.csv")
+iris_df2
+```
+
+Looks something is not correct when reading the file, the whole data is stored in a single columns not separating them correctly. If we see the file we will detect that the variables are separated using `;` delimiter, we can try another function then: `read_csv2`
+
+```{r}
+iris_df2 <- read_csv2("data/iris_esp.csv")
+iris_df2
+```
+
+Now the file has been red correctly. `read_csv2` has been designed to import data using a `;` delimiter that is very frequent on *European* countries and *Hispanic* cultures. While other countries trend to use `,` separator by default. 
+
+In addition we can find files using more specific delimiters different from the frequent ones. For much more specific cases we can use `read_delim` that has been designed for reading custom delimiters.
+
+```{r}
+iris_df3 <- read_delim("data/iris.txt", delim = "|")
+iris_df3
+```
+
+In this case we define on the function the delimiter being used in the file so R can separate each variable accordingly. 
+
+## Useful parameters for reading files
+
+In your reading functions you will found useful parameters you can define to adapt the reading depending on the file content.
+
+### Skip lines of the file
+
+You can skip lines of files when reading them using `skip` argument, this argument will start reading the file ignoring the first number of lines given
+
+```{r}
+# Use skip to avoid reading some lines
+df <- read_csv("Metadata line information
+                More information
+                a,b,c
+                1,2,3
+                4,5,6", skip=2)
+
+df
+```
+
+### Manage column names
+
+You can find files where column names are not given and the first line of the file is data you must have. By default first line will be always column names but you can override this behavior.
+
+```{r}
+df <- read_csv("7,8,9
+                1,2,3
+                4,5,6", col_names=FALSE)
+
+df
+```
+
+Other option will be give specific column names, using the same parameter...
+
+```{r}
+df <- read_csv("7,8,9
+                1,2,3
+                4,5,6", col_names=c("a", "b", "c"))
+
+df
+```
+
+### Defining NA variables
+
+Some data sets don't use NA or blank in their data and could use an specific value. In this case we are using "nan" when data is not available. We can tell the read function how to interpert a NA in the data...
+
+```{r}
+df <- read_csv("a,b,c
+                1,nan,3
+                4,5,nan", na = "nan")
+
+df
+```
+
+## Properly formatting the column names
+
+Following conventions column names should follow some rules, we can make sure these rules are being applied with `janitor` package:
+
+```{r, echo=TRUE}
+df <- read_csv("Name Surname, Is Smoker, PATIENT_AGE 
+                Juan Montero, YES, 35
+                Maria Chacón, NO, 64") %>% 
+  janitor::clean_names()
+
+df
+```
+
+## Reading excel data with `readxl`
+
+One of the most common file formats you may found are excel files, for reading them there is an special library not found in `readr`, you need to work with `readxl`
+
+```{r}
+library(readxl)
+```
+
+You can read an excel file using `read_excel` function...
+
+```{r}
+iris_data <- read_excel("data/iris.xlsx",sheet = 1)
+
+head(iris_data)
+```
+
+Consider that we have provided the sheet number as an argument so the function knows which sheet to read. By default it will always read the first sheet (independently if it is hided or not).
+
+You can also provide the name of sheet instead of the number. 
+
+```{r}
+
+iris_data <- read_excel("data/iris.xlsx",
+sheet = "Sheet1")
+head(iris_data)
+```
+
+For excel you can work with the ranges available on the sheets, so you can be more specific regarding which part to read. 
+
+```{r}
+iris_data <- read_excel("data/iris.xlsx",
+sheet = 1, range = "C1:E40")
+head(iris_data)
+```
+
+You can use `cell_cols()` or `cell_rows()` with range argument to specify only one part of the range.

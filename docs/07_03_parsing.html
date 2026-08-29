@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -395,8 +429,23 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#parsing-vectors" id="toc-parsing-vectors" class="nav-link active" data-scroll-target="#parsing-vectors">Parsing vectors</a></li>
+  <li><a href="#kind-of-parsers" id="toc-kind-of-parsers" class="nav-link" data-scroll-target="#kind-of-parsers">Kind of parsers</a></li>
+  <li><a href="#parsing-numbers" id="toc-parsing-numbers" class="nav-link" data-scroll-target="#parsing-numbers">Parsing numbers</a></li>
+  <li><a href="#parsing-strings" id="toc-parsing-strings" class="nav-link" data-scroll-target="#parsing-strings">Parsing Strings</a></li>
+  <li><a href="#parsing-factors" id="toc-parsing-factors" class="nav-link" data-scroll-target="#parsing-factors">Parsing Factors</a></li>
+  <li><a href="#parsing-dates-and-times" id="toc-parsing-dates-and-times" class="nav-link" data-scroll-target="#parsing-dates-and-times">Parsing Dates and Times</a></li>
+  <li><a href="#parsing-a-file" id="toc-parsing-a-file" class="nav-link" data-scroll-target="#parsing-a-file">Parsing a file</a>
+  <ul class="collapse">
+  <li><a href="#how-readr-parse-correctly-the-data" id="toc-how-readr-parse-correctly-the-data" class="nav-link" data-scroll-target="#how-readr-parse-correctly-the-data">How readr parse correctly the data?</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -420,8 +469,301 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p><strong>read_csv</strong> function realizes a parsing of text file. This means it converts a text file in an organized data structure.</p>
+<section id="parsing-vectors" class="level2">
+<h2 class="anchored" data-anchor-id="parsing-vectors">Parsing vectors</h2>
+<p>For understanding better who it is does that we need to understand <strong>parsing</strong> functions. This functions will transform a vector of characters into an speciallized data vector.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">parse_logical</span>(<span class="fu">c</span>(<span class="st">"T"</span>, <span class="st">"F"</span>, <span class="st">"F"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> logi [1:3] TRUE FALSE FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">parse_integer</span>(<span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"4"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> int [1:2] 1 4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">parse_date</span>(<span class="fu">c</span>(<span class="st">"2022-01-04"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Date[1:1], format: "2022-01-04"</code></pre>
+</div>
+</div>
+<p>All <code>parse</code> functions are uniform: the first argument is the vector to parse and the <code>na</code> argument lend us decide with value treat as a missing value.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_integer</span>(<span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"4"</span>, <span class="st">"."</span>), <span class="at">na=</span><span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  1  4 NA</code></pre>
+</div>
+</div>
+<p>If something goes wrong during the process a warning message will be displayed to inform us</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_integer</span>(<span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"4"</span>, <span class="st">"c"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: 1 parsing failure.
+row col               expected actual
+  3  -- no trailing characters      c</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  1  4 NA
+attr(,"problems")
+# A tibble: 1 × 4
+    row   col expected               actual
+  &lt;int&gt; &lt;int&gt; &lt;chr&gt;                  &lt;chr&gt; 
+1     3    NA no trailing characters c     </code></pre>
+</div>
+</div>
+</section>
+<section id="kind-of-parsers" class="level2">
+<h2 class="anchored" data-anchor-id="kind-of-parsers">Kind of parsers</h2>
+<ul>
+<li><p><code>parse_logical()</code> and <code>parse_integer()</code> for logical and integer values.</p></li>
+<li><p><code>parse_double()</code> and <code>parse_number()</code> for numbers (second one more flexible)</p></li>
+<li><p><code>parse_factor()</code> for categorical values (factors)</p></li>
+<li><p><code>parse_datetime()</code>, <code>parse_date()</code> and <code>parse_time()</code> for times and dates.</p></li>
+</ul>
+</section>
+<section id="parsing-numbers" class="level2">
+<h2 class="anchored" data-anchor-id="parsing-numbers">Parsing numbers</h2>
+<p>Numbers are quite complex as they have three main problems:</p>
+<ol type="1">
+<li>Numbers can be described differently depending on the culture/language: 1,46 or 1.45</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_double</span>(<span class="st">"1,45"</span>, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">decimal_mark =</span> <span class="st">","</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.45</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Sometimes we can find symbols in the numbers: 100%</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_number</span>(<span class="st">"100$"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 100</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_number</span>(<span class="st">"39%"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 39</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_number</span>(<span class="st">"Me costó 100 €"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 100</code></pre>
+</div>
+</div>
+<ol start="3" type="1">
+<li>Related with the first issue, representation can change on aggregation level: 1.000.000 or 1000000 or 1,000,000 or 1000K or 1M</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_number</span>(<span class="st">"%100,330"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 100330</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_number</span>(<span class="st">"100.330€$"</span>, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">grouping_mark =</span> <span class="st">"."</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 100330</code></pre>
+</div>
+</div>
+</section>
+<section id="parsing-strings" class="level2">
+<h2 class="anchored" data-anchor-id="parsing-strings">Parsing Strings</h2>
+<p>Computers represent text using hexadecimal code (look for <a href="https://elcodigoascii.com.ar">ASCII</a>)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">charToRaw</span>(<span class="st">"Hello"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 48 65 6c 6c 6f</code></pre>
+</div>
+</div>
+<p>The mapping between hexadecimal values and characters are called <strong>encoding</strong>. By default <strong>readr</strong> uses UTF-8, general by default.</p>
+<p>Sometimes in cal fail with old systems files:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="st">"Nos vemos ma</span><span class="sc">\xf1a</span><span class="st">na"</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_character</span>(x1, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">"ISO-8859-1"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Nos vemos mañana"</code></pre>
+</div>
+</div>
+<p>We can avoid issues, analyzing the text prior to find the best encoding</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="st">"Nos vemos ma</span><span class="sc">\xf1a</span><span class="st">na"</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">guess_encoding</span>(<span class="fu">charToRaw</span>(x1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  encoding   confidence
+  &lt;chr&gt;           &lt;dbl&gt;
+1 ISO-8859-1       0.52
+2 ISO-8859-2       0.35
+3 ISO-8859-9       0.35</code></pre>
+</div>
+</div>
+</section>
+<section id="parsing-factors" class="level2">
+<h2 class="anchored" data-anchor-id="parsing-factors">Parsing Factors</h2>
+<p>n this case we will need to provide <code>parse_factor()</code> a vector with the possible levels:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_factor</span>(</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"man"</span>, <span class="st">"woman"</span>, <span class="st">"woman"</span>, <span class="st">"unicorn"</span>),</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"man"</span>, <span class="st">"woman"</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: 1 parsing failure.
+row col           expected  actual
+  4  -- value in level set unicorn</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] man   woman woman &lt;NA&gt; 
+attr(,"problems")
+# A tibble: 1 × 4
+    row   col expected           actual 
+  &lt;int&gt; &lt;int&gt; &lt;chr&gt;              &lt;chr&gt;  
+1     4    NA value in level set unicorn
+Levels: man woman</code></pre>
+</div>
+</div>
+</section>
+<section id="parsing-dates-and-times" class="level2">
+<h2 class="anchored" data-anchor-id="parsing-dates-and-times">Parsing Dates and Times</h2>
+<p><code>parse_datetime()</code> for dates with hour. In the following order: <em>year, month, day, hour, minute and second</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_datetime</span>(<span class="st">"2024-01-01T1015"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2024-01-01 10:15:00 UTC"</code></pre>
+</div>
+</div>
+<p><code>parse_date()</code> for dates. In the following order: <em>year, month, day</em> using <code>-</code> or <code>/</code> as separator</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_date</span>(<span class="st">"2024/01/01"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2024-01-01"</code></pre>
+</div>
+</div>
+<p><code>parse_time()</code> for time. In the following order: <em>hour, minute, seconds</em> using <code>:</code> as separator. <code>am</code> or <code>pm</code> are optional.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_time</span>(<span class="st">"10:15 am"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>10:15:00</code></pre>
+</div>
+</div>
+<p>You can define a format of the input to help the parsing…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_date</span>(<span class="st">"01/04/2023"</span>, <span class="st">"%d/%m/%y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: 1 parsing failure.
+row col           expected     actual
+  1  -- date like %d/%m/%y 01/04/2023</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+</div>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="3" style="font-size:20px;">
+<div class="quarto-layout-row">
+<section id="year" class="level4 quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<h4 class="anchored" data-anchor-id="year">Year</h4>
+<ul>
+<li><p><strong>%Y</strong> 4 digits</p></li>
+<li><p><strong>%y</strong> 2 digits*</p></li>
+</ul>
+</section>
+<section id="month" class="level4 quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<h4 class="anchored" data-anchor-id="month">Month</h4>
+<ul>
+<li><p><strong>%m</strong> 2 digits</p></li>
+<li><p><strong>%b</strong> “jan”</p></li>
+<li><p><strong>%B</strong> “january”</p></li>
+</ul>
+</section>
+<section id="day" class="level4 quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<h4 class="anchored" data-anchor-id="day">Day</h4>
+<ul>
+<li><p><strong>%d</strong> 2 digits</p></li>
+<li><p><strong>%e</strong> space</p></li>
+</ul>
+</section>
+</div>
+</div>
+<p>*00-69 -&gt; 2000-2069, 70-99 -&gt; 1970-1999</p>
+<p>You can define a format of the input to help the parsing…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_time</span>(<span class="st">"10-30"</span>, <span class="st">"%H-%M"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>10:30:00</code></pre>
+</div>
+</div>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="2" style="font-size:20px;">
+<div class="quarto-layout-row">
+<section id="time" class="level4 quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<h4 class="anchored" data-anchor-id="time">Time</h4>
+<ul>
+<li><p><strong>%H</strong> 0-23 hours (24)</p></li>
+<li><p><strong>%p</strong> 0-12 hours (12), use with <strong>%p</strong></p></li>
+<li><p><strong>%p</strong> AM/PM</p></li>
+<li><p><strong>%M</strong> minutes</p></li>
+</ul>
+</section>
+<section id="section" class="level4 quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<h4 class="anchored" data-anchor-id="section">__</h4>
+<ul>
+<li><p><strong>%s</strong> seconds (integer)</p></li>
+<li><p><strong>%OS</strong> real seconds</p></li>
+<li><p><strong>%Z</strong> time zone (e.g.&nbsp;America/Chicago)</p></li>
+<li><p><strong>%z</strong> UTC offset (e.g.&nbsp;+0800)</p></li>
+</ul>
+</section>
+</div>
+</div>
+<p>Discover more about formatting dates <a href="https://readr.tidyverse.org/reference/parse_datetime.html">here</a></p>
+</section>
+<section id="parsing-a-file" class="level2">
+<h2 class="anchored" data-anchor-id="parsing-a-file">Parsing a file</h2>
+<section id="how-readr-parse-correctly-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="how-readr-parse-correctly-the-data">How readr parse correctly the data?</h3>
+<p><strong>readr</strong> will guess the correct the type of each column as follows:</p>
+<ul>
+<li><p>Read the first 1000 rows</p></li>
+<li><p>Guess the type using a determined heuristic</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">guess_parser</span>(<span class="st">"2022-01-01"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "date"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">parse_guess</span>(<span class="st">"2022-01-01"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Date[1:1], format: "2022-01-01"</code></pre>
+</div>
+</div>
+<p>Sometimes it can fail…</p>
+<ul>
+<li><p>It is possible that the first 1000 rows have special cases (e.g.&nbsp;1000 integer values in a double variable)</p></li>
+<li><p>Missing values can appear at the column.</p></li>
+</ul>
+<p>It is suggested to try to inform the type of each column when it is possible.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Not specifying the types</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"data/df-na.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can force it two ways…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Specifying the types</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"data/df-na.csv"</span>,</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">col_types =</span> <span class="fu">list</span>(<span class="fu">col_double</span>(),</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">col_character</span>(),</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">col_character</span>()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Other alternative</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"data/df-na.csv"</span>, <span class="at">col_types=</span><span class="st">"ncc"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
