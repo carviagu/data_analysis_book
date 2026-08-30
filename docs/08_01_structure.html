@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -374,18 +408,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Relational Data</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./08_03_setoperations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Set Operations</span></a>
-  </div>
-</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./09_clean.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Clean Data</span></a>
+ <span class="menu-text">Cleaning Data</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -399,14 +427,14 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09_02_strings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">String</span></a>
+  <a href="./09_02_dates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dates &amp; Time</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09_03_dates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Dates</span></a>
+  <a href="./09_03_strings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">String</span></a>
   </div>
 </li>
       </ul>
@@ -445,8 +473,24 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#pivoting-data" id="toc-pivoting-data" class="nav-link active" data-scroll-target="#pivoting-data">Pivoting Data</a>
+  <ul class="collapse">
+  <li><a href="#pivot_longer" id="toc-pivot_longer" class="nav-link" data-scroll-target="#pivot_longer"><code>pivot_longer()</code></a></li>
+  <li><a href="#pivot_wider" id="toc-pivot_wider" class="nav-link" data-scroll-target="#pivot_wider"><code>pivot_wider()</code></a></li>
+  <li><a href="#to-sum-up" id="toc-to-sum-up" class="nav-link" data-scroll-target="#to-sum-up">To Sum Up</a></li>
+  </ul></li>
+  <li><a href="#arranging-columns" id="toc-arranging-columns" class="nav-link" data-scroll-target="#arranging-columns">Arranging Columns</a>
+  <ul class="collapse">
+  <li><a href="#separate" id="toc-separate" class="nav-link" data-scroll-target="#separate"><code>separate</code></a></li>
+  <li><a href="#unite" id="toc-unite" class="nav-link" data-scroll-target="#unite"><code>unite</code></a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -470,8 +514,250 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="pivoting-data" class="level2">
+<h2 class="anchored" data-anchor-id="pivoting-data">Pivoting Data</h2>
+<p>Normally, the data we receive is not properly organized. So the first, step is to identify the variables and observations.</p>
+<p>Once identified, we will need to solve one of these problems:</p>
+<ul>
+<li>A variable is disperse in several columns.</li>
+<li>An observation is disperse in multiple rows.</li>
+</ul>
+<p>This can be resolved using <code>pivot_longer()</code> or <code>pivot_wider()</code></p>
+<section id="pivot_longer" class="level3">
+<h3 class="anchored" data-anchor-id="pivot_longer"><code>pivot_longer()</code></h3>
+<p>The same variable is organized in different columns:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>table4a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  country     `1999` `2000`
+  &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;
+1 Afghanistan    745   2666
+2 Brazil       37737  80488
+3 China       212258 213766</code></pre>
+</div>
+</div>
+<p>We will need to <strong>pivot</strong> this columns a new pair of variables. We need to know:</p>
+<ul>
+<li>The columns to pivot.</li>
+<li>The name of the variable that will receive the column names. <code>year</code> in this case.</li>
+<li>The name of the variable that will receive the values. <code>cases</code> in this case.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>table4a <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb3-3"><a href="#cb3-3"></a>    <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">1999</span><span class="st">`</span>, <span class="st">`</span><span class="at">2000</span><span class="st">`</span>), <span class="co"># columns to pivot</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>    <span class="at">names_to =</span> <span class="st">"year"</span>, <span class="co"># variable to host colnames</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>    <span class="at">values_to =</span> <span class="st">"cases"</span> <span class="co"># variable to host values</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  country     year   cases
+  &lt;chr&gt;       &lt;chr&gt;  &lt;dbl&gt;
+1 Afghanistan 1999     745
+2 Afghanistan 2000    2666
+3 Brazil      1999   37737
+4 Brazil      2000   80488
+5 China       1999  212258
+6 China       2000  213766</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note" style="font-size:30px;">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Take into account we use (`) symbol in the name of the columns because they have a number as name.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="pivot_wider" class="level3">
+<h3 class="anchored" data-anchor-id="pivot_wider"><code>pivot_wider()</code></h3>
+<p>The same observation is organized in several rows. In this example each observation shows each country each year. You see each observation takes two rows…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>table2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 4
+   country      year type            count
+   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;
+ 1 Afghanistan  1999 cases             745
+ 2 Afghanistan  1999 population   19987071
+ 3 Afghanistan  2000 cases            2666
+ 4 Afghanistan  2000 population   20595360
+ 5 Brazil       1999 cases           37737
+ 6 Brazil       1999 population  172006362
+ 7 Brazil       2000 cases           80488
+ 8 Brazil       2000 population  174504898
+ 9 China        1999 cases          212258
+10 China        1999 population 1272915272
+11 China        2000 cases          213766
+12 China        2000 population 1280428583</code></pre>
+</div>
+</div>
+<p>We will need to organize the data showing only one row per observation. For doing that we need…</p>
+<ul>
+<li><p>The column where we will extract the names for the new variables. <code>type</code> in this case.</p></li>
+<li><p>The column where we will extract the valus for each variable. <code>count</code> in this case.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>table2 <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb7-3"><a href="#cb7-3"></a>    <span class="at">names_from =</span> type, <span class="co"># origin column with variables</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>    <span class="at">values_from =</span> count <span class="co"># origin column with values</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  country      year  cases population
+  &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;
+1 Afghanistan  1999    745   19987071
+2 Afghanistan  2000   2666   20595360
+3 Brazil       1999  37737  172006362
+4 Brazil       2000  80488  174504898
+5 China        1999 212258 1272915272
+6 China        2000 213766 1280428583</code></pre>
+</div>
+</div>
+</section>
+<section id="to-sum-up" class="level3">
+<h3 class="anchored" data-anchor-id="to-sum-up">To Sum Up</h3>
+<ul>
+<li><p><code>pivot_longer()</code> will eliminate columns and create rows, makes data more large.</p></li>
+<li><p><code>pivot_wider()</code> will eliminate rows and create columns, makes data more wide.</p></li>
+</ul>
+</section>
+</section>
+<section id="arranging-columns" class="level2">
+<h2 class="anchored" data-anchor-id="arranging-columns">Arranging Columns</h2>
+<section id="separate" class="level3">
+<h3 class="anchored" data-anchor-id="separate"><code>separate</code></h3>
+<p>We can found situations when a column contains information related to two or more variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>table3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  country      year rate             
+  &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;            
+1 Afghanistan  1999 745/19987071     
+2 Afghanistan  2000 2666/20595360    
+3 Brazil       1999 37737/172006362  
+4 Brazil       2000 80488/174504898  
+5 China        1999 212258/1272915272
+6 China        2000 213766/1280428583</code></pre>
+</div>
+</div>
+<p>We can use <code>separate()</code> to divide one column in two.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>table3 <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">separate</span>(rate, </span>
+<span id="cb11-3"><a href="#cb11-3"></a>           <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"cases"</span>, <span class="st">"population"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  country      year cases  population
+  &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;     
+1 Afghanistan  1999 745    19987071  
+2 Afghanistan  2000 2666   20595360  
+3 Brazil       1999 37737  172006362 
+4 Brazil       2000 80488  174504898 
+5 China        1999 212258 1272915272
+6 China        2000 213766 1280428583</code></pre>
+</div>
+</div>
+<p>By default it makes the separation when finds a non-alphanumeric value. But you can specify the character to use.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>table3 <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">separate</span>(rate, </span>
+<span id="cb13-3"><a href="#cb13-3"></a>           <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"cases"</span>, <span class="st">"population"</span>),</span>
+<span id="cb13-4"><a href="#cb13-4"></a>           <span class="at">sep =</span> <span class="st">"/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  country      year cases  population
+  &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;     
+1 Afghanistan  1999 745    19987071  
+2 Afghanistan  2000 2666   20595360  
+3 Brazil       1999 37737  172006362 
+4 Brazil       2000 80488  174504898 
+5 China        1999 212258 1272915272
+6 China        2000 213766 1280428583</code></pre>
+</div>
+</div>
+<p>You can do it with integer values too as position to make separation.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>table5x <span class="ot">&lt;-</span> table3 <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">separate</span>(year, </span>
+<span id="cb15-3"><a href="#cb15-3"></a>           <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"century"</span>, <span class="st">"year"</span>),</span>
+<span id="cb15-4"><a href="#cb15-4"></a>           <span class="at">sep =</span> <span class="dv">2</span> <span class="co"># make separation after 2 characters</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a>           )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>table5x <span class="ot">&lt;-</span> table3 <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">separate</span>(year, </span>
+<span id="cb16-3"><a href="#cb16-3"></a>           <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"century"</span>, <span class="st">"year"</span>),</span>
+<span id="cb16-4"><a href="#cb16-4"></a>           <span class="at">sep =</span> <span class="dv">2</span> <span class="co"># make separation after 2 characters</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a>           ) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-6"><a href="#cb16-6"></a>  <span class="fu">select</span>(<span class="sc">-</span>rate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>It is convenient to convert the value, otherwise the new columns will be Strings.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>table3 <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">separate</span>(rate, </span>
+<span id="cb17-3"><a href="#cb17-3"></a>           <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"cases"</span>, <span class="st">"population"</span>),</span>
+<span id="cb17-4"><a href="#cb17-4"></a>           <span class="at">convert =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  country      year  cases population
+  &lt;chr&gt;       &lt;dbl&gt;  &lt;int&gt;      &lt;int&gt;
+1 Afghanistan  1999    745   19987071
+2 Afghanistan  2000   2666   20595360
+3 Brazil       1999  37737  172006362
+4 Brazil       2000  80488  174504898
+5 China        1999 212258 1272915272
+6 China        2000 213766 1280428583</code></pre>
+</div>
+</div>
+</section>
+<section id="unite" class="level3">
+<h3 class="anchored" data-anchor-id="unite"><code>unite</code></h3>
+<p>For concatenate columns we can use <code>unite()</code>. It has as arguments the new variable, columns and separator to use.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># Separated century and year</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>table5x <span class="sc">%&gt;%</span> </span>
+<span id="cb19-3"><a href="#cb19-3"></a>  <span class="fu">select</span>(country, </span>
+<span id="cb19-4"><a href="#cb19-4"></a>         century, year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  country     century year 
+  &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt;
+1 Afghanistan 19      99   
+2 Afghanistan 20      00   
+3 Brazil      19      99   
+4 Brazil      20      00   
+5 China       19      99   
+6 China       20      00   </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>table5x <span class="sc">%&gt;%</span> </span>
+<span id="cb21-2"><a href="#cb21-2"></a>  <span class="fu">unite</span>(full_year, </span>
+<span id="cb21-3"><a href="#cb21-3"></a>        century, year, </span>
+<span id="cb21-4"><a href="#cb21-4"></a>        <span class="at">sep =</span> <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 2
+  country     full_year
+  &lt;chr&gt;       &lt;chr&gt;    
+1 Afghanistan 1999     
+2 Afghanistan 2000     
+3 Brazil      1999     
+4 Brazil      2000     
+5 China       1999     
+6 China       2000     </code></pre>
+</div>
+</div>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

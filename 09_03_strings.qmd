@@ -1,0 +1,272 @@
+# String {.unnumbered}
+
+Remember an String is a text format here some examples...
+
+```{r}
+#| code-line-numbers: false
+#| eval: false
+"This is a String"
+```
+
+```{r}
+#| code-line-numbers: false
+#| eval: false
+c("one", "two and three")
+```
+
+For doing all that we will use `stringr` a tidyverse package developed to work with Strings. All the functions in this package start with `str_`
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+#| message: false
+library(tidyverse) # use library(stringr) for this package only
+```
+
+## Basic string functions
+
+### Length of a string
+
+We can compute the length of an string using `str_length()`
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+str_length("Hello")
+```
+
+All operations can be applied to vectors too...
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+str_length(c("Hello", "World!"))
+```
+
+What will be the behavior with blank spaces? Blank spaces are consider characters too, so they will count on the total.
+
+```{r}
+#| code-line-numbers: false
+str_length("CUNEF EDU")
+```
+
+### Subsetting strings
+
+You can extract parts of strings...
+
+```{r}
+#| code-line-numbers: false
+str_sub("Hello World",start = 1, end = 5)
+```
+
+Or by the end...
+
+```{r}
+#| code-line-numbers: false
+str_sub("Hello World",start = -5, end = -1)
+```
+
+### Changing case
+
+You can change the case of the letters. There are several options...
+
+- All to lower case with `str_to_lower`
+- All to upper case with `str_to_upper`
+- All to title case with `str_to_title`, first letter of each word in upper case, rest on lower case.
+
+```{r}
+#| code-line-numbers: false
+str_to_lower("HeLlo wOrlD")
+```
+
+```{r}
+#| code-line-numbers: false
+str_to_upper("HeLlo wOrlD")
+```
+
+```{r}
+#| code-line-numbers: false
+str_to_title("HeLlo wOrlD")
+```
+
+### Concatenating Strings
+
+We can combine (concatenate) Strings using `str_c()`
+
+```{r, echo=TRUE}
+str_c("Va", "len", "cia")
+```
+
+You can specify the separation string used when doing the concatenation with the `sep` argument.
+
+```{r, echo=TRUE}
+str_c("One", "two", sep=",")
+```
+
+This works with vectors too...
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+str_c("prefix-", c("X", "Y", "Z"), "-sufix")
+```
+
+For collapsing a full large text in a single string with `collapse` argument.
+
+```{r, echo=TRUE}
+str_c(c("A", "long", "time", "ago,", 
+        "in", "a", "galaxy", "far", "far", "away..."), 
+      collapse = " ")
+```
+
+## Regular Expressions
+
+Regular expressions (*regexp*) are tools designed to find patterns in texts. We can do several thins with patterns...
+
+- Find which strings complain with the pattern.
+- Find in which position appears the pattern.
+- Extract the pattern from the string.
+- Replace the pattern in the string.
+
+For example, we want to detect ES followed by two numbers"
+
+```{r}
+#| code-line-numbers: false
+#| warning: false
+x1 <- "ES49 "
+x2 <- "Mi account number is ES34 30..."
+x3 <- "I live in Spain (ES)"
+
+str_view_all(c(x1,x2,x3), 'ES[0-9]{2}')
+```
+
+In the example we have created a pattern `'ES[0-9]{2}'` to match the structure we need to find 'ES' followed by two numbers. We do a search on the examples and we can see that the pattern has been found in the two first examples.
+
+::: {.callout-note appearance="simple"}
+In the example seen before, we have use `str_view`. This function is used to validate patterns and for learning purposes only.
+:::
+
+For building patterns, R has a wide range of tools we can use to develop the proper pattern syntax. General rules for building them are...
+
+- exact word or text we want to find.
+- `.` identifies any character
+- `\\s` blank space
+- `[]` set of elements e.g. `[abc]`: a or b or c
+- `[0-9]` all numbers from 0 to 9
+- `[a-z]` all letters in lower case
+- `[A-Z]` all letters in upper case
+- We can use `+` to repeat a pattern several times, e.g. two numbers: `[0-9][0-9]` or `[0-9]+` will work.
+- `ab|bc` two possible valid options ab or bc
+- `^` start pattern at the beginning
+- `$` start pattern at the end
+
+You test and try *regex* in the following [link](https://regexr.com) 
+
+We will review all of them with function examples...
+
+### Finding patterns: `str_detect`
+
+For trying to find if a text complies with a pattern we can use `str_detect` function. 
+
+Imagine that we want to find the words that contain `Le` (**exact match**) in the following list.
+
+```{r}
+x <- c("Cats", "Leia Organa", "Capital", "Leman")
+str_detect(x, "Le")
+```
+
+The output of `str_detect` is a logical value. `TRUE` if the pattern appears and `FALSE` otherwise. 
+
+So, how to use it properly on data analysis. Imagine the following example...
+
+```{r}
+sample_tb <- tibble(
+  "texts" = c("234H",
+                "B12, C15, E14",
+                "Academic Year 1",
+                "Two and a half Men",
+                "Account ES14 2345 5678 2456")
+)
+
+sample_tb
+```
+
+We want to find all texts that contain a letter `a`. We will do it using `filter`...
+
+```{r}
+sample_tb %>% 
+  filter(str_detect(texts, "a"))
+```
+
+
+The detect is only looking for exact match of letter `a`, let's try to find any one that starts with letter `a`
+
+For that we need to use \$ symbol
+
+```{r}
+sample_tb %>% 
+  filter(str_detect(texts, "^a"))
+```
+
+Looks nothing is returned, maybe is due to the case, we can solve it two ways...
+
+```{r}
+sample_tb %>% 
+  filter(str_detect(texts, "^a|^A"))
+
+sample_tb %>% 
+  filter(
+    str_detect(
+    str_to_lower(texts), "^a"))
+```
+Last example, we want any text with a combination of two or more numbers...
+
+```{r}
+sample_tb %>% 
+  filter(str_detect(texts, "[0-9][0-9]+"))
+```
+
+### Counting number of appearances: `str_count`
+
+We can count the times the pattern is detected with `str_count`
+
+For example, count the number of `a` in each text.
+
+```{r}
+sample_tb %>% 
+  mutate(
+    as = str_count(texts,"a")
+  )
+```
+
+### Replacing: `str_replace`
+
+Another usage of patterns is to detect them and make replacements, for example for treating data and replace it. We can do this with `str_replace()` or `str_replace_all()`.
+
+In the example we want to replace the blank spaces by `_`\`
+
+```{r}
+sample_tb %>% 
+  mutate(
+    text_clean = str_replace(texts, "\\s", "_")
+  )
+```
+
+By default it only replaces one match, if we want to apply it to every coincidence we need to use `str_replace_all`\`
+
+```{r}
+sample_tb %>% 
+  mutate(
+    text_clean = str_replace_all(texts, "\\s", "_")
+  )
+```
+
+### Extracting: `str_extract`
+
+We can also extract patterns matched...
+
+In the example we extract any combination of a letter+number:
+
+```{r}
+sample_tb %>% 
+  mutate(
+   letter_num = str_extract(texts, "[A-Z][0-9]")
+  )
+```
+

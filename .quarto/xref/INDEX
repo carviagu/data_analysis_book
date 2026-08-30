@@ -154,5 +154,17 @@
   },
   "09_03_dates.qmd": {
     "09_03_dates.html": "8aded8eb"
+  },
+  "09_01_strings.qmd": {
+    "09_01_strings.html": "7e15becb"
+  },
+  "09_02_factors.qmd": {
+    "09_02_factors.html": "adcf7fd1"
+  },
+  "09_02_dates.qmd": {
+    "09_02_dates.html": "9102fc99"
+  },
+  "09_03_strings.qmd": {
+    "09_03_strings.html": "c0128c1d"
   }
 }

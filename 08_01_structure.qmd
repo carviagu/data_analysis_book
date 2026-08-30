@@ -1,1 +1,155 @@
 # Pivots & Columns {.unnumbered}
+
+```{r, echo=FALSE, message=FALSE}
+#| code-line-numbers: false
+library(tidyverse)
+```
+
+## Pivoting Data
+Normally, the data we receive is not properly organized. So the first, step is to identify the variables and observations. 
+
+Once identified, we will need to solve one of these problems:
+
+* A variable is disperse in several columns.
+* An observation is disperse in multiple rows. 
+
+This can be resolved using `pivot_longer()` or `pivot_wider()` 
+
+### `pivot_longer()`
+
+The same variable is organized in different columns:
+
+```{r}
+#| code-line-numbers: false
+table4a
+```
+
+
+We will need to **pivot** this columns a new pair of variables. We need to know:
+
+* The columns to pivot. 
+* The name of the variable that will receive the column names. `year` in this case.
+* The name of the variable that will receive the values. `cases` in this case.
+
+
+```{r, echo=TRUE}
+table4a %>% 
+  pivot_longer(
+    cols = c(`1999`, `2000`), # columns to pivot
+    names_to = "year", # variable to host colnames
+    values_to = "cases" # variable to host values
+  )
+
+```
+
+::: {.callout-note appearance="simple" style="font-size:30px;"}
+
+Take into account we use (`) symbol in the name of the columns because they have a number as name. 
+
+:::
+
+### `pivot_wider()`
+
+The same observation is organized in several rows. In this example each observation shows each country each year. You see each observation takes two rows...
+
+```{r}
+#| code-line-numbers: false
+table2
+```
+
+We will need to organize the data showing only one row per observation. For doing that we need...
+
+* The column where we will extract the names for the new variables. `type` in this case.
+
+* The column where we will extract the valus for each variable. `count` in this case.
+
+```{r, echo=TRUE}
+table2 %>% 
+  pivot_wider(
+    names_from = type, # origin column with variables
+    values_from = count # origin column with values
+  )
+```
+
+
+### To Sum Up
+
+* `pivot_longer()` will eliminate columns and create rows, makes data more large. 
+
+* `pivot_wider()` will eliminate rows and create columns, makes data more wide. 
+
+## Arranging Columns
+
+### `separate`
+
+We can found situations when a column contains information related to two or more variables.
+
+```{r}
+#| code-line-numbers: false
+table3
+```
+
+We can use `separate()` to divide one column in two. 
+
+```{r, echo=T}
+table3 %>% 
+  separate(rate, 
+           into = c("cases", "population"))
+```
+
+By default it makes the separation when finds a non-alphanumeric value. But you can specify the character to use.
+
+```{r, echo=T}
+table3 %>% 
+  separate(rate, 
+           into = c("cases", "population"),
+           sep = "/")
+```
+
+You can do it with integer values too as position to make separation.
+
+```{r, echo=T, eval=F}
+table5x <- table3 %>% 
+  separate(year, 
+           into = c("century", "year"),
+           sep = 2 # make separation after 2 characters
+           )
+```
+
+```{r}
+table5x <- table3 %>% 
+  separate(year, 
+           into = c("century", "year"),
+           sep = 2 # make separation after 2 characters
+           ) %>% 
+  select(-rate)
+```
+
+
+It is convenient to convert the value, otherwise the new columns will be Strings. 
+
+```{r, echo=T}
+table3 %>% 
+  separate(rate, 
+           into = c("cases", "population"),
+           convert = TRUE)
+```
+
+### `unite`
+
+For concatenate columns we can use `unite()`. It has as arguments the new variable, columns and separator to use.
+
+```{r,echo=TRUE}
+# Separated century and year
+table5x %>% 
+  select(country, 
+         century, year)
+```
+
+```{r,echo=TRUE}
+table5x %>% 
+  unite(full_year, 
+        century, year, 
+        sep = "")
+```
+

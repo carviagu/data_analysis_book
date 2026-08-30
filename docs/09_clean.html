@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Clean Data – Data Analysis &amp; Information Extraction</title>
+<title>Cleaning Data – Data Analysis &amp; Information Extraction</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,7 +31,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./09_01_factors.html" rel="next">
-<link href="./08_03_setoperations.html" rel="prev">
+<link href="./08_02_relationaldata.html" rel="prev">
 <link href="./cunef_logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -82,7 +82,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./09_clean.html">Clean Data</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./09_clean.html">Cleaning Data</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -374,18 +374,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Relational Data</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./08_03_setoperations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Set Operations</span></a>
-  </div>
-</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./09_clean.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Clean Data</span></a>
+ <span class="menu-text">Cleaning Data</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -399,14 +393,14 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09_02_strings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">String</span></a>
+  <a href="./09_02_dates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dates &amp; Time</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09_03_dates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Dates</span></a>
+  <a href="./09_03_strings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">String</span></a>
   </div>
 </li>
       </ul>
@@ -445,15 +439,29 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link active" data-scroll-target="#data-wrangling">Data Wrangling</a>
+  <ul class="collapse">
+  <li><a href="#raw-data" id="toc-raw-data" class="nav-link" data-scroll-target="#raw-data">Raw Data</a></li>
+  <li><a href="#processed-data" id="toc-processed-data" class="nav-link" data-scroll-target="#processed-data">Processed Data</a></li>
+  </ul></li>
+  <li><a href="#cleaning-data" id="toc-cleaning-data" class="nav-link" data-scroll-target="#cleaning-data">Cleaning Data</a>
+  <ul class="collapse">
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Clean Data</h1>
+<h1 class="title">Cleaning Data</h1>
 </div>
 
 
@@ -470,8 +478,73 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="data-wrangling" class="level2">
+<h2 class="anchored" data-anchor-id="data-wrangling">Data Wrangling</h2>
+<p><strong>Objective</strong>: Make data ready for their future <strong>exploration</strong> and <strong>modelling</strong></p>
+<p>We need to convert <strong>raw data</strong> into <strong>processed data</strong></p>
+<section id="raw-data" class="level3">
+<h3 class="anchored" data-anchor-id="raw-data">Raw Data</h3>
+<ul>
+<li>Data as it appears on the source origin.</li>
+<li>Any manipulation has been done to them.</li>
+</ul>
+</section>
+<section id="processed-data" class="level3">
+<h3 class="anchored" data-anchor-id="processed-data">Processed Data</h3>
+<ul>
+<li>Each variable in a column.</li>
+<li>Each observation in a raw.</li>
+<li>Each observational unit is a cell.</li>
+<li>More complex data, interconnected tables.</li>
+</ul>
+<p>The process work as follows…</p>
+<ol type="1">
+<li>Importing the data</li>
+<li>Organizing the data</li>
+<li>Transforming the data</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pictures/data-science-wrangle.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="426"></p>
+</figure>
+</div>
+</section>
+</section>
+<section id="cleaning-data" class="level2">
+<h2 class="anchored" data-anchor-id="cleaning-data">Cleaning Data</h2>
+<p>We have learnt how to import and organize data structure for the analysis, but now we have to know how to transform the data to suit our needs and make mutations to clean it more and have it ready for our analytically purpose.</p>
+<p>We will follow focus on three groups of data…</p>
+<ul>
+<li>Strings</li>
+<li>Factors</li>
+<li>Dates and time</li>
+</ul>
+<section id="packages" class="level3">
+<h3 class="anchored" data-anchor-id="packages">Packages</h3>
+<p>For this part we are going to work with three data types, for each data type there is an special package implemented in the <strong>tidyverse</strong> ecosystem.</p>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="3">
+<div class="quarto-layout-row">
+<div class="column quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="pictures/stringr.png" class="img-fluid" style="width:100px"></p>
+<p>For working with Strings</p>
+</div>
+<div class="column quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="pictures/forcats.png" class="img-fluid" style="width:100px"></p>
+<p>For working with factors (categorical data)</p>
+</div>
+<div class="column quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="pictures/lubridate.png" class="img-fluid" style="width:100px"></p>
+<p>For working with dates and times.</p>
+</div>
+</div>
+</div>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -896,8 +969,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./08_03_setoperations.html" class="pagination-link" aria-label="Set Operations">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Set Operations</span>
+      <a href="./08_02_relationaldata.html" class="pagination-link" aria-label="Relational Data">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Relational Data</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

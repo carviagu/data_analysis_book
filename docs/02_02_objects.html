@@ -408,18 +408,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Relational Data</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./08_03_setoperations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Set Operations</span></a>
-  </div>
-</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./09_clean.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Clean Data</span></a>
+ <span class="menu-text">Cleaning Data</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -433,14 +427,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09_02_strings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">String</span></a>
+  <a href="./09_02_dates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dates &amp; Time</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09_03_dates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Dates</span></a>
+  <a href="./09_03_strings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">String</span></a>
   </div>
 </li>
       </ul>
@@ -1006,7 +1000,7 @@ Warning messages
  [1]  1  2  3  4  5  6  7  8  9 10
 
 [[3]]
-[1] "2026-08-30 10:06:18 CEST"</code></pre>
+[1] "2026-08-30 14:24:20 CEST"</code></pre>
 </div>
 </div>
 <p>In contrast with vectors, lists are considered a data type (object):</p>
@@ -1062,7 +1056,7 @@ $numbers
  [1]  1  2  3  4  5  6  7  8  9 10
 
 $time
-[1] "2026-08-30 10:06:18 CEST"</code></pre>
+[1] "2026-08-30 14:24:20 CEST"</code></pre>
 </div>
 </div>
 <p>These names can be used for accessing each element too:</p>
@@ -1164,7 +1158,7 @@ $time
 <div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>hour <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
 <span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>hour</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2026-08-30 10:06:18 CEST"</code></pre>
+<pre><code>[1] "2026-08-30 14:24:20 CEST"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(hour)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">

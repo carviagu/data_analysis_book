@@ -1,1 +1,141 @@
 # Factors {.unnumbered}
+
+When working with categories, normally texts that represent certain categories of information we will need to them follow certain rules and validations.
+
+With factors we can solved different issues and maintain categorical values:
+
+-   **Validation**: Avoid values not existent in the correspondent category.
+-   **Order**: Make them follow certain order depending on their significance.
+
+
+As seen in the start of the unit we will work with `forcats` package included in the tidyverse environment.
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+#| message: false
+library(tidyverse) # use library(forcats) for this package only
+```
+
+## Shirt sizes data
+
+We are going to read the following data set with information of different shirts sizes sales...
+
+```{r}
+tshirt_data <- read_csv("https://raw.githubusercontent.com/carviagu/data4courses/refs/heads/main/shirt_data.csv")
+
+tshirt_data %>% 
+  count(size) %>% 
+  arrange(desc(n))
+```
+
+In the following data set we have information of number of shirts sold with the size code. This sizes follow a natural order as the lowest one will be XXS and the highest one will be XXL.
+
+But, if we try order the data by the size code something happens...
+
+```{r}
+tshirt_data %>% 
+  count(size) %>% 
+  arrange(size)
+```
+
+The size codes don't follow their natural order as them are being sorted by character following the order of the letters.
+
+We can fix this converting the size code to a factor... like this example...
+
+```{r}
+# First we define the size codes order
+size_levels <- c("XXS","XS","S","M","L","XL","XXL")
+
+tshirt_data_2 <- tshirt_data %>% 
+  mutate(
+    # We transform the character variable to a factor
+    # providing the levels order
+    size = factor(size, levels = size_levels)
+  )
+
+# Now we can see how the order changes
+
+tshirt_data_2 %>% 
+  count(size) %>% 
+  arrange(size)
+```
+
+But something has changed too, we have `NA`s. This happens as we have defined the possible levels for the factor, and there are some categories that doesn't fit the levels defined, when doing the transformation, this values are set to NA as they are no valid.
+
+You can check the possible levels we have with `levels` function:
+
+```{r}
+levels(tshirt_data_2$size)
+```
+
+## Changing levels
+
+You can change the existing levels re-coding them with `fct_recode`. In this example we want that to change `XXS` and `XXL` to other names...
+
+```{r}
+tshirt_data_2 %>% 
+  mutate(
+    size = fct_recode(size,
+                      "Less than XS" = "XXS",
+                      "Higher than XXL" = "XXL")
+  ) %>% 
+  count(size)
+```
+We can also collapse them, creating a higher hierarchy with `fct_collapse`
+
+```{r, echo=TRUE}
+tshirt_data_2 %>% 
+  mutate(
+    size_group = fct_collapse(size,
+             regular = c("XS",  "S",   "M",   "L",   "XL"),
+             small = c("XXS"),
+             large = c("XXL"))
+  ) %>% 
+  count(size_group, size)
+```
+
+
+## Reordering the levels
+
+Other useful approach, can be reordering the factors following another value. This is frequently done when showing the the data in visualizations...
+
+```{r}
+gss_cat
+```
+
+We can show a plot using counting the average `tvhours` per marital status...
+
+```{r}
+gss_cat %>% 
+  group_by(marital) %>% 
+  summarise(avg_tvhours = mean(tvhours, na.rm=T)) %>% 
+  ggplot() +
+  geom_col(aes(x =avg_tvhours, y=marital)) +
+  theme_bw()
+```
+
+Visually is not so easy to analyze, but we can change the order of the results so the categories are show from higher to lover average hours. For doing it we can use `fct_reorder` function with three arguments:
+
+-   **f**, the factor we want to reorder.
+-   **x**, numeric vector for reordering.
+-   Optional. **fun**, in the case that there is different **x** values for the same **f**. By default, **fun** is the average.
+
+```{r}
+gss_cat %>% 
+  group_by(marital) %>% 
+  summarise(avg_tvhours = mean(tvhours, na.rm=T)) %>% 
+  ggplot() +
+  geom_col(aes(x =avg_tvhours, y=fct_reorder(marital, avg_tvhours))) +
+  theme_bw()
+```
+
+There is a second way of using the `fct_reorder` in a mutate...
+
+```{r, echo=TRUE}
+gss_cat %>% 
+  group_by(relig) %>% 
+  summarise(tvhours = mean(tvhours, na.rm=TRUE)) %>% 
+  mutate(relig = fct_reorder(relig, tvhours)) %>% 
+  ggplot(aes(tvhours, relig)) +
+  geom_point() + theme_bw()
+```

@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,7 +64,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./08_03_setoperations.html" rel="next">
+<link href="./09_clean.html" rel="next">
 <link href="./08_01_structure.html" rel="prev">
 <link href="./cunef_logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -374,18 +408,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Relational Data</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./08_03_setoperations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Set Operations</span></a>
-  </div>
-</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./09_clean.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Clean Data</span></a>
+ <span class="menu-text">Cleaning Data</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -399,14 +427,14 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09_02_strings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">String</span></a>
+  <a href="./09_02_dates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dates &amp; Time</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09_03_dates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Dates</span></a>
+  <a href="./09_03_strings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">String</span></a>
   </div>
 </li>
       </ul>
@@ -445,8 +473,34 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#database-concepts" id="toc-database-concepts" class="nav-link active" data-scroll-target="#database-concepts">Database concepts</a>
+  <ul class="collapse">
+  <li><a href="#keys" id="toc-keys" class="nav-link" data-scroll-target="#keys">Keys</a></li>
+  <li><a href="#relationships-between-tables" id="toc-relationships-between-tables" class="nav-link" data-scroll-target="#relationships-between-tables">Relationships between tables</a></li>
+  </ul></li>
+  <li><a href="#mutating-joins" id="toc-mutating-joins" class="nav-link" data-scroll-target="#mutating-joins">Mutating Joins</a>
+  <ul class="collapse">
+  <li><a href="#inner-join" id="toc-inner-join" class="nav-link" data-scroll-target="#inner-join">Inner Join</a></li>
+  <li><a href="#the-by-argument" id="toc-the-by-argument" class="nav-link" data-scroll-target="#the-by-argument">The <code>by</code> argument</a></li>
+  <li><a href="#case-1.-default-value" id="toc-case-1.-default-value" class="nav-link" data-scroll-target="#case-1.-default-value">Case 1. Default value</a></li>
+  <li><a href="#case-2.-common-variables" id="toc-case-2.-common-variables" class="nav-link" data-scroll-target="#case-2.-common-variables">Case 2. Common variable(s)</a></li>
+  <li><a href="#case-3.-different-variables" id="toc-case-3.-different-variables" class="nav-link" data-scroll-target="#case-3.-different-variables">Case 3. Different variable(s)</a></li>
+  <li><a href="#outer-joins" id="toc-outer-joins" class="nav-link" data-scroll-target="#outer-joins">Outer joins</a></li>
+  <li><a href="#duplicated-values" id="toc-duplicated-values" class="nav-link" data-scroll-target="#duplicated-values">Duplicated Values</a></li>
+  </ul></li>
+  <li><a href="#filtering-joins" id="toc-filtering-joins" class="nav-link" data-scroll-target="#filtering-joins">Filtering Joins</a>
+  <ul class="collapse">
+  <li><a href="#semi-join" id="toc-semi-join" class="nav-link" data-scroll-target="#semi-join">Semi Join</a></li>
+  <li><a href="#anti-join" id="toc-anti-join" class="nav-link" data-scroll-target="#anti-join">Anti Join</a></li>
+  </ul></li>
+  <li><a href="#set-operations" id="toc-set-operations" class="nav-link" data-scroll-target="#set-operations">Set Operations</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -470,8 +524,461 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>When working with data we will normally need more than one database, different tables. This makes more richer the analysis, as we cross different sources of data to increase the information available.</p>
+<p>We need to know how to join different data tables. When the data is distributed in different tables we speak about <strong>relational data</strong>.</p>
+<p>Inside <strong>tidyr</strong> we can find the following type of joins…</p>
+<ul>
+<li><p><strong>Mutating Joins</strong> Designed to join data from another table.</p></li>
+<li><p><strong>Filtering Joins</strong> Designed to filter data using the another table data as reference if they match or not rows.</p></li>
+<li><p><strong>Set operations</strong> Use observations from different tables to make full set comparisons.</p></li>
+</ul>
+<section id="database-concepts" class="level2">
+<h2 class="anchored" data-anchor-id="database-concepts">Database concepts</h2>
+<p>For the full explanation we will use the following database called <em>nycflights13</em>:</p>
+<ul>
+<li><strong>airlines</strong>, names of different airlines.</li>
+<li><strong>airports</strong>, information of each airport.</li>
+<li><strong>planes</strong>, information of each plane.</li>
+<li><strong>weather</strong>, weather information of each airport of NYC in every hour.</li>
+<li><strong>flights</strong>, information about each flight that depart from NYC in 2013</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pictures/nycflights13_design.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="410"></p>
+</figure>
+</div>
+<section id="keys" class="level3">
+<h3 class="anchored" data-anchor-id="keys">Keys</h3>
+<p><strong>Variables</strong> used for connecting within different tables. They make helpful identifying observations inside the tables and make then differentiate from other observations.</p>
+<p>Two kind of keys:</p>
+<ul>
+<li><p><strong>Primary Key</strong> Used for identifying an observation from the rest in a table.</p></li>
+<li><p><strong>Foreign Key</strong> Used for identifying an observation in another table in relation with other table.</p></li>
+</ul>
+<p>A Foreign key should be associated to a Primary key from another table.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pictures/nycflights13_keys.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="455"></p>
+</figure>
+</div>
+<p>Once detected the keys, is easy to check if we have identify them correctly.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>planes <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="fu">count</span>(tailnum) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 0 × 2
+# ℹ 2 variables: tailnum &lt;chr&gt;, n &lt;int&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>weather <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">count</span>(year, month, day, hour, origin) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 6
+   year month   day  hour origin     n
+  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;  &lt;int&gt;
+1  2013    11     3     1 EWR        2
+2  2013    11     3     1 JFK        2
+3  2013    11     3     1 LGA        2</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Create your own key
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It is possible to find tables without a clear defined key or any combination of fields that allow us using them as keys (weather of flights tables are examples of that)</p>
+<p>In these cases we can easily create our own key using row indexes.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>flights_key <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">key =</span> <span class="fu">row_number</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>flights_key <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">count</span>(key) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 0 × 2
+# ℹ 2 variables: key &lt;int&gt;, n &lt;int&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="relationships-between-tables" class="level3">
+<h3 class="anchored" data-anchor-id="relationships-between-tables">Relationships between tables</h3>
+<p>Between a <em>primary key</em> and a <em>foreign key</em>, tables form <strong>relationships</strong>.</p>
+<p>Generally, relationships will be one to many… e.g.&nbsp;<em>each flight has only one plane, but a single plane can do multiple flights</em></p>
+<p>But we can also find situations where one to one or many to many relationships are being used.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pictures/nycflights13_relations.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="467"></p>
+</figure>
+</div>
+</section>
+</section>
+<section id="mutating-joins" class="level2">
+<h2 class="anchored" data-anchor-id="mutating-joins">Mutating Joins</h2>
+<p>We use them to combine variables between two tables.</p>
+<p>First it will pair the observations of both tables using the corresponding keys, then it will add the the different variables from one table to another.</p>
+<p>For understanding the different join concepts we will work with this synthetic data example.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>x <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="at">key =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),</span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="at">val_x =</span> <span class="fu">c</span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span>)</span>
+<span id="cb9-4"><a href="#cb9-4"></a>)</span>
+<span id="cb9-5"><a href="#cb9-5"></a></span>
+<span id="cb9-6"><a href="#cb9-6"></a>y <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb9-7"><a href="#cb9-7"></a>  <span class="at">key =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>),</span>
+<span id="cb9-8"><a href="#cb9-8"></a>  <span class="at">val_y =</span> <span class="fu">c</span>(<span class="st">"y1"</span>, <span class="st">"y2"</span>, <span class="st">"y3"</span>)</span>
+<span id="cb9-9"><a href="#cb9-9"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pictures/join-setup.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="176"></p>
+</figure>
+</div>
+<section id="inner-join" class="level3">
+<h3 class="anchored" data-anchor-id="inner-join">Inner Join</h3>
+<p>Inner join will pair those observations that match between both tables. Otherwise they won’t be joined and won’t appear on the result table.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pictures/inner.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="274"></p>
+</figure>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>x <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">inner_join</span>(y, <span class="at">by =</span> <span class="st">"key"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+    key val_x val_y
+  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+1     1 x1    y1   
+2     2 x2    y2   </code></pre>
+</div>
+</div>
+</section>
+<section id="the-by-argument" class="level3">
+<h3 class="anchored" data-anchor-id="the-by-argument">The <code>by</code> argument</h3>
+<p>As we have seen <code>by</code> parameter in join functions help us identifying the key to use for joining data. This argument is used in all functions we are going to see and it is key to do a proper join of relational data.</p>
+</section>
+<section id="case-1.-default-value" class="level3">
+<h3 class="anchored" data-anchor-id="case-1.-default-value">Case 1. Default value</h3>
+<p>If we don’t tell the function a variable to use, it will have its default value… <code>by = NULL</code>. In this case it will use all the variables that appear in both tables as key.</p>
+<p><em>What will happen in this example?</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>flights <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">inner_join</span>(weather) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As you can see in the output message if we do not provide a <code>by</code> argument the join function will try to guess the columns to use. This is done by similar name and data type.</p>
+</section>
+<section id="case-2.-common-variables" class="level3">
+<h3 class="anchored" data-anchor-id="case-2.-common-variables">Case 2. Common variable(s)</h3>
+<p>As we have seen, we can tell the function the common variable to use as key… <code>by = "x"</code>. Is important to remark the the variable name is common in both tables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>flights <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">inner_join</span>(planes, <span class="at">by =</span> <span class="st">"tailnum"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In case we need to use more than one variable as key we can tell the function using a vector… <code>by = c("x", "y")</code>. It will join using both variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>flights <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2"></a>  <span class="fu">left_join</span>(planes, </span>
+<span id="cb14-3"><a href="#cb14-3"></a>            <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"year"</span>, <span class="st">"month"</span>, <span class="st">"day"</span>, <span class="st">"hour"</span>, <span class="st">"origin"</span>)</span>
+<span id="cb14-4"><a href="#cb14-4"></a>            ) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-5"><a href="#cb14-5"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="case-3.-different-variables" class="level3">
+<h3 class="anchored" data-anchor-id="case-3.-different-variables">Case 3. Different variable(s)</h3>
+<p>In this case both tables have a variable in common but named differently… <code>by = c("a" = "b")</code>, this way the join will use key <strong>a</strong> of the right table with key <strong>b</strong> of the left table to make the matching.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>flights <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">left_join</span>(airports, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"dest"</span> <span class="ot">=</span> <span class="st">"faa"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-3"><a href="#cb15-3"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="outer-joins" class="level3">
+<h3 class="anchored" data-anchor-id="outer-joins">Outer joins</h3>
+<p>Outer joins are designed to conserve observations that appear <strong>at least</strong> in one of the data sets (tables).</p>
+<ul>
+<li><strong>Left join</strong>. Conserve all observations from <strong>x</strong></li>
+<li><strong>Right join</strong>. Conserve all observations from <strong>y</strong></li>
+<li><strong>Full join</strong>. Conserve all observations from <strong>x</strong> and <strong>y</strong></li>
+</ul>
+<section id="left-join" class="level4">
+<h4 class="anchored" data-anchor-id="left-join">Left Join</h4>
+<p>Left join will return all observations from the left table (<strong>x</strong>) and those from right table (<strong>y</strong>) matching an observation from x. Observations from <strong>x</strong> without match will have filled as <code>NA</code> the variables from <strong>y</strong></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pictures/left.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="274"></p>
+</figure>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>x <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">left_join</span>(y, <span class="at">by =</span> <span class="st">"key"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+    key val_x val_y
+  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+1     1 x1    y1   
+2     2 x2    y2   
+3     3 x3    &lt;NA&gt; </code></pre>
+</div>
+</div>
+</section>
+<section id="right-join" class="level4">
+<h4 class="anchored" data-anchor-id="right-join">Right Join</h4>
+<p>Right join will return all observations from the right table (<strong>y</strong>) and those from left table (<strong>x</strong>) matching an observation from y. Observations from <strong>y</strong> without match will have filled as <code>NA</code> the variables from <strong>x</strong></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pictures/right.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="274"></p>
+</figure>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>x <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2"></a>  <span class="fu">right_join</span>(y, <span class="at">by =</span> <span class="st">"key"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+    key val_x val_y
+  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+1     1 x1    y1   
+2     2 x2    y2   
+3     4 &lt;NA&gt;  y3   </code></pre>
+</div>
+</div>
+</section>
+<section id="full-join" class="level4">
+<h4 class="anchored" data-anchor-id="full-join">Full Join</h4>
+<p>Full join will return all observations from the left table (<strong>x</strong>) and from right table (<strong>y</strong>). Observations from <strong>x</strong> or <strong>y</strong> without match in the other table will have the variables from the other table filled as <code>NA</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pictures/full.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="274"></p>
+</figure>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>x <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="#cb20-2"></a>  <span class="fu">full_join</span>(y, <span class="at">by =</span> <span class="st">"key"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+    key val_x val_y
+  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+1     1 x1    y1   
+2     2 x2    y2   
+3     3 x3    &lt;NA&gt; 
+4     4 &lt;NA&gt;  y3   </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="duplicated-values" class="level3">
+<h3 class="anchored" data-anchor-id="duplicated-values">Duplicated Values</h3>
+<p>Duplicated values may occur when where joining tables that have another type of relationships different to <strong>one-to-one</strong>, in these cases we can found…</p>
+<ul>
+<li><p><strong>one-to-many</strong> relationships, where in one table we can found duplicated keys.</p></li>
+<li><p><strong>many-to-many</strong> relationships, where in both tables we can found duplicated keys.</p></li>
+</ul>
+<section id="duplicated-values-one-to-many" class="level4">
+<h4 class="anchored" data-anchor-id="duplicated-values-one-to-many">Duplicated Values: One-to-many</h4>
+<p>In this case we have two tables, and in one of them we have duplicated values. The duplication found in one of the tables will result on duplication in the final output, duplicating the other table registers too.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pictures/join-one-to-many.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="274"></p>
+</figure>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>x <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb22-2"><a href="#cb22-2"></a>  <span class="at">key =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>),</span>
+<span id="cb22-3"><a href="#cb22-3"></a>  <span class="at">val_x =</span> <span class="fu">c</span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span>, <span class="st">"x4"</span>)</span>
+<span id="cb22-4"><a href="#cb22-4"></a>)</span>
+<span id="cb22-5"><a href="#cb22-5"></a></span>
+<span id="cb22-6"><a href="#cb22-6"></a>y <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb22-7"><a href="#cb22-7"></a>  <span class="at">key =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb22-8"><a href="#cb22-8"></a>  <span class="at">val_y =</span> <span class="fu">c</span>(<span class="st">"y1"</span>, <span class="st">"y2"</span>)</span>
+<span id="cb22-9"><a href="#cb22-9"></a>)</span>
+<span id="cb22-10"><a href="#cb22-10"></a></span>
+<span id="cb22-11"><a href="#cb22-11"></a><span class="fu">left_join</span>(x, y, <span class="at">by =</span><span class="st">"key"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+    key val_x val_y
+  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+1     1 x1    y1   
+2     2 x2    y2   
+3     2 x3    y2   
+4     1 x4    y1   </code></pre>
+</div>
+</div>
+</section>
+<section id="duplicated-values-many-to-many" class="level4">
+<h4 class="anchored" data-anchor-id="duplicated-values-many-to-many">Duplicated Values: Many-to-many</h4>
+<p>This is the worst case, as we have duplicates in both tables. The final output will be a cartesian product, duplicating all rows as all possible combinations exist of duplicated registers.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pictures/join-many-to-many.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="274"></p>
+</figure>
+</div>
+<p>A warning message is returned by the function…</p>
+<pre><code>Warning in left_join(x, y, by = "key"): Detected an unexpected many-to-many relationship between `x` and `y`.
+ℹ Row 2 of `x` matches multiple rows in `y`.
+ℹ Row 2 of `y` matches multiple rows in `x`.
+ℹ If a many-to-many relationship is expected, set `relationship =
+  "many-to-many"` to silence this warning.</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>x <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb25-2"><a href="#cb25-2"></a>  <span class="at">key =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>),</span>
+<span id="cb25-3"><a href="#cb25-3"></a>  <span class="at">val_x =</span> <span class="fu">c</span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span>, <span class="st">"x4"</span>)</span>
+<span id="cb25-4"><a href="#cb25-4"></a>)</span>
+<span id="cb25-5"><a href="#cb25-5"></a></span>
+<span id="cb25-6"><a href="#cb25-6"></a>y <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb25-7"><a href="#cb25-7"></a>  <span class="at">key =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>),</span>
+<span id="cb25-8"><a href="#cb25-8"></a>  <span class="at">val_y =</span> <span class="fu">c</span>(<span class="st">"y1"</span>, <span class="st">"y2"</span>, <span class="st">"y3"</span>, <span class="st">"y4"</span>)</span>
+<span id="cb25-9"><a href="#cb25-9"></a>)</span>
+<span id="cb25-10"><a href="#cb25-10"></a></span>
+<span id="cb25-11"><a href="#cb25-11"></a><span class="fu">left_join</span>(x, y, <span class="at">by =</span><span class="st">"key"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in left_join(x, y, by = "key"): Detected an unexpected many-to-many relationship between `x` and `y`.
+ℹ Row 2 of `x` matches multiple rows in `y`.
+ℹ Row 2 of `y` matches multiple rows in `x`.
+ℹ If a many-to-many relationship is expected, set `relationship =
+  "many-to-many"` to silence this warning.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+    key val_x val_y
+  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+1     1 x1    y1   
+2     2 x2    y2   
+3     2 x2    y3   
+4     2 x3    y2   
+5     2 x3    y3   
+6     3 x4    y4   </code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="filtering-joins" class="level2">
+<h2 class="anchored" data-anchor-id="filtering-joins">Filtering Joins</h2>
+<p>As mutating joins allow us to include new variables and more information to our data set, filtering joins help us filtering observations in our data set following the observations existing in another table. We can find two kinds of filtering joins…</p>
+<ul>
+<li><strong>semi_join</strong></li>
+<li><strong>anti_join</strong></li>
+</ul>
+<section id="semi-join" class="level3">
+<h3 class="anchored" data-anchor-id="semi-join">Semi Join</h3>
+<p>Semi join (<code>semi_join(x, y)</code>) will maintain all observations existing on <strong>x</strong> table that <strong>have a match</strong> in <strong>y</strong> table.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pictures/semi.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="274"></p>
+</figure>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>x <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb28-2"><a href="#cb28-2"></a>  <span class="at">key =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),</span>
+<span id="cb28-3"><a href="#cb28-3"></a>  <span class="at">val_x =</span> <span class="fu">c</span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span>)</span>
+<span id="cb28-4"><a href="#cb28-4"></a>)</span>
+<span id="cb28-5"><a href="#cb28-5"></a></span>
+<span id="cb28-6"><a href="#cb28-6"></a>y <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb28-7"><a href="#cb28-7"></a>  <span class="at">key =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>),</span>
+<span id="cb28-8"><a href="#cb28-8"></a>  <span class="at">val_y =</span> <span class="fu">c</span>(<span class="st">"y1"</span>, <span class="st">"y2"</span>, <span class="st">"y3"</span>)</span>
+<span id="cb28-9"><a href="#cb28-9"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>x <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="#cb29-2"></a>  <span class="fu">semi_join</span>(y, <span class="at">by =</span> <span class="st">"key"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+    key val_x
+  &lt;dbl&gt; &lt;chr&gt;
+1     1 x1   
+2     2 x2   </code></pre>
+</div>
+</div>
+</section>
+<section id="anti-join" class="level3">
+<h3 class="anchored" data-anchor-id="anti-join">Anti Join</h3>
+<p>Anti join (<code>anti_join(x, y)</code>) will maintain all observations existing on <strong>x</strong> table that <strong>don’t have a match</strong> in <strong>y</strong> table.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pictures/anti.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="274"></p>
+</figure>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>x <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb31-2"><a href="#cb31-2"></a>  <span class="at">key =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),</span>
+<span id="cb31-3"><a href="#cb31-3"></a>  <span class="at">val_x =</span> <span class="fu">c</span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span>)</span>
+<span id="cb31-4"><a href="#cb31-4"></a>)</span>
+<span id="cb31-5"><a href="#cb31-5"></a></span>
+<span id="cb31-6"><a href="#cb31-6"></a>y <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb31-7"><a href="#cb31-7"></a>  <span class="at">key =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>),</span>
+<span id="cb31-8"><a href="#cb31-8"></a>  <span class="at">val_y =</span> <span class="fu">c</span>(<span class="st">"y1"</span>, <span class="st">"y2"</span>, <span class="st">"y3"</span>)</span>
+<span id="cb31-9"><a href="#cb31-9"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>x <span class="sc">%&gt;%</span> </span>
+<span id="cb32-2"><a href="#cb32-2"></a>  <span class="fu">anti_join</span>(y, <span class="at">by =</span> <span class="st">"key"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+    key val_x
+  &lt;dbl&gt; &lt;chr&gt;
+1     3 x3   </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="set-operations" class="level2">
+<h2 class="anchored" data-anchor-id="set-operations">Set Operations</h2>
+<p>This functions are used to work with two tables. They expect both tables have the <strong>same</strong> variables, as they will play with them as sets, comparing all variables for each observation…</p>
+<ul>
+<li><p><code>intersect(x, y)</code> it returns the observations that exist in both tables.</p></li>
+<li><p><code>union(x, y)</code> it returns all unique observations existing in both tables. There is a <code>union_all(x, y)</code> that will show all (in case of similar in both tables they will appear repeated)</p></li>
+<li><p><code>setdiff(x, y)</code> it returns the observations existing in <strong>x</strong> but not in <strong>y</strong></p></li>
+</ul>
+<p>We can see some examples using the following data…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>df1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb34-2"><a href="#cb34-2"></a>df2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">intersect</span>(df1, df2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+      x     y
+  &lt;dbl&gt; &lt;dbl&gt;
+1     1     1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="fu">union</span>(df1, df2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+      x     y
+  &lt;dbl&gt; &lt;dbl&gt;
+1     1     1
+2     2     1
+3     1     2</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="fu">setdiff</span>(df1, df2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+      x     y
+  &lt;dbl&gt; &lt;dbl&gt;
+1     2     1</code></pre>
+</div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -901,8 +1408,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./08_03_setoperations.html" class="pagination-link" aria-label="Set Operations">
-        <span class="nav-page-text">Set Operations</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./09_clean.html" class="pagination-link" aria-label="Cleaning Data">
+        <span class="nav-page-text">Cleaning Data</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

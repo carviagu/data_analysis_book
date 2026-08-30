@@ -1,2 +1,59 @@
-# Clean Data {.unnumbered}
+# Cleaning Data {.unnumbered}
 
+## Data Wrangling
+
+**Objective**: Make data ready for their future **exploration** and **modelling**
+
+We need to convert **raw data** into **processed data**
+
+### Raw Data
+* Data as it appears on the source origin. 
+* Any manipulation has been done to them.
+
+### Processed Data
+* Each variable in a column.
+* Each observation in a raw.
+* Each observational unit is a cell.
+* More complex data, interconnected tables. 
+
+The process work as follows...
+
+1.  Importing the data
+2.  Organizing the data
+3.  Transforming the data
+
+![](pictures/data-science-wrangle.png){fig-align="center" width="426"}
+
+## Cleaning Data
+
+We have learnt how to import and organize data structure for the analysis, but now we have to know how to transform the data to suit our needs and make mutations to clean it more and have it ready for our analytically purpose.
+
+We will follow focus on three groups of data...
+
+-   Strings
+-   Factors
+-   Dates and time
+
+### Packages
+
+For this part we are going to work with three data types, for each data type there is an special package implemented in the **tidyverse** ecosystem.
+
+::: {layout-ncol="3"}
+::: column
+![](pictures/stringr.png){style="width:100px"}
+
+For working with Strings
+:::
+
+::: column
+![](pictures/forcats.png){style="width:100px"}
+
+For working with factors (categorical data)
+:::
+
+::: column
+![](pictures/lubridate.png){style="width:100px"}
+
+For working with dates and times.
+:::
+:::

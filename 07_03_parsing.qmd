@@ -251,3 +251,4 @@ read_csv("data/df-na.csv",
 # Other alternative
 read_csv("data/df-na.csv", col_types="ncc")
 ```
+
