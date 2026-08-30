@@ -136,5 +136,23 @@
   },
   "07_06_bigdata.qmd": {
     "07_06_bigdata.html": "9b91a260"
+  },
+  "08_01_structure.qmd": {
+    "08_01_structure.html": "c35c8b77"
+  },
+  "08_02_relationaldata.qmd": {
+    "08_02_relationaldata.html": "ea2d51ab"
+  },
+  "08_03_setoperations.qmd": {
+    "08_03_setoperations.html": "e5e6770b"
+  },
+  "09_01_factors.qmd": {
+    "09_01_factors.html": "52c14d38"
+  },
+  "09_02_strings.qmd": {
+    "09_02_strings.html": "a8bb66f8"
+  },
+  "09_03_dates.qmd": {
+    "09_03_dates.html": "8aded8eb"
   }
 }

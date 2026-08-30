@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Visualization – Data Analysis &amp; Information Extraction</title>
+<title>Dates – Data Analysis &amp; Information Extraction</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -64,8 +30,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./04_01_plots.html" rel="next">
-<link href="./03_01_tibbles.html" rel="prev">
+<link href="./10_modelling.html" rel="next">
+<link href="./09_02_strings.html" rel="prev">
 <link href="./cunef_logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -116,7 +82,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04_visualization.html">Visualization</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./09_clean.html">Clean Data</a></li><li class="breadcrumb-item"><a href="./09_03_dates.html">Dates</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -249,7 +215,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./04_visualization.html" class="sidebar-item-text sidebar-link active">
+            <a href="./04_visualization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visualization</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -439,7 +405,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09_03_dates.html" class="sidebar-item-text sidebar-link">
+  <a href="./09_03_dates.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Dates</span></a>
   </div>
 </li>
@@ -479,22 +445,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#exploratory-data-analysis-eda" id="toc-exploratory-data-analysis-eda" class="nav-link active" data-scroll-target="#exploratory-data-analysis-eda">Exploratory Data Analysis (EDA)</a></li>
-  <li><a href="#visualization-ggplot2" id="toc-visualization-ggplot2" class="nav-link" data-scroll-target="#visualization-ggplot2">Visualization: <em>ggplot2</em></a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./09_clean.html">Clean Data</a></li><li class="breadcrumb-item"><a href="./09_03_dates.html">Dates</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Visualization</h1>
+<h1 class="title">Dates</h1>
 </div>
 
 
@@ -511,29 +470,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="exploratory-data-analysis-eda" class="level2">
-<h2 class="anchored" data-anchor-id="exploratory-data-analysis-eda">Exploratory Data Analysis (EDA)</h2>
-<p>An Exploratory Data Analysis or EDA consists on observe the data and analyze it to generate hypothesis and test them.</p>
-<p><strong>Objective</strong>: Generate questions to analyze them more deeply.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="pictures/data-science-explore.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="402"></p>
-</figure>
-</div>
-<p>EDAs include visualization and data manipulation. This process, combined with the curiosity and skepticism, try to find interesting questions and answers about the data.</p>
-<p>At this part of the course we will focus on create and study visual representations with the data. Using <strong>ggplot2</strong> a package inside the <em>tidyverse</em> ecosystem to create visualizations.</p>
-</section>
-<section id="visualization-ggplot2" class="level2">
-<h2 class="anchored" data-anchor-id="visualization-ggplot2">Visualization: <em>ggplot2</em></h2>
-<p>The visualization package of <em>tidyverse</em>. <strong>G</strong>rammar of <strong>G</strong>raphics comes from the work by Leland Wilkinson. It will help us describe the different components of the plot in a sequential way, with defining the different layers of the final visualization.</p>
-<p><img src="pictures/grammar-of-graphics.png" class="img-fluid" style="width:500px; aling:center;"></p>
-<p>For using <strong>ggplot2</strong> we need to load the library first, as it is part of tidyverse we will load the full package</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># Do library(ggplot2) for the package only</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -958,13 +896,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./03_01_tibbles.html" class="pagination-link" aria-label="Tibbles">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Tibbles</span>
+      <a href="./09_02_strings.html" class="pagination-link" aria-label="String">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">String</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./04_01_plots.html" class="pagination-link" aria-label="Plots with ggplot2">
-        <span class="nav-page-text">Plots with ggplot2</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./10_modelling.html" class="pagination-link" aria-label="Data Modelling">
+        <span class="nav-page-text">Data Modelling</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

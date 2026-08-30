@@ -64,8 +64,16 @@ book:
         - 07_06_bigdata.qmd
     
     - part: 08_arrange.qmd
+      chapters:
+        - 08_01_structure.qmd
+        - 08_02_relationaldata.qmd
+        - 08_03_setoperations.qmd
     
     - part: 09_clean.qmd
+      chapters:
+        - 09_01_factors.qmd
+        - 09_02_strings.qmd
+        - 09_03_dates.qmd
 
     - part: 10_modelling.qmd
       chapters: 
