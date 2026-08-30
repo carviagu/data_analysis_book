@@ -1,0 +1,743 @@
+---
+title: "Clean Data"
+author: "Data Analysis & Information Extraction"
+latex-tinytex: false
+pdf-engine: lualatex
+format: 
+  pdf:
+      toc: true
+      toc-depth: 2
+      fontfamily: libertinus
+      include-in-header: 
+         text: |
+          \usepackage{titling}
+          \usepackage{fancyhdr}
+          \pagestyle{fancyplain} % use fancy for all pages except chapter start
+          \rhead{\includegraphics[height=1cm]{../pictures/cunef_logo.png}} % right logo
+          \pretitle{\begin{flushleft}\huge\bfseries}
+          \posttitle{\end{flushleft}}
+          \renewcommand\maketitlehookc{\vspace{-5em}}
+          \preauthor{\begin{flushleft}\Large}
+          \postauthor{\end{flushleft}}
+---
+
+\pagebreak
+
+## Data Wrangling
+
+**Objective**: Make data ready for their future **exploration** and **modelling**
+
+We need to convert **raw data** into **processed data**
+
+### Raw Data
+* Data as it appears on the source origin. 
+* Any manipulation has been done to them.
+
+### Processed Data
+* Each variable in a column.
+* Each observation in a raw.
+* Each observational unit is a cell.
+* More complex data, interconnected tables. 
+
+The process work as follows...
+
+1.  Importing the data
+2.  Organizing the data
+3.  Transforming the data
+
+![](../pictures/data-science-wrangle.png){fig-align="center" width="426"}
+
+## Cleaning Data
+
+We have learnt how to import and organize data structure for the analysis, but now we have to know how to transform the data to suit our needs and make mutations to clean it more and have it ready for our analytically purpose.
+
+We will follow focus on three groups of data...
+
+-   Strings
+-   Factors
+-   Dates and time
+
+### Packages
+
+For this part we are going to work with three data types, for each data type there is an special package implemented in the **tidyverse** ecosystem.
+
+
+* `stringr`, For working with Strings
+
+* `forcats`, For working with factors (categorical data)
+
+* `lubridate`, For working with dates and times.
+
+
+\pagebreak
+
+# Factors {.unnumbered}
+
+When working with categories, normally texts that represent certain categories of information we will need to them follow certain rules and validations.
+
+With factors we can solved different issues and maintain categorical values:
+
+-   **Validation**: Avoid values not existent in the correspondent category.
+-   **Order**: Make them follow certain order depending on their significance.
+
+
+As seen in the start of the unit we will work with `forcats` package included in the tidyverse environment.
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+#| message: false
+library(tidyverse) # use library(forcats) for this package only
+```
+
+## Shirt sizes data
+
+We are going to read the following data set with information of different shirts sizes sales...
+
+```{r}
+tshirt_data <- read_csv("https://raw.githubusercontent.com/carviagu/data4courses/refs/heads/main/shirt_data.csv")
+
+tshirt_data %>% 
+  count(size) %>% 
+  arrange(desc(n))
+```
+
+In the following data set we have information of number of shirts sold with the size code. This sizes follow a natural order as the lowest one will be XXS and the highest one will be XXL.
+
+But, if we try order the data by the size code something happens...
+
+```{r}
+tshirt_data %>% 
+  count(size) %>% 
+  arrange(size)
+```
+
+The size codes don't follow their natural order as them are being sorted by character following the order of the letters.
+
+We can fix this converting the size code to a factor... like this example...
+
+```{r}
+# First we define the size codes order
+size_levels <- c("XXS","XS","S","M","L","XL","XXL")
+
+tshirt_data_2 <- tshirt_data %>% 
+  mutate(
+    # We transform the character variable to a factor
+    # providing the levels order
+    size = factor(size, levels = size_levels)
+  )
+
+# Now we can see how the order changes
+
+tshirt_data_2 %>% 
+  count(size) %>% 
+  arrange(size)
+```
+
+But something has changed too, we have `NA`s. This happens as we have defined the possible levels for the factor, and there are some categories that doesn't fit the levels defined, when doing the transformation, this values are set to NA as they are no valid.
+
+You can check the possible levels we have with `levels` function:
+
+```{r}
+levels(tshirt_data_2$size)
+```
+
+## Changing levels
+
+You can change the existing levels re-coding them with `fct_recode`. In this example we want that to change `XXS` and `XXL` to other names...
+
+```{r}
+tshirt_data_2 %>% 
+  mutate(
+    size = fct_recode(size,
+                      "Less than XS" = "XXS",
+                      "Higher than XXL" = "XXL")
+  ) %>% 
+  count(size)
+```
+We can also collapse them, creating a higher hierarchy with `fct_collapse`
+
+```{r, echo=TRUE}
+tshirt_data_2 %>% 
+  mutate(
+    size_group = fct_collapse(size,
+             regular = c("XS",  "S",   "M",   "L",   "XL"),
+             small = c("XXS"),
+             large = c("XXL"))
+  ) %>% 
+  count(size_group, size)
+```
+
+
+## Reordering the levels
+
+Other useful approach, can be reordering the factors following another value. This is frequently done when showing the the data in visualizations...
+
+```{r}
+gss_cat
+```
+
+We can show a plot using counting the average `tvhours` per marital status...
+
+```{r}
+gss_cat %>% 
+  group_by(marital) %>% 
+  summarise(avg_tvhours = mean(tvhours, na.rm=T)) %>% 
+  ggplot() +
+  geom_col(aes(x =avg_tvhours, y=marital)) +
+  theme_bw()
+```
+
+Visually is not so easy to analyze, but we can change the order of the results so the categories are show from higher to lover average hours. For doing it we can use `fct_reorder` function with three arguments:
+
+-   **f**, the factor we want to reorder.
+-   **x**, numeric vector for reordering.
+-   Optional. **fun**, in the case that there is different **x** values for the same **f**. By default, **fun** is the average.
+
+```{r}
+gss_cat %>% 
+  group_by(marital) %>% 
+  summarise(avg_tvhours = mean(tvhours, na.rm=T)) %>% 
+  ggplot() +
+  geom_col(aes(x =avg_tvhours, y=fct_reorder(marital, avg_tvhours))) +
+  theme_bw()
+```
+
+There is a second way of using the `fct_reorder` in a mutate...
+
+```{r, echo=TRUE}
+gss_cat %>% 
+  group_by(relig) %>% 
+  summarise(tvhours = mean(tvhours, na.rm=TRUE)) %>% 
+  mutate(relig = fct_reorder(relig, tvhours)) %>% 
+  ggplot(aes(tvhours, relig)) +
+  geom_point() + theme_bw()
+```
+
+\pagebreak
+
+# Dates & Time {.unnumbered}
+
+As shown, for working with dates and times we are going to use `lubridate` package. It is now a part of tidyverse and is included when you load it, but in older R versions could not been included and you will need to load it individually.
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+#| message: false
+library(tidyverse) # use library(lubridate) for this package only
+```
+
+We can see three data types...
+
+-   Dates
+-   Time
+-   Datetime, combination of the first two identifying a time period. Take into account that in tibbles they are identified as datetime (dttm) but R base uses POSIXct as normal type.
+
+We can get today`s date...
+
+```{r}
+#| code-line-numbers: false
+today()
+```
+
+Or current date time...
+
+```{r}
+#| code-line-numbers: false
+now()
+```
+
+## Parsing dates
+
+Normally we will receive this data as Strings, this will make us think use the parsing functions we learn at the first block of this unit, but...
+
+`lubridate` has a more easy way of doing it with multiple purpose functions where we just need to specify the order with **y**, **m** or **d**
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+ymd("2022-05-04")
+
+ymd("22-May-04")
+
+```
+
+More examples, the syntax offered by `lubridate` has a lot of possibilites to parse dates and times:
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+mdy("May 4th, 2022")
+
+dmy("4 of May of 2022")
+
+ymd_hms("2022-05-04 20:11:58")
+
+mdy_hm("04/05/2022 00:01")
+```
+
+## `make_datetime()`
+
+Some times we can receive the data in separate variables...
+
+```{r, echo=TRUE}
+library(nycflights13)
+flights %>% 
+  select(year, month, day, hour, minute)
+```
+
+We can simply create date with individual variables using `make_datetime()`.
+
+```{r, echo=TRUE}
+flights %>% 
+  select(year, month, day, hour, minute) %>% 
+  mutate(departure = make_datetime(year, month, day, hour, minute)) %>% 
+  head(5)
+```
+
+## Change formats
+
+You can change between formats...
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+as_datetime(today())
+
+as_date(now())
+```
+
+\pagebreak
+
+## Extracting components
+
+You can extract components for dates and time...
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+datetime <- ymd_hms("2022-05-04 12:34:56")
+year(datetime)
+
+month(datetime)
+
+mday(datetime) # day of month
+
+yday(datetime) # day of year
+
+wday(datetime) # day of week
+
+hour(datetime)
+
+minute(datetime)
+
+second(datetime)
+
+```
+
+In these examples are extractions are numerical. So we have the day, hour etc. But for some date attributes (like day of week or month) we have a name.  We change the behavior of the functions to obtain the label. 
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+datetime <- ymd_hms("2022-05-04 12:34:56")
+month(datetime, label = TRUE)
+
+wday(datetime, label = TRUE, abbr = FALSE)
+
+```
+
+You can change labels output language.
+```{r, echo=TRUE}
+#| code-line-numbers: false
+wday(datetime, label = TRUE, abbr = FALSE, locale = Sys.setlocale("LC_TIME", "es_ES"))
+```
+
+## Modifying components
+
+We can modify the components using the same functions
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+datetime <- ymd_hms("2022-05-04 12:34:56")
+
+year(datetime) <- 2023
+datetime
+
+month(datetime) <- 01
+datetime
+
+hour(datetime) <- hour(datetime) + 1
+datetime
+```
+
+## Computations with dates and time
+
+For computing with dates we need...
+
+-   **Duration**, exact number of seconds
+-   **Periods**, other units like months and weeks.
+
+### Duration
+
+When making the difference between two dates, will obtain a `difftime` object...
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+my_age <- today() - ymd("1998 Mar 4")
+my_age
+
+class(my_age)
+```
+
+This object will contain the information regarding time period in seconds, minutes, hours, days, etc... pretty ambiguous.
+
+Alternative, we can work with **duration** (in seconds)
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+as.duration(my_age)
+```
+
+Other useful functions... in seconds
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+dseconds(15)
+
+dminutes(10)
+
+dhours(c(12, 24))
+
+ddays(0:5)
+
+dweeks(3)
+
+dyears(1)
+```
+
+Making computations in seconds...
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+dyears(1) + dweeks(12) + dhours(15)
+
+2 + dweeks(12)
+
+tomorrow <- today() + ddays(1)
+last_year <- today() - dyears(1)
+```
+
+### Periods
+
+Last methods will help making computations using seconds as our base... but we have other functions more intuitive for just operating with the exact period...
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+seconds(15)
+
+minutes(10)
+
+hours(c(12, 24))
+
+days(7)
+
+```
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+months(1:6)
+
+weeks(3)
+
+years(1)
+```
+
+Computing...
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+ymd("2022-01-01") + years(1)
+
+ymd("2022-01-01") + months(1)
+
+ymd("2022-01-01") + days(1)
+```
+
+Take care when mixing both systems... or periods or duration not both...
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+ymd("2022-01-01") + dyears(1)
+
+ymd("2022-01-01") + years(1)
+
+```
+
+\pagebreak
+
+# String {.unnumbered}
+
+Remember an String is a text format here some examples...
+
+```{r}
+#| code-line-numbers: false
+#| eval: false
+"This is a String"
+```
+
+```{r}
+#| code-line-numbers: false
+#| eval: false
+c("one", "two and three")
+```
+
+For doing all that we will use `stringr` a tidyverse package developed to work with Strings. All the functions in this package start with `str_`
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+#| message: false
+library(tidyverse) # use library(stringr) for this package only
+```
+
+## Basic string functions
+
+### Length of a string
+
+We can compute the length of an string using `str_length()`
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+str_length("Hello")
+```
+
+All operations can be applied to vectors too...
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+str_length(c("Hello", "World!"))
+```
+
+What will be the behavior with blank spaces? Blank spaces are consider characters too, so they will count on the total.
+
+```{r}
+#| code-line-numbers: false
+str_length("CUNEF EDU")
+```
+
+### Subsetting strings
+
+You can extract parts of strings...
+
+```{r}
+#| code-line-numbers: false
+str_sub("Hello World",start = 1, end = 5)
+```
+
+Or by the end...
+
+```{r}
+#| code-line-numbers: false
+str_sub("Hello World",start = -5, end = -1)
+```
+
+### Changing case
+
+You can change the case of the letters. There are several options...
+
+- All to lower case with `str_to_lower`
+- All to upper case with `str_to_upper`
+- All to title case with `str_to_title`, first letter of each word in upper case, rest on lower case.
+
+```{r}
+#| code-line-numbers: false
+str_to_lower("HeLlo wOrlD")
+```
+
+```{r}
+#| code-line-numbers: false
+str_to_upper("HeLlo wOrlD")
+```
+
+```{r}
+#| code-line-numbers: false
+str_to_title("HeLlo wOrlD")
+```
+
+### Concatenating Strings
+
+We can combine (concatenate) Strings using `str_c()`
+
+```{r, echo=TRUE}
+str_c("Va", "len", "cia")
+```
+
+You can specify the separation string used when doing the concatenation with the `sep` argument.
+
+```{r, echo=TRUE}
+str_c("One", "two", sep=",")
+```
+
+This works with vectors too...
+
+```{r, echo=TRUE}
+#| code-line-numbers: false
+str_c("prefix-", c("X", "Y", "Z"), "-sufix")
+```
+
+For collapsing a full large text in a single string with `collapse` argument.
+
+```{r, echo=TRUE}
+str_c(c("A", "long", "time", "ago,", 
+        "in", "a", "galaxy", "far", "far", "away..."), 
+      collapse = " ")
+```
+
+## Regular Expressions
+
+Regular expressions (*regexp*) are tools designed to find patterns in texts. We can do several thins with patterns...
+
+- Find which strings complain with the pattern.
+- Find in which position appears the pattern.
+- Extract the pattern from the string.
+- Replace the pattern in the string.
+
+For example, we want to detect ES followed by two numbers"
+
+```{r}
+#| code-line-numbers: false
+#| warning: false
+x1 <- "ES49 "
+x2 <- "Mi account number is ES34 30..."
+x3 <- "I live in Spain (ES)"
+
+str_view_all(c(x1,x2,x3), 'ES[0-9]{2}')
+```
+
+In the example we have created a pattern `'ES[0-9]{2}'` to match the structure we need to find 'ES' followed by two numbers. We do a search on the examples and we can see that the pattern has been found in the two first examples.
+
+::: {.callout-note appearance="simple"}
+In the example seen before, we have use `str_view`. This function is used to validate patterns and for learning purposes only.
+:::
+
+For building patterns, R has a wide range of tools we can use to develop the proper pattern syntax. General rules for building them are...
+
+- exact word or text we want to find.
+- `.` identifies any character
+- `\\s` blank space
+- `[]` set of elements e.g. `[abc]`: a or b or c
+- `[0-9]` all numbers from 0 to 9
+- `[a-z]` all letters in lower case
+- `[A-Z]` all letters in upper case
+- We can use `+` to repeat a pattern several times, e.g. two numbers: `[0-9][0-9]` or `[0-9]+` will work.
+- `ab|bc` two possible valid options ab or bc
+- `^` start pattern at the beginning
+- `$` start pattern at the end
+
+You test and try *regex* in the following [link](https://regexr.com) 
+
+We will review all of them with function examples...
+
+### Finding patterns: `str_detect`
+
+For trying to find if a text complies with a pattern we can use `str_detect` function. 
+
+Imagine that we want to find the words that contain `Le` (**exact match**) in the following list.
+
+```{r}
+x <- c("Cats", "Leia Organa", "Capital", "Leman")
+str_detect(x, "Le")
+```
+
+The output of `str_detect` is a logical value. `TRUE` if the pattern appears and `FALSE` otherwise. 
+
+So, how to use it properly on data analysis. Imagine the following example...
+
+```{r}
+sample_tb <- tibble(
+  "texts" = c("234H",
+                "B12, C15, E14",
+                "Academic Year 1",
+                "Two and a half Men",
+                "Account ES14 2345 5678 2456")
+)
+
+sample_tb
+```
+
+We want to find all texts that contain a letter `a`. We will do it using `filter`...
+
+```{r}
+sample_tb %>% 
+  filter(str_detect(texts, "a"))
+```
+
+
+The detect is only looking for exact match of letter `a`, let's try to find any one that starts with letter `a`
+
+For that we need to use \$ symbol
+
+```{r}
+sample_tb %>% 
+  filter(str_detect(texts, "^a"))
+```
+
+Looks nothing is returned, maybe is due to the case, we can solve it two ways...
+
+```{r}
+sample_tb %>% 
+  filter(str_detect(texts, "^a|^A"))
+
+sample_tb %>% 
+  filter(
+    str_detect(
+    str_to_lower(texts), "^a"))
+```
+Last example, we want any text with a combination of two or more numbers...
+
+```{r}
+sample_tb %>% 
+  filter(str_detect(texts, "[0-9][0-9]+"))
+```
+
+### Counting number of appearances: `str_count`
+
+We can count the times the pattern is detected with `str_count`
+
+For example, count the number of `a` in each text.
+
+```{r}
+sample_tb %>% 
+  mutate(
+    as = str_count(texts,"a")
+  )
+```
+
+### Replacing: `str_replace`
+
+Another usage of patterns is to detect them and make replacements, for example for treating data and replace it. We can do this with `str_replace()` or `str_replace_all()`.
+
+In the example we want to replace the blank spaces by `_`\`
+
+```{r}
+sample_tb %>% 
+  mutate(
+    text_clean = str_replace(texts, "\\s", "_")
+  )
+```
+
+By default it only replaces one match, if we want to apply it to every coincidence we need to use `str_replace_all`\`
+
+```{r}
+sample_tb %>% 
+  mutate(
+    text_clean = str_replace_all(texts, "\\s", "_")
+  )
+```
+
+### Extracting: `str_extract`
+
+We can also extract patterns matched...
+
+In the example we extract any combination of a letter+number:
+
+```{r}
+sample_tb %>% 
+  mutate(
+   letter_num = str_extract(texts, "[A-Z][0-9]")
+  )
+```
+
